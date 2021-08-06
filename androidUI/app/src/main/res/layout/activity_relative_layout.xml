@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".RelativeLayoutActivity">
 
+    <!-- setting styled button by modifing src  property -->
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="wrap_content"
@@ -13,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-
+        android:src="@drawable/buttom_custom"
         tools:srcCompat="@tools:sample/avatars" />
     <!-- setting styled button by modifing bacground property -->
     <Button
@@ -24,7 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/toggleButton3"
         android:layout_marginHorizontal="30dp"
-        android:background="@drawable/button_custom"
+        android:background="@drawable/buttom_custom"
         android:text="Button" />
 
     <Button
@@ -33,9 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/toggleButton3"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/toggleButton3"
         android:layout_marginHorizontal="30dp"
-        android:text="Button" />
+        android:layout_toRightOf="@id/toggleButton3"
+        android:drawableLeft="@drawable/ic_baseline_delete_24"
+        android:text="Delete" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -48,17 +50,28 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/chip7"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:chipIcon="@drawable/ic_baseline_location_on_24"
+            app:closeIcon="@drawable/ic_baseline_close_24"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip8"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:chipIcon="@drawable/ic_baseline_location_on_24"
+            app:closeIcon="@drawable/ic_baseline_close_24"
+            style="@style/Widget.MaterialComponents.Chip.Entry"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip9"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:chipIcon="@drawable/ic_baseline_location_on_24"
+            app:closeIcon="@drawable/ic_baseline_close_24"
+            app:closeIconEnabled="true"
+            style="@style/Widget.MaterialComponents.Chip.Entry"/>
     </com.google.android.material.chip.ChipGroup>
 
     <CheckBox
