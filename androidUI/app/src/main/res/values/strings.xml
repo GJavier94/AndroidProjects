@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">UserInterfaces</string>
+    
+    <string-array
+        name="activities_layouts">
+        <item>RelativeLayoutActivity</item>
+        <item>VerticalLayoutActivity</item>
+
+    </string-array>
 </resources>
