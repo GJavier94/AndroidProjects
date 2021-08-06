@@ -15,7 +15,7 @@
         android:layout_alignParentRight="true"
 
         tools:srcCompat="@tools:sample/avatars" />
-
+    <!-- setting styled button by modifing bacground property -->
     <Button
         android:id="@+id/button2"
         android:layout_width="20dp"
@@ -24,6 +24,7 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/toggleButton3"
         android:layout_marginHorizontal="30dp"
+        android:background="@drawable/button_custom"
         android:text="Button" />
 
     <Button
@@ -141,4 +142,6 @@
         android:layout_marginBottom="31dp"
         android:clickable="true"
         app:srcCompat="@android:drawable/presence_audio_busy" />
+
+
 </RelativeLayout>
