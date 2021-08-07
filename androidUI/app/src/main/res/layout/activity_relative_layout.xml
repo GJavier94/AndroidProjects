@@ -81,7 +81,8 @@
         android:layout_below="@id/RadioGroup"
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@id/floatingActionButton2"
-        android:text="CheckBox" />
+        android:text="CheckBox"
+        android:onClick="CheckBoxHandler"/>
 
     <CheckBox
         android:id="@+id/checkBox2"
@@ -92,7 +93,8 @@
         android:layout_alignLeft="@id/checkBox1"
         android:layout_marginTop="106dp"
         android:layout_marginRight="56dp"
-        android:text="CheckBox" />
+        android:text="CheckBox"
+        android:onClick="CheckBoxHandler"/>
 
     <RadioGroup
         android:id="@+id/RadioGroup"

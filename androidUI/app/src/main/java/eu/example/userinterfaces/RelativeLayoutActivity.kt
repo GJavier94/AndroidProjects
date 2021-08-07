@@ -2,6 +2,9 @@ package eu.example.userinterfaces
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.CheckBox
 import android.widget.ToggleButton
 
 class RelativeLayoutActivity : AppCompatActivity() {
@@ -20,6 +23,26 @@ class RelativeLayoutActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun CheckBoxHandler(view:View){
+        val checkBox = findViewById<CheckBox>(view.id)
+        var isChecked:String = if( checkBox.isChecked)  "true" else "false"
+
+        when(view.id){
+            R.id.checkBox1 -> {
+                //some action
+                Log.i("$TAG:CheckBoxHandler ${view.id}", isChecked )
+            }
+            R.id.checkBox2 -> {
+                //someActions
+                Log.i("$TAG:CheckBoxHandler ${view.id}", isChecked )
+            }
+        }
+    }
+
+    companion object{
+        const val TAG:String = "eu.example.userinterfaces.RelativeLayoutActivity"
     }
 
 }
