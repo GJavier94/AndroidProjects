@@ -5,6 +5,8 @@
         name="activities_layouts">
         <item>RelativeLayoutActivity</item>
         <item>VerticalLayoutActivity</item>
-
     </string-array>
+
+    <string name="toogle_set">SET</string>
+    <string name="toogle_unset">UNSET</string>
 </resources>

@@ -75,12 +75,23 @@
     </com.google.android.material.chip.ChipGroup>
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/RadioGroup"
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@id/floatingActionButton2"
+        android:text="CheckBox" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RadioGroup"
+        android:layout_alignStart="@+id/checkBox1"
+        android:layout_alignLeft="@id/checkBox1"
+        android:layout_marginTop="106dp"
+        android:layout_marginRight="56dp"
         android:text="CheckBox" />
 
     <RadioGroup
@@ -120,7 +131,10 @@
         android:layout_below="@id/imageButton3"
         android:layout_marginTop="59dp"
         android:layout_centerHorizontal="true"
-        android:text="ToggleButton" />
+        android:textOff="UNSET"
+        android:textOn="SET"
+        android:checked="true"
+       />
 
     <TextView
         android:id="@+id/textView"
@@ -139,8 +153,8 @@
         android:id="@+id/switch2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@id/checkBox2"
-        android:layout_above="@id/checkBox2"
+        android:layout_alignRight="@id/checkBox1"
+        android:layout_above="@id/checkBox1"
 
         android:layout_marginBottom="10dp"
         android:text="Switch" />
