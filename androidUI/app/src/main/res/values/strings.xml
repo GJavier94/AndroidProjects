@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">UserInterfaces</string>
-    
-    <string-array
-        name="activities_layouts">
+
+    <string-array name="activities_layouts">
         <item>RelativeLayoutActivity</item>
         <item>VerticalLayoutActivity</item>
+        <item>ConstraintLayoutActivity</item>
+
     </string-array>
 
     <string name="toogle_set">SET</string>
