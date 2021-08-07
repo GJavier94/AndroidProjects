@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
+import android.widget.Switch
 import android.widget.ToggleButton
 
 class RelativeLayoutActivity : AppCompatActivity() {
@@ -23,6 +24,20 @@ class RelativeLayoutActivity : AppCompatActivity() {
             }
         }
 
+        val switchButton = findViewById<Switch>(R.id.switch2)
+        switchButton.setOnCheckedChangeListener{
+            buttonView, isCheked ->
+            if(isCheked)  {
+                switchButton.text = "isSelected"
+                switchButton.textOn  = "isSelected"
+
+            } else {
+                switchButton.text = "isUnSelected"
+                switchButton.textOff  = "isUnSelected"
+            }
+
+            Log.i(TAG, "switchButton $isCheked" )
+        }
     }
 
     fun CheckBoxHandler(view:View){
