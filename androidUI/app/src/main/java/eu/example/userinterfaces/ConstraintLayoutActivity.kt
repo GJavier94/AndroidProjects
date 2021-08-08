@@ -1,5 +1,6 @@
 package eu.example.userinterfaces
 
+import android.graphics.Color
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.UiThread
+import kotlin.random.Random
 
 class ConstraintLayoutActivity : AppCompatActivity() {
 
@@ -22,31 +25,24 @@ class ConstraintLayoutActivity : AppCompatActivity() {
             text = "Start"
         }
 
-        buttonStart.setOnClickListener {
-            if(buttonStart.isEnabled){
-                buttonStart.isEnabled = false
-                val value:String = object: AsyncTask<String,String,String>(){
-                    override fun doInBackground(vararg params: String?): String {
-                        val  progressBar = findViewById<ProgressBar>(R.id.progressBar)
-                        var cont:Double = 0.0
-                        while(cont <= 100 ){
-                            Thread.sleep(1)
-                            progressBar.progress = cont.toInt()
-                            Log.i("${RelativeLayoutActivity.TAG}:startProgressBar" , cont.toString() )
-                            cont += 0.10
-                        }
-                        return "true"
+            buttonStart.setOnClickListener {
+            object: AsyncTask<String,String,String>(){
+                override fun doInBackground(vararg params: String?): String {
+                    val  progressBar = findViewById<ProgressBar>(R.id.progressBar)
+                    var cont:Double = 0.0
+                    val IdThread = Random.nextInt(10)
+                    while(cont <= 100 ){
+                        Thread.sleep(1)
+                        progressBar.progress = cont.toInt()
+                        Log.i("${RelativeLayoutActivity.TAG}:startProgressBar $IdThread" , cont.toString() )
+                        cont += 1.0
                     }
-
-                }.execute().get().also {
-                    value ->
-                    when(value){
-                        "true" -> buttonStart.isEnabled = true
-                    }
+                    return "true"
                 }
 
-            }
+            }.execute()
 
         }
+
     }
 }
