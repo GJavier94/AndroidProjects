@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.CheckBox
-import android.widget.Switch
-import android.widget.ToggleButton
+import android.widget.*
 
 class RelativeLayoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +36,11 @@ class RelativeLayoutActivity : AppCompatActivity() {
 
             Log.i(TAG, "switchButton $isCheked" )
         }
+
+
     }
+
+
 
     fun CheckBoxHandler(view:View){
         val checkBox = findViewById<CheckBox>(view.id)
