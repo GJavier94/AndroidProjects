@@ -10,11 +10,19 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import androidx.core.view.get
+import java.lang.Exception
+
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Log.i("${TAG} ${Thread.currentThread().stackTrace.toList().get(2).toString().split(".").get(4).split("(").get(0)
+        }", " ID_Thread: ${Thread.currentThread().id}")
+
+
 
         val spinner: Spinner = findViewById(R.id.spinner)
 
@@ -43,7 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     companion object{
-        const val TAG = "TAG:MainActivity"
+        const val TAG = "eu.example.userinterfaces.MainActivity"
     }
 }

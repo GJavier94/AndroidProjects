@@ -10,6 +10,10 @@ class RelativeLayoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_relative_layout)
+        Log.i("${TAG} ${Thread.currentThread().stackTrace.toList().get(2).toString().split(".").get(4).split("(").get(0)
+        }", " ID_Thread: ${Thread.currentThread().id}")
+
+
 
         val toggleButton = findViewById<ToggleButton>(R.id.toggleButton3)
 
@@ -39,6 +43,7 @@ class RelativeLayoutActivity : AppCompatActivity() {
 
 
     }
+
 
 
 

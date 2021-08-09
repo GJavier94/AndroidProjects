@@ -5,6 +5,7 @@
         <item>RelativeLayoutActivity</item>
         <item>VerticalLayoutActivity</item>
         <item>ConstraintLayoutActivity</item>
+        <item>ConstraintActivity_2</item>
 
     </string-array>
 
