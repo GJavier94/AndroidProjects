@@ -11,4 +11,6 @@
 
     <string name="toogle_set">SET</string>
     <string name="toogle_unset">UNSET</string>
+    <string name="hideViews">Hide views</string>
+    <string name="showViews">Show views</string>
 </resources>

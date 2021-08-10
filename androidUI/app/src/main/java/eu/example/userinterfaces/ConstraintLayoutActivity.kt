@@ -7,8 +7,10 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.UiThread
 import kotlin.random.Random
@@ -18,6 +20,7 @@ class ConstraintLayoutActivity : AppCompatActivity() {
 
     lateinit var buttonStart: Button
     lateinit var progressBar: ProgressBar
+    lateinit var switch:Switch
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,24 +49,43 @@ class ConstraintLayoutActivity : AppCompatActivity() {
                     val  progressBar = findViewById<ProgressBar>(R.id.progressBar)
                     var cont:Int = 0
                     val IdThread = Random.nextInt(10)
-                    while(cont <= 100 ){
+                    crt.runOnUiThread{
+                        crt.progressBar.progressTintList = ColorStateList.valueOf(Color.YELLOW)
+                    }
+
+                    while(cont < 100 ){
                         Thread.sleep(1)
                         crt.runOnUiThread {
-                            val color = if(cont % 2 == 0)  Color.YELLOW else Color.BLUE
-                            crt.progressBar.progressTintList = ColorStateList.valueOf(color)
                             findViewById<TextView>(R.id.textProgress).text = cont.toString()
                         }
                         progressBar.progress = cont.toInt()
+
                         Log.i("${RelativeLayoutActivity.TAG}:startProgressBar $IdThread" , cont.toString() )
                         cont += 1
+                    }
+                    crt.runOnUiThread{
+                        crt.progressBar.progressTintList = ColorStateList.valueOf(Color.GREEN)
                     }
                     return "true"
                 }
 
             }.execute()
 
-        }
 
+        }
+        switch = findViewById<Switch>(R.id.buttonHide)
+        switch.setOnClickListener {
+            when(!switch.isChecked){
+                 true -> {
+                    findViewById<Button>(R.id.button7).visibility = View.GONE
+                    findViewById<Button>(R.id.button6).visibility = View.GONE
+                }
+                 false-> {
+                    findViewById<Button>(R.id.button7).visibility = View.VISIBLE
+                    findViewById<Button>(R.id.button6).visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     override fun onStart() {
