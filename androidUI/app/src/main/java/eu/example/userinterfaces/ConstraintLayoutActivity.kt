@@ -13,12 +13,13 @@ import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.UiThread
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlin.random.Random
 
 class ConstraintLayoutActivity : AppCompatActivity() {
 
 
-    lateinit var buttonStart: Button
+    lateinit var buttonStart: FloatingActionButton
     lateinit var progressBar: ProgressBar
     lateinit var switch:Switch
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +32,8 @@ class ConstraintLayoutActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_constraint_layout)
 
-        buttonStart = findViewById<Button>(R.id.button8)
+        buttonStart = findViewById<FloatingActionButton>(R.id.button8)
         progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        buttonStart.apply {
-            text = "Start"
-        }
 
 
         val crt: ConstraintLayoutActivity = this
