@@ -3,12 +3,15 @@ package eu.example.userinterfaces
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 
 class ConstraintWidgetsActivity : AppCompatActivity() {
     lateinit var seekBar: SeekBar
     lateinit var textView: TextView
+    lateinit var ratingBar: RatingBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,5 +45,28 @@ class ConstraintWidgetsActivity : AppCompatActivity() {
             }
         )
 
+        /*Rating bar is  a subtype of progressbar and seekbar
+        but it is measured by stars
+        main attributes in xml
+        numStars: number of starts showed
+        stepSize: measure unit to jump from one measure to another
+        isIndicator: Boolean (false by defect)
+        rating: the current rating ( can be changed by the user if indicator allows it)
+        * */
+
+
+        ratingBar = findViewById<RatingBar>(R.id.ratingBar2)
+        ratingBar.setOnRatingBarChangeListener {
+                ratingBar, rating, fromUser ->
+            val valueText:String = when(rating.toInt()){
+                1 -> "Bad"
+                2 -> "Less than average"
+                3 -> "Just Average"
+                4 -> "Good"
+                else -> "Perfect"
+            }
+            Log.i("ratingBar", valueText)
+            Toast.makeText(this, valueText, Toast.LENGTH_SHORT).show()
+        }
     }
 }
