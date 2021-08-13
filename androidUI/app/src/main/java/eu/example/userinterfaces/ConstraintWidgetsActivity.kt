@@ -3,20 +3,32 @@ package eu.example.userinterfaces
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.RatingBar
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 
 class ConstraintWidgetsActivity : AppCompatActivity() {
     lateinit var seekBar: SeekBar
     lateinit var textView: TextView
     lateinit var ratingBar: RatingBar
-
+    lateinit var imageView: ImageView
+    lateinit var progressBar:ProgressBar
+    lateinit var refActivity: ConstraintWidgetsActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_constraint_widgets)
         seekBar = findViewById<SeekBar>(R.id.seekbar1)
+
+        /*
+        Implementing some behaviour on image profile
+        Let's say the image is loaded by some third party service (REST, http library like picasso,...)
+        if the resource is not loaded then it will show profile picture from local resources
+
+        * */
+        refActivity = this
+
+        imageView = findViewById<ImageView>(R.id.imageView)
+        progressBar = findViewById<ProgressBar>(R.id.progressBar2)
+        loadImage()
 
         textView = findViewById<TextView>(R.id.act_const_widg_textView)
 
@@ -68,5 +80,24 @@ class ConstraintWidgetsActivity : AppCompatActivity() {
             Log.i("ratingBar", valueText)
             Toast.makeText(this, valueText, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun loadImage() {
+        /*
+        * here it should go the code from the rest request
+        * let's assume it was  unsuccessful
+        * */
+        object:Thread(){
+            override fun run() {
+                super.run()
+                Thread.sleep(2000) // simulating the time request
+                refActivity.runOnUiThread {
+                    progressBar.visibility = View.INVISIBLE
+                    imageView.visibility = View.VISIBLE
+                }
+
+            }
+        }.start()
+
     }
 }

@@ -22,7 +22,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:src="@drawable/ic_baseline_person_pin_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
