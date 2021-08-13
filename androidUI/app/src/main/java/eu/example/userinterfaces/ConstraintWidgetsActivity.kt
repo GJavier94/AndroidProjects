@@ -6,14 +6,13 @@ import android.util.Log
 import android.widget.SeekBar
 import android.widget.TextView
 
-class ConstraintActivityWidgets : AppCompatActivity() {
+class ConstraintWidgetsActivity : AppCompatActivity() {
     lateinit var seekBar: SeekBar
     lateinit var textView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_constraint_widgets)
-
-
         seekBar = findViewById<SeekBar>(R.id.seekbar1)
 
         textView = findViewById<TextView>(R.id.act_const_widg_textView)
@@ -44,7 +43,4 @@ class ConstraintActivityWidgets : AppCompatActivity() {
         )
 
     }
-
-
-
 }

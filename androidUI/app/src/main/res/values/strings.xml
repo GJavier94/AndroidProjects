@@ -6,7 +6,8 @@
         <item>VerticalLayoutActivity</item>
         <item>ConstraintLayoutActivity</item>
         <item>ConstraintActivity_2</item>
-        <item>ConstraintActivityWidgets</item>
+        <item>ConstraintWidgetsActivity</item>
+
 
     </string-array>
 
@@ -14,4 +15,6 @@
     <string name="toogle_unset">UNSET</string>
     <string name="hideViews">Hide views</string>
     <string name="showViews">Show views</string>
+    <string name="ratingBar">RatingBarView</string>
+    <string name="ImgContentDesc">This is just an image for learning purposes</string>
 </resources>

@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UserInterfaces">
-        <activity android:name=".ConstraintActivityWidgets"></activity>
-        <activity android:name=".ConstraintActivity_properties" />
+        <activity
+            android:name=".ConstraintWidgetsActivity"
+            android:exported="true" />
+        <activity android:name=".ConstraintActivityProperties" />
         <activity android:name=".ConstraintLayoutActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
