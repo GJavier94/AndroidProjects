@@ -13,6 +13,7 @@ class ConstraintWidgetsActivity : AppCompatActivity() {
     lateinit var imageView: ImageView
     lateinit var progressBar:ProgressBar
     lateinit var refActivity: ConstraintWidgetsActivity
+    lateinit var  calendarView: CalendarView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_constraint_widgets)
@@ -80,6 +81,25 @@ class ConstraintWidgetsActivity : AppCompatActivity() {
             Log.i("ratingBar", valueText)
             Toast.makeText(this, valueText, Toast.LENGTH_SHORT).show()
         }
+
+        /*
+        Calendar View:
+        view of a calendar that allows setting date within a date's range
+        also it implements a setOnDateChangeListener: Every time the
+        xml attrs
+            -> maxDate: maximum date showed
+            -> minDate: minimum date showed
+            -> textDateAppereance
+            ->weekDayAppereance
+        * */
+        calendarView = findViewById<CalendarView>(R.id.calendarView)
+        val textViewCalendar = findViewById<TextView>(R.id.TextViewCalendar)
+        calendarView.setOnDateChangeListener {
+                view, year, month, dayOfMonth ->
+                textViewCalendar.text = this.resources.getString(R.string.date_label) + "$dayOfMonth/$month/$year"
+
+        }
+
     }
 
     private fun loadImage() {
@@ -100,4 +120,6 @@ class ConstraintWidgetsActivity : AppCompatActivity() {
         }.start()
 
     }
+
+
 }
