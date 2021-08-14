@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_1.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/custom_background_search_view.xml" value="0.15703125" />
         <entry key="app/src/main/res/layout/activity_constraint_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_constraint_layout_2.xml" value="0.12284482758620689" />
         <entry key="app/src/main/res/layout/activity_constraint_widgets.xml" value="0.25" />

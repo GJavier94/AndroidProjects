@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.SearchView
 
 class ConstraintWidgetsActivity : AppCompatActivity() {
     lateinit var seekBar: SeekBar
@@ -99,8 +100,10 @@ class ConstraintWidgetsActivity : AppCompatActivity() {
                 textViewCalendar.text = this.resources.getString(R.string.date_label) + "$dayOfMonth/$month/$year"
 
         }
+        setSearchView()
 
     }
+
 
     private fun loadImage() {
         /*
@@ -119,7 +122,58 @@ class ConstraintWidgetsActivity : AppCompatActivity() {
             }
         }.start()
 
+
+
+
     }
 
+    private fun setSearchView() {
+
+        /***
+         * SearchView: It's a view which  receives queries those queries become into request
+         * which are handled by a search provider
+         *
+         * It has three listeners to handle its events which are:
+         * onCloseListener: It has method onClose()
+         * onQueryTextListener: it has three methods, to execute the query (an enter), onQueryTextChange
+         * onSuggestionListener: Every time a query is executed it generates a set of suggestion each suggestion can be click or selected
+         *
+         */
+
+        val names = arrayOf("Aaran", "Aaren", "Aarez", "Aarman", "Aaron")
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names )
+        val listView = findViewById<ListView>(R.id.ListView)
+        listView.adapter = adapter
+
+        val searchView = findViewById<SearchView>(R.id.searchView)
+
+        searchView.setOnQueryTextFocusChangeListener { v, hasFocus ->
+            if(!hasFocus){
+                searchView.setQuery("",false)
+                adapter.filter.filter("")
+            }
+        }
+        searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    searchView.clearFocus()
+                    if(names.contains(query)){
+                        Toast.makeText( applicationContext, "Found:$query", Toast.LENGTH_SHORT).show()
+                    }else{
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if(names.contains(newText)){
+                        adapter.filter.filter(newText)
+                    }
+                    return true
+                }
+
+            }
+        )
+    }
 
 }
