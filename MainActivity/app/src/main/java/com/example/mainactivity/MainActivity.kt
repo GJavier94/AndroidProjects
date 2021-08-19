@@ -1,11 +1,14 @@
 package com.example.mainactivity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     /*
@@ -32,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     The one that is executed when restoring the app onRestoreInstanceState
      */
 
+    private lateinit var textViewcontactInfo: TextView
+    private lateinit var buttonChooseContact: Button
+    private lateinit var buttonActionSend: Button
     private lateinit var textView: TextView
     private var countingTimes:Int = 0;
 
@@ -42,9 +48,11 @@ class MainActivity : AppCompatActivity() {
      * here the activity is not visible and not focused
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        textViewcontactInfo = findViewById<TextView>(R.id.TextViewcontactInfo)
         val buttonStart = findViewById<Button>(R.id.buttonStart)
         buttonStart.setOnClickListener{
             val intent = Intent(this, ChildActivity::class.java).apply {
@@ -58,7 +66,89 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById<TextView>(R.id.textView)
 
 
+        /**
+         * We can interact with other app functionalites by calling them by using and intent
+         * We create the intent, there we need to specify the action to be taken
+         * and the extra parameters like  data to be transmitted of the type (key value)
+         * Intent class already offers some constant variables which acts as keys
+         *
+         * If our own app doesn't provides any component that can handle the intent request
+         * the system will look for candidates which can handle it
+         */
+
+        buttonActionSend = findViewById<Button>(R.id.buttonActionSend)
+        buttonActionSend.setOnClickListener{
+            val intent = Intent( Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_EMAIL,arrayOf("javargmar@gmail.com"))
+
+                putExtra(Intent.EXTRA_CC, "")
+                putExtra(Intent.EXTRA_BCC, "")
+                putExtra(Intent.EXTRA_SUBJECT,
+                    "Playlist Details")
+                setType("text/html")
+            }
+            this.startActivity(intent)
+
+        }
+        /**
+         * it is also possible to get a response from the request by calling the method
+         * startActivityForResult(int requestCode, Intent)
+         *      requestCode: it serves as an identifier for the as this activity can make many calls to other activities
+         *
+         * in order to receive the response the activity has to provide and implementation for
+         *
+         * this method is called anytime another activity returns a response to this act
+         * onActivityResult(int requestCode, int resultCode, Intent)
+         *      requestCode: the identifier code of the call
+         *      resultCode: the constant value returned from the secondActivity
+         *      Intent: the  intent object which stores the data returned
+         */
+
+        buttonChooseContact = findViewById<Button>(R.id.buttonChooseContact)
+        buttonChooseContact.setOnClickListener{
+            val intent = Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+            )
+            this.startActivityForResult(intent, REQUEST_CONTACT)
+        }
+
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            REQUEST_CONTACT -> {
+                if(resultCode == RESULT_OK && data != null){
+                    Log.i(TAG,"The data is : ${data?.data}" )
+                    /**
+                     * The intent  data has an uri content://com.android.contacts/data/2584 this is the uri to acces the data from that contact
+                     */
+
+                    //the resource is stored in that uri, so it offers a content provider to acces the data
+                    //so we will need the API contentResolver
+                    //we will use the method query() from the contentResolver API and send the Uri there
+                    val uri = data.data
+                    if(uri != null ){
+
+                        val cursor = this.contentResolver.query(uri ,null, null, null,null )
+                        cursor?.moveToFirst()
+                        val nameIndex:Int = cursor?.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME) ?: 0
+                        val phoneIndex:Int = cursor?.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: 0
+                        val name:String?  = cursor?.getString(nameIndex)
+                        val phone:String? = cursor?.getString(phoneIndex)
+                        textViewcontactInfo.text = "$name $phone"
+
+                    }
+
+                }else{
+                    Toast.makeText(this, "Something bad happens with the request", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
+
 
     /**
      * onStart() called from onCreate or onRestart()
@@ -200,6 +290,7 @@ class MainActivity : AppCompatActivity() {
      */
     companion object{
         val TAG = "MainActivityLogger"
+        val REQUEST_CONTACT = 0
     }
 
 
