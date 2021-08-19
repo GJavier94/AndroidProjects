@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     /*
@@ -41,16 +42,59 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textView: TextView
     private var countingTimes:Int = 0;
 
+
+
+
+
     /**
      * onCreate()  It has the starting logic when it is first created the act
      * it  get's all the references of the views declares the listeners and implements them
      * it has the setcontenview method to bind the layout to the activity
      * here the activity is not visible and not focused
      */
+
+    /**While only working with the activity life cycle methods
+     *There will be some components which will be needing to synchronized with the life methods
+     * so that they will necessary  being initialized and released within the methods
+     * this arises two problems:
+     *      1)the need to invoke all the methods (example obj.start() in onStart() method) within a life cycle method
+     *      producing a lot of code and also difficult to sustain the project
+     *      2)If the initialization process for example is huge maybe onStart() couldn't have finished while the onStop()
+     *      method it's been executed and producing memory leaks and inconsistencies
+     *
+     *  The solution is to create lifeCycle Aware component by
+     *  1.- Creating a class which will be the observer of the life cycle act or fragment
+     *  so that it handles the events dispatch  by the act  by using anotation, this is reached by implementing the
+     *  interface LifecycleObserver
+     *      1.1 put the annotations and provide implementation methods to initialice or release a component
+     *
+     *  2.- the component you'll be observing to needs to implements LifeCycleOwner interface,
+     *      in the case of ACT or Fragments they're already implementing it
+     *
+     *      this Interface only has one method  getLifeCycle() which returns and "Lifecycle" object
+     *
+     * Lifecycle class: Is the class that holds the info about the life cycle states of the component
+     * which are only 5
+     * initialized, created,started, resumed, destroyed
+     *
+     * INITIALIZED
+     * CREATED -> From initialized to  created with ON_CREATE
+     *            From started to created with ON_STOP
+     * STARTED -> From created to started with ON_START
+     *            From resumed to started with ON_PAUSE
+     * RESUMED -> from started to resume with ON_RESUME
+     * DESTROYED -> from created to destroyed with ON_DESTROY
+     *
+     * EVENTS -> onCreate(), onStart(), onResume(), onPause(),onStop(), onDestroy()
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val observer = MyObserver()
+        this.lifecycle.addObserver(observer)
+
 
         textViewcontactInfo = findViewById<TextView>(R.id.TextViewcontactInfo)
         val buttonStart = findViewById<Button>(R.id.buttonStart)
@@ -115,6 +159,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
             REQUEST_CONTACT -> {
