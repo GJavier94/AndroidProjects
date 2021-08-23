@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.mainactivity.Processing.startProcessActivity
 import com.example.mainactivity.SavingStates.Activities.UIActivity
 import java.util.*
 
@@ -167,6 +168,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, UIActivity::class.java))
         }
 
+        findViewById<Button>(R.id.buttonStartActivityService).setOnClickListener{
+            startActivity(Intent(this, startProcessActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

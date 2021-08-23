@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MainActivity">
         <activity
+            android:name=".Processing.startProcessActivity"
+            android:exported="true" />
+        <activity
             android:name=".SavingStates.Activities.UIActivity"
             android:exported="true" />
         <activity
@@ -25,6 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".Processing.ServiceCounter"
+            android:exported="false"/>
     </application>
 
 </manifest>
