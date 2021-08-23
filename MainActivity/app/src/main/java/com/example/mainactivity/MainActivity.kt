@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.mainactivity.SavingStates.Activities.UIActivity
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -86,13 +87,20 @@ class MainActivity : AppCompatActivity() {
      * DESTROYED -> from created to destroyed with ON_DESTROY
      *
      * EVENTS -> onCreate(), onStart(), onResume(), onPause(),onStop(), onDestroy()
+     *
+            /**
+             * It is possible the next situation
+             * If the object to be initialized in onStart takes lot of time
+             * it on stop can be called and then if we want to reinitiate the app
+             * there will be calls that haven't been finished
+            */
      * */
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val observer = MyObserver()
+        val observer = MyObserver(this.lifecycle)
         this.lifecycle.addObserver(observer)
 
 
@@ -154,6 +162,9 @@ class MainActivity : AppCompatActivity() {
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI
             )
             this.startActivityForResult(intent, REQUEST_CONTACT)
+        }
+        findViewById<Button>(R.id.buttonStartUIActivity).setOnClickListener{
+            startActivity(Intent(this, UIActivity::class.java))
         }
 
     }

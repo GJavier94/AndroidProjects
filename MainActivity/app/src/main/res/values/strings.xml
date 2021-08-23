@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MainActivity</string>
+    <string name="MessageExplanation">This activity shows how a ViewModel can handle UI data</string>
 </resources>
