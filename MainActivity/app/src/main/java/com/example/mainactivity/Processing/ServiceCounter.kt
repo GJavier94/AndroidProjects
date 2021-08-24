@@ -1,9 +1,12 @@
 package com.example.mainactivity.Processing
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.os.*
 import android.util.Log
+import android.widget.Toast
+import androidx.annotation.UiThread
 
 /**
  * A service is an entry point which doesn't have User interface
@@ -69,30 +72,35 @@ class ServiceCounter: Service() {
     private lateinit var serviceLooper: Looper
     private lateinit var serviceHandler: ServiceHandler
 
-    private inner class ServiceHandler(looper: Looper): Handler(looper) {
+    private inner class ServiceHandler(looper: Looper,val context:Context): Handler(looper) {
         override fun handleMessage(msg: Message) {
-
-            Log.i(TAG,"managing this message...")
+            Toast.makeText( context, "Starting job message...", Toast.LENGTH_SHORT).show()
+            Log.i(TAG,"Starting job message...")
             Log.i(TAG,"${msg.arg1}... ${msg.arg2}")
             var i:Int
             for(i in 1..10){
-                Log.i(TAG,"$i...")
-                Thread.sleep(1000)
+                Log.i(TAG,"${msg.arg1} $i...")
+                Thread.sleep(3000)
             }
-
-            stopSelf(msg.arg1)
+            Log.i(TAG,"Finishing job message...")
+            Toast.makeText(context, "Finishing job message...", Toast.LENGTH_SHORT).show()
+            //In case we want to stop the service we call this method
+            if(msg.arg2 == 1){ // if  arg2 is 1 then the service shoud stop
+                stopSelf(msg.arg1)
+            }
         }
     }
 
     override fun onCreate() {
 
         Log.i(TAG, "Creating service...")
+        Toast.makeText(this, "Creating service", Toast.LENGTH_SHORT).show()
 
         val hr = HandlerThread("HandlerServiceCounter").apply {
             start()
             serviceLooper = looper
-            serviceHandler = ServiceHandler(serviceLooper)
         }
+        serviceHandler = ServiceHandler(serviceLooper,this)
 
 
     }
@@ -109,24 +117,34 @@ class ServiceCounter: Service() {
             media players (or similar services) that are not executing commands but are running indefinitely and waiting for a job.
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Toast.makeText(this, "new request wit startId $startId", Toast.LENGTH_SHORT).show()
+
         Log.i(TAG, "starting service...")
         val v1 = intent?.getIntExtra("Numero1", 0) ?: 0
         val v2 = intent?.getIntExtra("Numero2", 0) ?: 0
         Log.i(TAG, "intent values...$v1 $v2")
         val msg = serviceHandler.obtainMessage()
         msg.arg1 = startId
-        msg.arg2 = v2
+        msg.arg2 = v1
         serviceHandler.sendMessage(msg)
 
+        /*
+        if the system kills the service to reclaim memory
+
+         if the flag is:
+         START_STICKY -> the service is recreated and the pending intent is executed
+         START_NOT_STICKY -> The service is not recreated, the work is unfinished and the services is just restarted
+         */
 
 
-
+        //return START_NOT_STICKY
         return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.i(TAG, "destroying service...")
+        Toast.makeText(this, "Destroying service...", Toast.LENGTH_SHORT).show()
 
     }
     override fun onBind(intent: Intent?): IBinder? {
