@@ -9,6 +9,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.mainactivity.BindServices.ClientActivity
+import com.example.mainactivity.BindServicesMessaging.MessagingClientActivity
 import com.example.mainactivity.Processing.startProcessActivity
 import com.example.mainactivity.SavingStates.Activities.UIActivity
 import java.util.*
@@ -171,6 +173,14 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonStartActivityService).setOnClickListener{
             startActivity(Intent(this, startProcessActivity::class.java))
         }
+
+        findViewById<Button>(R.id.buttonStartBindActivity).setOnClickListener{
+            startActivity(Intent(this, ClientActivity::class.java))
+        }
+        findViewById<Button>(R.id.buttonStartMessServiAct).setOnClickListener{
+            startActivity(Intent(this, MessagingClientActivity::class.java))
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

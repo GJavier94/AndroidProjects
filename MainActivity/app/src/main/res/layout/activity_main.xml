@@ -27,8 +27,10 @@
             android:layout_height="wrap_content"
             android:text="Start"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonChooseContact"
-            tools:layout_editor_absoluteX="143dp" />
+            app:layout_constraintEnd_toStartOf="@+id/buttonStartBindActivity"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonChooseContact" />
 
         <Button
             android:id="@+id/buttonActionSend"
@@ -82,6 +84,27 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/buttonActionSend"
             app:layout_constraintTop_toBottomOf="@+id/buttonActionSend"></Button>
+
+        <Button
+            android:id="@+id/buttonStartBindActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start bind Act"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/buttonStart"
+            app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+
+        <Button
+            android:id="@+id/buttonStartMessServiAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="sendMessage"
+            android:text="Start bind Act message"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/buttonStartBindActivity"
+            app:layout_constraintStart_toStartOf="@+id/buttonStartBindActivity" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
