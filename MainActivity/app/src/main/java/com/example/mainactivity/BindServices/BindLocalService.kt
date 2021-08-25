@@ -35,22 +35,22 @@ class BindLocalService : Service() {
 
     fun getRandomNumber():Int{
         Log.i(TAG, "calling  getRandomNumber")
-        Toast.makeText(this,"calling  getRandomNumber", Toast.LENGTH_SHORT )
+        Toast.makeText(this,"calling  getRandomNumber", Toast.LENGTH_SHORT ).show()
 
         return Random.nextInt(0,100)
     }
     override fun onCreate() {
         Log.i(TAG, "creating the service")
-        Toast.makeText(this,"creating the service", Toast.LENGTH_SHORT )
+        Toast.makeText(this,"creating the service", Toast.LENGTH_SHORT ).show()
     }
     override fun onBind(intent: Intent): IBinder {
         Log.i(TAG, "calling OnBind")
-        Toast.makeText(this,"calling OnBind", Toast.LENGTH_SHORT )
+        Toast.makeText(this,"calling OnBind", Toast.LENGTH_SHORT ).show()
         return bind;
     }
     override fun onDestroy() {
         Log.i(TAG, "service unbound...calling on destroy")
-        Toast.makeText(this,"onDestroy", Toast.LENGTH_SHORT )
+        Toast.makeText(this,"onDestroy", Toast.LENGTH_SHORT ).show()
     }
 
 
