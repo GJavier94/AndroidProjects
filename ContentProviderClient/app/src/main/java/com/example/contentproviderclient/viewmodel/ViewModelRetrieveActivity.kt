@@ -59,7 +59,7 @@ class ViewModelRetrieveActivity: ViewModel() {
     fun doQuery(contentResolver: ContentResolver) {
         if(contentResolver==null) return
         this.cursor = contentResolver.query(
-            UserDictionary.CONTENT_URI,
+            UserDictionary.Words.CONTENT_URI,
             this.projection,
             selectionClause,
             selectionArgs,

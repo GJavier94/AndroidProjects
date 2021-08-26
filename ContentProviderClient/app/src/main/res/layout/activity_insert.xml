@@ -6,4 +6,98 @@
     android:layout_height="match_parent"
     tools:context=".activities.InsertActivity">
 
+    <EditText
+        android:id="@+id/editTextFrecuency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="67dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextWord"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWord" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Frecuency"
+        app:layout_constraintBottom_toTopOf="@+id/editTextFrecuency"
+        app:layout_constraintStart_toStartOf="@+id/editTextFrecuency" />
+
+    <TextView
+        android:id="@+id/textViewResultInsert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="67dp"
+        android:text="Result:"
+        app:layout_constraintEnd_toEndOf="@+id/editTextFrecuency"
+        app:layout_constraintStart_toStartOf="@+id/editTextFrecuency"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFrecuency" />
+
+    <EditText
+        android:id="@+id/editTextWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLocale" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Word:"
+        app:layout_constraintBottom_toTopOf="@+id/editTextWord"
+        app:layout_constraintStart_toStartOf="@+id/editTextWord" />
+
+    <EditText
+        android:id="@+id/editTextLocale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextAppId"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAppId" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Locale:"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLocale"
+        app:layout_constraintStart_toStartOf="@+id/editTextLocale" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="App Id :"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextAppId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/buttonInsert_act_insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Insert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewResultInsert" />
 </androidx.constraintlayout.widget.ConstraintLayout>

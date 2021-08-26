@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.contentproviderclient.activities.InsertActivity
 import com.example.contentproviderclient.activities.RetrieveActivity
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +27,11 @@ class MainActivity : AppCompatActivity() {
     private fun initListeners() {
         buttonRetrieve.setOnClickListener {
             Intent(this, RetrieveActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+        buttonInsert.setOnClickListener {
+            Intent(this, InsertActivity::class.java).also {
                 startActivity(it)
             }
         }
