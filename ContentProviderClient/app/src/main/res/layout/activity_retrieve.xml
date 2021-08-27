@@ -7,7 +7,7 @@
     tools:context=".activities.RetrieveActivity">
 
     <EditText
-        android:id="@+id/viewTextWordSearch"
+        android:id="@+id/viewTextSmsSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -19,18 +19,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/listViewWordTable"
+        android:id="@+id/listViewSmsTable"
         android:layout_margin="16dp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHeight_max="400dp"
         android:layout_marginHorizontal="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewTextWordSearch"
+        app:layout_constraintTop_toBottomOf="@id/viewTextSmsSearch"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_max="800dp"
         app:layout_constraintWidth_percent="0.8"
-        tools:layout_height="100dp" />
+        tools:layout_height="100dp"
+        android:background="@drawable/list_view_back"/>
 
     <Button
         android:id="@+id/buttonSearch"
@@ -38,6 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:text="Search"
-        app:layout_constraintStart_toEndOf="@+id/viewTextWordSearch"
-        app:layout_constraintTop_toTopOf="@+id/viewTextWordSearch" />
+        app:layout_constraintStart_toEndOf="@+id/viewTextSmsSearch"
+        app:layout_constraintTop_toTopOf="@+id/viewTextSmsSearch" />
 </androidx.constraintlayout.widget.ConstraintLayout>

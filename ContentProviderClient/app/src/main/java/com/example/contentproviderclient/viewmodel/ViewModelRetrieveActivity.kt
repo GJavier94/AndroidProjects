@@ -2,7 +2,7 @@ package com.example.contentproviderclient.viewmodel
 
 import android.content.ContentResolver
 import android.database.Cursor
-import android.provider.UserDictionary
+import android.provider.Telephony
 import android.util.Log
 import android.widget.SimpleCursorAdapter
 import androidx.lifecycle.MutableLiveData
@@ -10,28 +10,28 @@ import androidx.lifecycle.ViewModel
 import com.example.contentproviderclient.R
 
 class ViewModelRetrieveActivity: ViewModel() {
-    /*internal var mCursor: Cursor
-    internal var arrayIdsRow: Array<Int>
-    internal var arraryColumnsNames: Array<String>
 
-    */
     //info about the query for the cursor
     internal var cursor:Cursor? = null
-    internal var searchText: MutableLiveData<String> = MutableLiveData<String>()
-    internal val projection: Array<String> = arrayOf( UserDictionary.Words._ID,
-        UserDictionary.Words.WORD,
-        UserDictionary.Words.LOCALE)
-    internal var selectionClause:String? = "${UserDictionary.Words.WORD} = ?"
+    internal var searchId: MutableLiveData<String> = MutableLiveData<String>()
+    internal val projection: Array<String> = arrayOf( Telephony.Sms.Inbox._ID,
+        Telephony.Sms.CREATOR,
+        Telephony.Sms.Inbox.DATE,
+        Telephony.Sms.Inbox.BODY)
+    internal var selectionClause:String? = "${ Telephony.Sms.Inbox._ID} = ?"
     internal var selectionArgs:Array<String> = arrayOf("")
 
     //info about the attrs of the adapter
-    internal val listColumnsAdapter:Array<String> = arrayOf(UserDictionary.Words.WORD,
-        UserDictionary.Words.LOCALE)
-    internal val listIdItems:IntArray = intArrayOf(R.id.dictionary_word, R.id.dictionary_locale)
+    internal val listColumnsAdapter:Array<String> = arrayOf(Telephony.Sms.Inbox._ID,
+        Telephony.Sms.CREATOR,
+        Telephony.Sms.Inbox.DATE,
+        Telephony.Sms.Inbox.BODY)
+    internal val listIdItems:IntArray = intArrayOf(R.id.Sms_id, R.id.sms_Creator,R.id.sms_sent_date,R.id.sms_text)
 
 
     internal var adapter: SimpleCursorAdapter? = null
 
+    internal var permissionToReadContentProvider = false
 
     override fun onCleared() {
 
@@ -59,7 +59,7 @@ class ViewModelRetrieveActivity: ViewModel() {
     fun doQuery(contentResolver: ContentResolver) {
         if(contentResolver==null) return
         this.cursor = contentResolver.query(
-            UserDictionary.Words.CONTENT_URI,
+            Telephony.Sms.Inbox.CONTENT_URI,
             this.projection,
             selectionClause,
             selectionArgs,
