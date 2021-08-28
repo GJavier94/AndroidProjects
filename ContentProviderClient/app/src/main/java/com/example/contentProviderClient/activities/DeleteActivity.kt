@@ -1,4 +1,4 @@
-package com.example.contentProviderClient
+package com.example.contentProviderClient.activities
 
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.example.contentProviderClient.activities.RetrieveActivity
+import com.example.contentProviderClient.R
+import com.example.contentProviderClient.viewmodel.ViewModelDeleteActivity
 
 class DeleteActivity : AppCompatActivity() {
     
@@ -35,7 +36,7 @@ class DeleteActivity : AppCompatActivity() {
                 PERMISSION_WRITE_CONTACTS
             ) == PackageManager.PERMISSION_DENIED ){
             Log.i(RetrieveActivity.TAG, "One Permission is required")
-            Log.i(RetrieveActivity.TAG, "Requiring the permission ${PERMISSION_WRITE_CONTACTS}")
+            Log.i(RetrieveActivity.TAG, "Requiring the permission $PERMISSION_WRITE_CONTACTS")
             // Require the permission one more time
             requestPermissions(arrayOf(PERMISSION_WRITE_CONTACTS),
                 PERMISSION_REQUEST_CODE

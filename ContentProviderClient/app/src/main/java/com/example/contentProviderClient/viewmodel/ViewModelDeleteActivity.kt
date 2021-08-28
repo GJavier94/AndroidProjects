@@ -1,4 +1,4 @@
-package com.example.contentProviderClient
+package com.example.contentProviderClient.viewmodel
 
 import android.content.ContentResolver
 import android.provider.ContactsContract
@@ -20,9 +20,6 @@ class ViewModelDeleteActivity: ViewModel() {
     }
     var attrDisplayName: String = ""
     var permissionToWriteContacts: Boolean  = false
-
-
-
 
     fun delete(contentResolver: ContentResolver?) {
         val numRows = contentResolver?.delete(

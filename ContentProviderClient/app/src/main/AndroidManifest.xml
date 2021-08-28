@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContentProviderClient">
         <activity
-            android:name="com.example.contentProviderClient.DeleteActivity"
+            android:name="com.example.contentProviderClient.activities.DeleteActivity"
             android:exported="true"
             android:configChanges="orientation"
             android:parentActivityName="com.example.contentProviderClient.MainActivity"
