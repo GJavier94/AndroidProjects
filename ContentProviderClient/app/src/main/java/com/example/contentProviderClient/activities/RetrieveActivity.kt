@@ -1,4 +1,4 @@
-package com.example.contentproviderclient.activities
+package com.example.contentProviderClient.activities
 
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +8,8 @@ import android.util.Log
 import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.contentproviderclient.R
-import com.example.contentproviderclient.viewmodel.ViewModelRetrieveActivity
+import com.example.contentProviderClient.R
+import com.example.contentProviderClient.viewmodel.ViewModelRetrieveActivity
 
 
 /**

@@ -1,4 +1,4 @@
-package com.example.contentproviderclient
+package com.example.contentProviderClient
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

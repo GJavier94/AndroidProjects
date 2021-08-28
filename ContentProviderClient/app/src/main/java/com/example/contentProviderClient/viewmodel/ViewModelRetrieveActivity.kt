@@ -1,4 +1,4 @@
-package com.example.contentproviderclient.viewmodel
+package com.example.contentProviderClient.viewmodel
 
 import android.content.ContentResolver
 import android.database.Cursor
@@ -7,7 +7,7 @@ import android.util.Log
 import android.widget.SimpleCursorAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.contentproviderclient.R
+import com.example.contentProviderClient.R
 
 class ViewModelRetrieveActivity: ViewModel() {
 

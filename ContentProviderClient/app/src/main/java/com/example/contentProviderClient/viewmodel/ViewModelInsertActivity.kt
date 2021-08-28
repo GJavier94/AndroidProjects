@@ -1,9 +1,8 @@
-package com.example.contentproviderclient.viewmodel
+package com.example.contentProviderClient.viewmodel
 
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.net.Uri
-import android.provider.UserDictionary
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

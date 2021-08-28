@@ -1,4 +1,4 @@
-package com.example.contentproviderclient.activities
+package com.example.contentProviderClient
 
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -8,26 +8,24 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.contentproviderclient.R
-import com.example.contentproviderclient.viewmodel.ViewModelInsertActivity
+import com.example.contentProviderClient.activities.RetrieveActivity
 
-class InsertActivity : AppCompatActivity() {
-    private lateinit var textViewResultInsert: TextView
+class DeleteActivity : AppCompatActivity() {
+    
     private lateinit var editTextDisplayName: EditText
-    private lateinit var vm:ViewModelInsertActivity
-    private lateinit var buttonInsert: Button
+    private lateinit var buttonDelete: Button
+    private lateinit var textViewResultDelete: TextView
+    private lateinit var vm: ViewModelDeleteActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_insert)
-
+        setContentView(R.layout.activity_delete)
+        
         editTextDisplayName = findViewById<EditText>(R.id.editTextDisplayName)
-
-        buttonInsert = findViewById<Button>(R.id.buttonInsert_act_insert)
-        vm = ViewModelProvider(this).get(ViewModelInsertActivity::class.java)
-        textViewResultInsert = findViewById<TextView>(R.id.textViewResultInsert)
+        buttonDelete = findViewById<Button>(R.id.buttonInsert_act_delete)
+        textViewResultDelete = findViewById<TextView>(R.id.textViewResultDelete)
+        vm = ViewModelProvider(this).get(ViewModelDeleteActivity::class.java)
 
         setObservers()
         initListeners()
@@ -69,7 +67,7 @@ class InsertActivity : AppCompatActivity() {
 
 
     private fun initListeners() {
-        buttonInsert.setOnClickListener {
+        buttonDelete.setOnClickListener {
             Log.i(TAG, "calling buttonInsert OnClick... vm: ${vm}")
             Log.i(TAG, "getting values from editText...")
             Log.i(TAG, "values gotten $vm")
@@ -79,7 +77,8 @@ class InsertActivity : AppCompatActivity() {
                 Log.i(TAG, "attrDisplayName correctly filled...")
                 Toast.makeText(this, "Proceeding to make the insertion", Toast.LENGTH_SHORT).show()
                 Log.i(TAG, "Proceeding to make the insertion")
-                vm.insert(this.contentResolver)
+                vm.selectionArgs[0] = vm.attrDisplayName
+                vm.delete(this.contentResolver)
                 Toast.makeText(this, "insertion finished", Toast.LENGTH_SHORT).show()
                 Log.i(TAG, "ainsertion finished")
 
@@ -90,7 +89,7 @@ class InsertActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        vm.attrResultInsert.observe(this, { it -> textViewResultInsert.text = it  })
+        vm.attrResultDelete.observe(this, { it -> textViewResultDelete.text = it  })
     }
 
     private fun setViewModelValues() {
@@ -99,8 +98,9 @@ class InsertActivity : AppCompatActivity() {
         Log.i(TAG, "values settled $vm")
     }
     companion object{
-        const val TAG = "InsertActivityLogger"
+        const val TAG = "UpdateActivityLogger"
         const val PERMISSION_REQUEST_CODE = 200
         const val PERMISSION_WRITE_CONTACTS = "android.permission.WRITE_CONTACTS"
     }
 }
+

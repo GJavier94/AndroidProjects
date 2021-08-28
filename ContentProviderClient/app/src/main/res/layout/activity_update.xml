@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.UpdateActivity">
+
+    <EditText
+        android:id="@+id/editTextDisplayNameNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textViewUpdate3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUpdate3" />
+
+    <TextView
+        android:id="@+id/textViewUpdate3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:layout_marginTop="34dp"
+        android:text="New name:"
+        app:layout_constraintStart_toStartOf="@+id/editTextDisplayNameUpdate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDisplayNameUpdate" />
+
+    <TextView
+        android:id="@+id/textViewResultUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Result:"
+        app:layout_constraintEnd_toEndOf="@+id/editTextDisplayNameNew"
+        app:layout_constraintStart_toStartOf="@+id/editTextDisplayNameNew"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDisplayNameNew" />
+
+    <TextView
+        android:id="@+id/textViewUpdate"
+        android:layout_width="wrap_content"
+        app:layout_constraintHorizontal_bias="0.35"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Display name to update:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextDisplayNameUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textViewUpdate"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUpdate" />
+
+    <Button
+        android:id="@+id/buttonUpdate_act_update"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        android:layout_marginVertical="16dp"
+        android:layout_marginTop="107dp"
+        android:text="update Contact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewResultUpdate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

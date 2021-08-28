@@ -1,11 +1,12 @@
-package com.example.contentproviderclient
+package com.example.contentProviderClient
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.example.contentproviderclient.activities.InsertActivity
-import com.example.contentproviderclient.activities.RetrieveActivity
+import com.example.contentProviderClient.activities.InsertActivity
+import com.example.contentProviderClient.activities.RetrieveActivity
+import com.example.contentProviderClient.activities.UpdateActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var buttonUpdate: Button
@@ -32,6 +33,16 @@ class MainActivity : AppCompatActivity() {
         }
         buttonInsert.setOnClickListener {
             Intent(this, InsertActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+        buttonUpdate.setOnClickListener {
+            Intent(this, UpdateActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+        buttonDelete.setOnClickListener {
+            Intent(this, DeleteActivity::class.java).also {
                 startActivity(it)
             }
         }
