@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <receiver android:name="com.example.BroadcastReceptorApp.BroadCastReceivers.MyBroadCastReceiver"
-            android:exported="true">
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <!--As Background Execution Limit imposes on Android 8.0
                 (API level 26) so now it's not possible to listen SCREEN_OFF

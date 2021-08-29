@@ -11,6 +11,13 @@ import java.lang.StringBuilder
 class MyBroadCastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
+
+        /**
+         * Broadcast receiver can only execute some tasks that doesn't las that  much
+         * because it is registered to the context of a component  ( except from the declared in manifest file)
+         *
+         */
+
         Log.i(TAG,"Receiving a Broadcast Message")
         val state = intent?.extras?.get("state")
         StringBuilder().apply {
