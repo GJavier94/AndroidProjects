@@ -8,6 +8,7 @@ import org.chromium.base.Log
 
 class MyBroadCastReceiverProgramatic: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
+
         Log.i(TAG,"Event Headset..")
         StringBuilder().apply {
             append("intent.action = ${intent?.action}")
