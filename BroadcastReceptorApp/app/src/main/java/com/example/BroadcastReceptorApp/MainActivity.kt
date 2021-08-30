@@ -47,6 +47,12 @@ class MainActivity : AppCompatActivity() {
                 }
             )
         }
+        findViewById<Button>(R.id.buttonStartAct).setOnClickListener {
+            Log.i(TAG, "Starting act broadcast")
+            Intent(this, senderBMActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     override fun onDestroy() {

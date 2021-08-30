@@ -30,7 +30,7 @@ class MyBroadCastReceiverProgramatic: BroadcastReceiver() {
         object:Thread(){
             override fun run() {
                 super.run()
-                repeat(100){
+                repeat(10){
                     Log.i(TAG, "Hello $it")
                     Thread.sleep(500)
                 }
