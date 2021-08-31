@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK ){
-            vm.addToGalleryProvider(vm.nameImageFile!!,applicationContext)
+            //vm.addToGalleryProvider(vm.nameImageFile!!,applicationContext)
 
             val bitmap = BitmapFactory.decodeFile(vm.nameImageFile)
             imageView.setImageBitmap(bitmap)
