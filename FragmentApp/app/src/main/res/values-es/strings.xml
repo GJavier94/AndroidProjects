@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bottomFragment">Fragmento inferior</string>
+    <string name="topFragment">Fragmento superior</string>
+    <string name="app_name">AppFragment</string>
+</resources>
