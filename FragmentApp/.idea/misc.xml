@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.15703125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_bottom.xml" value="0.144921875" />
-        <entry key="app/src/main/res/layout/fragment_top.xml" value="0.13359375" />
+        <entry key="app/src/main/res/layout/fragment_child.xml" value="0.1437841530054645" />
+        <entry key="app/src/main/res/layout/fragment_top.xml" value="0.25" />
       </map>
     </option>
   </component>

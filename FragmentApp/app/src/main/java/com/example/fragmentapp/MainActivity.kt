@@ -2,8 +2,8 @@ package com.example.fragmentapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -13,6 +13,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        /***
+         * If our Fragments have custom constructor it should be necessary to create a new
+         * FragmentFactory -> Factory class in charge of instantiating Fragments using factoryMethod instantiate()
+         * and give it to the fragmentManager
+         * e.g.
+         * FragmentManager
+         *      factoryClass -> FragmentFactory  -> Factory Method -> instantiate()
+         *      customFactoryClass ->FragmentTopFactory -> Factory Method -> instantiate()
+         *
+         */
+
+
+        this.supportFragmentManager.fragmentFactory = MyFragmentFactory(DataFragmentTop("Javier","Armenta",18))
+
+
 
         //Fragments are a reusable and modular part of the UI
         //one class can be instantiated many times so that a fragment can be positioned
@@ -40,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
 
         supportFragmentManager.commit {
-            add(R.id.fragmentContainerViewBottom, FragmentBottom::class.java, bundleOf("key" to "hola") )
+            add(R.id.fragmentContainerViewBottom, FragmentBottom::class.java, bundleOf("key" to "hola"), "FragmentParent" )
             add<FragmentTop>(R.id.fragmentContainerViewTop )
             setReorderingAllowed(true)
 
@@ -76,20 +91,33 @@ class MainActivity : AppCompatActivity() {
         var swapDone = false
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         floatingActionButton.setOnClickListener{
-            var bottom =  R.id.fragmentContainerViewBottom
-            var top = R.id.fragmentContainerViewTop
+            var bottomContainer =  R.id.fragmentContainerViewBottom
+            var topContainer = R.id.fragmentContainerViewTop
+
             if(!swapDone){
-                bottom =  R.id.fragmentContainerViewTop
-                top = R.id.fragmentContainerViewBottom
+                bottomContainer =  R.id.fragmentContainerViewTop
+                topContainer = R.id.fragmentContainerViewBottom
             }
+
             this.supportFragmentManager.commit {
-                replace<FragmentBottom>(bottom, args = bundleOf("key" to "remplazando"))
+                replace<FragmentBottom>(bottomContainer, args = bundleOf("key" to "remplazando"))
                 setReorderingAllowed(true)// this is for animations and transitions
-                replace<FragmentTop>(top)
+                replace<FragmentTop>(topContainer)
                 addToBackStack(null)
             }
             swapDone = !swapDone
         }
+
+        /**
+         * by using the methods  with the sign  <nameMethod>'<'<nameClass>'>'
+         * we are telling the FragmentManager to use the FragmentFactory class to instantiate the object fragments
+         *
+         * what if we wanted to have a Fragment with a custom Constructor
+         * FragmentFactory wouldn't know how to instantiate it
+         * ->Define the new constructor into the Fragment subclass
+         * -> extend FragmentFactory and override its factory method
+         */
+
 
     }
 }
