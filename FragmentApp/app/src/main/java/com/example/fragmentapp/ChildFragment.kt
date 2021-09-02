@@ -28,10 +28,11 @@ class ChildFragment : Fragment() {
         Log.i(TAG,"onCreateView")
         val view = inflater.inflate(R.layout.fragment_child, container, false)
         buttonBbackToChildFragment = view.findViewById<FloatingActionButton>(R.id.buttonBbackToChildFragment)
+        var alreadyDone = false
         buttonBbackToChildFragment.setOnClickListener {
-
-            this.parentFragmentManager.commit {
-                remove(this@ChildFragment)
+            if(!alreadyDone){
+                alreadyDone=true
+                this.parentFragmentManager.popBackStack()
             }
         }
 

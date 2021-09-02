@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 
@@ -29,12 +30,17 @@ class FragmentBottom : Fragment(R.layout.fragment_bottom) {
         val view = inflater.inflate(R.layout.fragment_bottom, container, false)
         buttonGoChildFragment = view.findViewById<Button>(R.id.buttonGoChildFragment)
         buttonGoChildFragment.setOnClickListener {
+            if(this.childFragmentManager.findFragmentById(R.id.fragmentChildContainer) == null){
+                this.childFragmentManager.commit {
 
-            this.childFragmentManager.commit {
-                add<ChildFragment>(R.id.fragmentChildContainer, "ChildFragment")
-                addToBackStack(null)
+                    add<ChildFragment>(R.id.fragmentChildContainer, "ChildFragment")
+                    addToBackStack(null)
+                }
+
+            }else{
+
+                Toast.makeText(this@FragmentBottom.activity, "Already opened", Toast.LENGTH_SHORT).show()
             }
-
 
         }
         return view

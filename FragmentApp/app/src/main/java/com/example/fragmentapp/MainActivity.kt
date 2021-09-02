@@ -2,14 +2,14 @@ package com.example.fragmentapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.fragment.app.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var floatingActionButton2: FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,8 +23,24 @@ class MainActivity : AppCompatActivity() {
          *      customFactoryClass ->FragmentTopFactory -> Factory Method -> instantiate()
          *
          */
-
-
+        floatingActionButton2 = findViewById<FloatingActionButton>(R.id.floatingActionButton2)
+        floatingActionButton2.setOnClickListener{
+            val currentTop = this.supportFragmentManager.findFragmentById(R.id.fragmentContainerViewTop)
+            if(currentTop != null ){
+                if(currentTop.isHidden){
+                    this.supportFragmentManager.commit {
+                        show(currentTop)
+                    }
+                }
+                if(currentTop.isVisible){
+                    this.supportFragmentManager.commit {
+                        hide(currentTop)
+                    }
+                }
+            }else{
+                Toast.makeText(this, "The fragment is null ", Toast.LENGTH_SHORT).show()
+            }
+        }
         this.supportFragmentManager.fragmentFactory = MyFragmentFactory(DataFragmentTop("Javier","Armenta",18))
 
 
@@ -56,9 +72,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.commit {
             add(R.id.fragmentContainerViewBottom, FragmentBottom::class.java, bundleOf("key" to "hola"), "FragmentParent" )
-            add<FragmentTop>(R.id.fragmentContainerViewTop )
+            add<FragmentTop>(R.id.fragmentContainerViewTop  )
             setReorderingAllowed(true)
-
+            addToBackStack(null)
         }
 
 
@@ -101,9 +117,9 @@ class MainActivity : AppCompatActivity() {
 
             this.supportFragmentManager.commit {
                 replace<FragmentBottom>(bottomContainer, args = bundleOf("key" to "remplazando"))
-                setReorderingAllowed(true)// this is for animations and transitions
                 replace<FragmentTop>(topContainer)
-                addToBackStack(null)
+                setReorderingAllowed(true)// this is for animations and transitions
+                //addToBackStack(null) Here we want the activity has sticked the fragments
             }
             swapDone = !swapDone
         }
