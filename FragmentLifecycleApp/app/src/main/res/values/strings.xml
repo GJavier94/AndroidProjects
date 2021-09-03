@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FragmentLifecycleApp</string>
+    <string name="titleHostFragment">This is the hostFragment</string>
+    <string name="titleChildFragment">This is the childFragment</string>
+</resources>
