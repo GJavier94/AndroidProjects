@@ -2,4 +2,6 @@
     <string name="app_name">FragmentLifecycleApp</string>
     <string name="titleHostFragment">This is the hostFragment</string>
     <string name="titleChildFragment">This is the childFragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -29,9 +29,29 @@
             app:layout_constraintTop_toBottomOf="@id/textViewTitleHostFragment"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/goToChildFragment">
 
         </androidx.fragment.app.FragmentContainerView>
+        <Button
+            android:id="@+id/goToChildFragment"
+            android:text="go to Child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </Button>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/goBackHost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

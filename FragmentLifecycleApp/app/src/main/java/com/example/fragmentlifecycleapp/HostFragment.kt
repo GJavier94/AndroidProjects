@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HostFragment : Fragment() {
 
@@ -29,11 +32,28 @@ class HostFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_host, container, false)
         Log.i(TAG,"...onCreateView...")
 
-        this.childFragmentManager.commit {
-            //This creates the instance then attached it to the fragment Manager
-            add<ChildFragment>(R.id.fragmentContainerChild, "ChildFragment")
-            setPrimaryNavigationFragment( childFragmentManager.findFragmentByTag("ChildFragment"))
+        var goToChildFragment = view.findViewById<Button>(R.id.goToChildFragment)
+        goToChildFragment.setOnClickListener {
+            if( this.childFragmentManager.findFragmentByTag("ChildFragment") == null){
+
+                this.childFragmentManager.commit {
+                    //This creates the instance then attached it to the fragment Manager
+                    add<ChildFragment>(R.id.fragmentContainerChild, "ChildFragment")
+                    setPrimaryNavigationFragment( childFragmentManager.findFragmentByTag("ChildFragment"))
+                    addToBackStack(null)
+                }
+
+            }else{
+                Toast.makeText(activity, "already opened", Toast.LENGTH_SHORT).show()
+            }
         }
+
+        var goBackHost = view.findViewById<FloatingActionButton>(R.id.goBackHost)
+        goBackHost.setOnClickListener {
+            this.parentFragmentManager.popBackStack()
+        }
+
+
         return view
     }
 

@@ -7,11 +7,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class ChildFragment : Fragment() {
 
 
+    private lateinit var textViewSubtitle: TextView
+    private lateinit var textViewSavedState: TextView
+    private lateinit var textViewChildFragment: TextView
+    private lateinit var buttonChangeViewState: Button
+    private  var variableFragment:Int = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -20,6 +28,8 @@ class ChildFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(TAG,"...onCreate...")
+
+        Log.i(TAG,"variableFragment: $variableFragment")
     }
 
     override fun onCreateView(
@@ -29,6 +39,31 @@ class ChildFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_child, container, false)
         Log.i(TAG,"...onCreateView...")
+
+        buttonChangeViewState = view.findViewById<Button>(R.id.buttonChangeViewState)
+        textViewChildFragment = view.findViewById<TextView>(R.id.textViewChildFragment)
+        textViewSavedState = view.findViewById<TextView>(R.id.textViewSavedState)
+        textViewSubtitle = view.findViewById<TextView>(R.id.textViewSubtitle)
+        /**
+         * In a configuration change :
+         * The variables of the fragment are not preserved
+         * the state of the view is preserved
+         * The save state instance is also preserved
+         * Nonconfig state is also preserved
+         */
+        buttonChangeViewState.setOnClickListener {
+            var entero = textViewChildFragment.text.toString().toInt()
+            textViewChildFragment.text = (++entero).toString()
+            variableFragment++
+            Log.i(TAG,"variableFragment: $variableFragment buttonChangeViewState")
+            textViewSubtitle.text = "The text has been changed"
+        }
+
+        var goBackChild = view.findViewById<FloatingActionButton>(R.id.goBackChild)
+        goBackChild.setOnClickListener {
+            this.parentFragmentManager.popBackStack()
+        }
+
         return view
     }
 
@@ -40,6 +75,10 @@ class ChildFragment : Fragment() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         Log.i(TAG,"...onViewStateRestored...")
+        val variableSaveState = savedInstanceState?.getString("variableSaveState")
+        Log.i(TAG,"...onViewStateRestored...$variableSaveState")
+        textViewSavedState.text = variableSaveState
+
     }
 
 
@@ -65,8 +104,12 @@ class ChildFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        outState.apply {
+            putString("variableSaveState", "This variable has been saved thanks to InstanceState")
+        }
         super.onSaveInstanceState(outState)
         Log.i(TAG,"...onSaveInstanceState...")
+
     }
 
 
