@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.example.fragmentcommunication.R
+import com.example.fragmentcommunication.ViewModelCom.Models.Person
 import com.example.fragmentcommunication.ViewModelCom.ViewModelsOneActivity.ViewModelFragmentSibling1
 
 
@@ -19,6 +22,19 @@ class FragmentChild : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setFragmentResult(
+            Keys.CHILD_TO_SIBLING_1,
+            Bundle().apply {
+                putParcelable(BUNDLE_PERSON, Person("Gloria", "Santos", 21) )
+            }
+        )
+        setFragmentResultListener(
+            Keys.SIBLING1_TO_CHILD
+        ){
+                _, bundle ->
+            val person: Person? = bundle.getParcelable(BUNDLE_PERSON)
+            Log.i(FragmentSibling2.TAG, "person: $person")
+        }
     }
 
     override fun onCreateView(
@@ -38,6 +54,7 @@ class FragmentChild : Fragment() {
 
         }
     }
+
     companion object{
         const val TAG = "FragmentChildLogger"
     }

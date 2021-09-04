@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import com.example.fragmentcommunication.R
+import com.example.fragmentcommunication.ViewModelCom.Models.Person
 import com.example.fragmentcommunication.ViewModelCom.ViewModelsOneActivity.ViewModelOneActivity
 
 
@@ -22,7 +25,13 @@ class FragmentSibling2 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setFragmentResultListener(
+            Keys.ACTIVITY_TO_SIBLING_2
+        ){
+                _, bundle ->
+            val person: Person? = bundle.getParcelable(BUNDLE_PERSON)
+            Log.i(TAG, "person: $person")
+        }
     }
 
     override fun onCreateView(
@@ -50,6 +59,30 @@ class FragmentSibling2 : Fragment() {
         buttonSibling2toActivity.setOnClickListener {
             Log.i(FragmentSibling1.TAG, "button changing value ..")
             viewModel.counterSibling2toActivity.value = viewModel.counterSibling2toActivity.value?.plus(1)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        this.setFragmentResult(
+            Keys.SIBLING_2_TO_ACTIVITY,
+            Bundle().apply {
+                putParcelable(BUNDLE_PERSON, Person("Eugenia", "Castillo", 19) )
+            }
+        )
+        this.setFragmentResult(
+            Keys.SIBLING2_TO_SIBLING1,
+            Bundle().apply {
+                putParcelable(BUNDLE_PERSON, Person("Daniel", "Bernardo", 2) )
+            }
+        )
+        setFragmentResultListener(
+            Keys.SIBLING1_TO_SIBLING2
+        ){
+                _, bundle ->
+            val person: Person? = bundle.getParcelable(BUNDLE_PERSON)
+            Log.i(FragmentSibling1.TAG, "SIBLING1_TO_SIBLING2: $person")
         }
     }
     companion object{
