@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp">
+
+    <TextView
+        android:id="@+id/alarm_item_text_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:text="09:00"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@id/alarm_item_text_details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/alarm_item_text_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/alarm_item_text_hour"
+        app:layout_constraintTop_toBottomOf="@id/alarm_item_text_hour"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="83dp"
+        tools:text="Daily | Alarm in 19 hours 41 minutes" />
+
+    <Switch
+        android:id="@+id/alarm_item_switchAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:switchMinWidth="65dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/alarm_item_text_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/alarm_item_text_hour" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

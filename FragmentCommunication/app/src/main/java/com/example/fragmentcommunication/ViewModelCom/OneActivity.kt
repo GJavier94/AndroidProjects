@@ -26,8 +26,7 @@ class OneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_one)
         textViewSibling2toActivity = findViewById<TextView>(R.id.textViewSibling2toActivity)
-
-
+        
         /**
          * FragmentManager Class implement FragmentResultOwner
          * FragmentResultOwner: has many methods  two important ones are

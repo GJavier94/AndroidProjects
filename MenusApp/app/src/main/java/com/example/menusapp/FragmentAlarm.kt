@@ -3,13 +3,24 @@ package com.example.menusapp
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+
+
+import com.example.menusapp.ViewModels.ViewModelFragmentAlarm
+import com.example.menusapp.ViewModels.ViewModelMainActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
+
 class FragmentAlarm : Fragment() {
+    private val viewModel:ViewModelFragmentAlarm by viewModels()
+    private val viewModelActivity: ViewModelMainActivity by activityViewModels()
+
+    private lateinit var recyclerView: RecyclerView
     private lateinit var buttonAddAlarm: FloatingActionButton
 
     /**
@@ -36,7 +47,8 @@ class FragmentAlarm : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //we register the variable of the FragmentViewModel to change
+        // when the variable
     }
 
     override fun onCreateView(
@@ -44,7 +56,9 @@ class FragmentAlarm : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alarm, container, false)
+        val view = inflater.inflate(R.layout.fragment_alarm, container, false)
+        recyclerView = view.findViewById(R.id.framgment_alarm_RecyclerView_alarm)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,8 +66,29 @@ class FragmentAlarm : Fragment() {
         buttonAddAlarm = view.findViewById(R.id.button_add_alarm)
         //we register the view for context menu
         this.registerForContextMenu(buttonAddAlarm)
+
+
+        /*
+        When the view is created we can set the  recyclerView
+        **/
+
+
+        if(viewModel.createAdapter(this.activity)){
+            Log.i(TAG, "Adapter is loaded")
+            recyclerView.adapter = viewModel.alarmAdapter
+
+        }else{
+            Log.i(TAG, "Adapter couldn't be loaded")
+            Toast.makeText(this.context, "Adapter couldn't be loaded", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+    }
     override fun onCreateContextMenu(
         menu: ContextMenu,
         v: View,
@@ -63,6 +98,10 @@ class FragmentAlarm : Fragment() {
         val inflater:MenuInflater? = this.activity?.menuInflater
 
         inflater?.inflate(R.menu.fragment_alarm_context_menu, menu)
+
+
+
+
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -81,7 +120,13 @@ class FragmentAlarm : Fragment() {
 
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+    }
     companion object {
         const val TAG = "FragmentAlarmLogger"
+        const val RECYCLER_VIEW_ID = "fragment_alarm_context_menu"
     }
 }

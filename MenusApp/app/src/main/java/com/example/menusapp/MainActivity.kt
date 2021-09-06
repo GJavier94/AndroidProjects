@@ -4,14 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
 import com.example.menusapp.Constants.Tags
+import com.example.menusapp.ViewModels.ViewModelMainActivity
 
 class MainActivity : AppCompatActivity() {
 
-
+    private val viewModel: ViewModelMainActivity by viewModels()
     /**
      * This method is called when the activity is starting so that it can show a menu
      * from a xml resource with the main tag as root
@@ -88,11 +90,17 @@ class MainActivity : AppCompatActivity() {
         /**
          * Create and commit the fragmentChild of this activity
          */
+
         this.supportFragmentManager.commitNow{
             add<FragmentAlarm>(R.id.fragmentContainer_optionAlarm, Tags.FRAGMENT_ALARM)
             add<FragmentTimeHour>(R.id.fragmentContainer_optionTimeHour, Tags.FRAGMENT_TIME_HOUR)
         }
         setOnlyVisible(Tags.FRAGMENT_ALARM)
+
+        /*
+        * observe  the adapter to start an action mode
+        * */
+        //viewMod
 
     }
     companion object{

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_bar_close"
+        android:icon="@drawable/ic_baseline_close_24"
+        app:showAsAction="always"
+        android:title="close"/>
+    <item
+        android:id="@+id/action_bar_itemsSelected"
+        android:title="Items selected"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_bar_selectAll"
+        android:title="select all"
+        android:icon="@drawable/ic_baseline_checklist_24"
+        app:showAsAction="always" />
+
+</menu>
