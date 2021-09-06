@@ -81,9 +81,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -96,6 +93,10 @@ class MainActivity : AppCompatActivity() {
             add<FragmentTimeHour>(R.id.fragmentContainer_optionTimeHour, Tags.FRAGMENT_TIME_HOUR)
         }
         setOnlyVisible(Tags.FRAGMENT_ALARM)
+
+    }
+    companion object{
+        const val TAG = "MainActivityLogger"
 
     }
 }
