@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/option_alarm"
+        android:title="Alarms"
+        android:icon="@drawable/ic_baseline_alarm_24"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/option_time_hour"
+        android:title="Times"
+        android:icon="@drawable/ic_baseline_access_time_24"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/option_timer"
+        android:title="Timers"
+        android:icon="@drawable/ic_baseline_timer_24"
+        app:showAsAction="always">
+    </item>
+    <item
+        android:id="@+id/option_settings"
+        android:title="Settings"
+        />
+
+</menu>
