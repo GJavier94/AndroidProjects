@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.menusapp.Adapters.AlarmAdapter
 import com.example.menusapp.Models.AlarmItem
@@ -19,10 +20,22 @@ class ViewModelFragmentAlarm: ViewModel() {
     internal  var isActionModeOn: MutableLiveData<Boolean> = MutableLiveData(false)
     internal var actionMode:ActionMode? = null
 
+    private var dataSource:MutableLiveData<ArrayList<AlarmItem>> = MutableLiveData<ArrayList<AlarmItem>>(ArrayList())
+
     internal var callBackActionMode: ActionMode.Callback = object:ActionMode.Callback{
+
         override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
             val inflater:MenuInflater? = actionMode?.menuInflater
             inflater?.inflate(R.menu.activity_main_action_mode, menu)
+            Log.i(TAG,"onCreateActionMode...Start observing")
+            this@ViewModelFragmentAlarm.alarmAdapter.numItemsSelected.observeForever {
+                Observer<Int> {
+                    numItemsSelected ->
+                    Log.i(TAG,"onCreateActionMode... numItemsSelected = $numItemsSelected")
+                    menu?.findItem(R.id.action_bar_itemsSelected)?.title = "$numItemsSelected Items selected"
+                }
+            }
+
             return true
         }
 
@@ -60,7 +73,7 @@ class ViewModelFragmentAlarm: ViewModel() {
         populateDataSource()
         if(dataSource.value != null ){
             printDataSource(dataSource.value!!)
-            this.alarmAdapter = AlarmAdapter(dataSource.value!!,this)
+            this.alarmAdapter = AlarmAdapter(dataSource,this)
             return true
         }
         return false
@@ -72,8 +85,6 @@ class ViewModelFragmentAlarm: ViewModel() {
         }
 
     }
-
-    private var dataSource:MutableLiveData<ArrayList<AlarmItem>> = MutableLiveData<ArrayList<AlarmItem>>(ArrayList())
 
 
     override fun onCleared() {

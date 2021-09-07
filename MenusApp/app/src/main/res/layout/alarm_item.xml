@@ -32,11 +32,26 @@
     <Switch
         android:id="@+id/alarm_item_switchAlarm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:switchMinWidth="65dp"
+        tools:visibility="invisible"
         android:text=""
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="@id/alarm_item_text_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/alarm_item_text_hour" />
 
+    <ImageButton
+        android:id="@+id/alarm_item_radioButtonSelected"
+        android:layout_width="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        tools:visibility="visible"
+
+        android:src="@drawable/ic_baseline_circle_24"
+        app:layout_constraintBottom_toBottomOf="@id/alarm_item_text_details"
+        app:layout_constraintEnd_toEndOf="@id/alarm_item_switchAlarm"
+        app:layout_constraintStart_toStartOf="@id/alarm_item_switchAlarm"
+        app:layout_constraintTop_toTopOf="@id/alarm_item_text_hour"></ImageButton>
 </androidx.constraintlayout.widget.ConstraintLayout>
