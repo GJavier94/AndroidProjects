@@ -97,10 +97,6 @@ class MainActivity : AppCompatActivity() {
         }
         setOnlyVisible(Tags.FRAGMENT_ALARM)
 
-        /*
-        * observe  the adapter to start an action mode
-        * */
-        //viewMod
 
     }
     companion object{

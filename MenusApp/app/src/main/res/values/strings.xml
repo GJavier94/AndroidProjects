@@ -3,4 +3,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="fragment_time_hour">fragment_time_hour</string>
     <string name="fragment_alarm">fragment_alarm</string>
+    <string name="title_items_option">selected</string>
 </resources>

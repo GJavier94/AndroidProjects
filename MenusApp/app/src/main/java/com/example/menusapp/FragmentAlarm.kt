@@ -87,9 +87,10 @@ class FragmentAlarm : Fragment() {
         viewModel.isActionModeOn.observe(this.viewLifecycleOwner, Observer {
             isActionModeOn ->
             if(isActionModeOn){
+                Log.i(TAG, "The ActionMode is on")
                 viewModel.actionMode = this.activity?.startActionMode(viewModel.callBackActionMode)
             }else{
-                Log.i(TAG, "Getting out from the action mode...")
+                Log.i(TAG, "The ActionMode is off")
             }
         } )
     }

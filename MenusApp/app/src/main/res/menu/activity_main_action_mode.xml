@@ -13,12 +13,15 @@
         android:title="close"/>
     <item
         android:id="@+id/action_bar_itemsSelected"
-        android:title="Items selected"
+        android:title="@string/title_items_option"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_bar_selectAll"
-        android:title="select all"
+        android:checkable="true"
+        android:checked="false"
         android:icon="@drawable/ic_baseline_checklist_24"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:title="select all"
+        />
 
 </menu>

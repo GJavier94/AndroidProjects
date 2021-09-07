@@ -48,7 +48,6 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         tools:visibility="visible"
-
         android:src="@drawable/ic_baseline_circle_24"
         app:layout_constraintBottom_toBottomOf="@id/alarm_item_text_details"
         app:layout_constraintEnd_toEndOf="@id/alarm_item_switchAlarm"

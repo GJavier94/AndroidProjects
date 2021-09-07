@@ -14,18 +14,15 @@ import com.example.menusapp.Models.AlarmItem
 import com.example.menusapp.R
 import com.example.menusapp.ViewModels.ViewModelFragmentAlarm
 
-class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val viewModelFragmentAlarm: ViewModelFragmentAlarm) :RecyclerView.Adapter<AlarmAdapter.ViewHolderAlarm>() {
-    var numItemsSelected = MutableLiveData<Int>(0)
+class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<MutableLiveData<AlarmItem>>>, val viewModelFragmentAlarm: ViewModelFragmentAlarm) :RecyclerView.Adapter<AlarmAdapter.ViewHolderAlarm>() {
+
 
     inner class ViewHolderAlarm(itemView: View):RecyclerView.ViewHolder(itemView){
-        fun stablishRadioButton(selected: Boolean) {
+
+        fun establishRadioButton(selected: Boolean) {
             if(selected){
-                Log.i(TAG,"stablishRadioButton...${ this@AlarmAdapter.numItemsSelected.value}")
-                this@AlarmAdapter.numItemsSelected.value = this@AlarmAdapter.numItemsSelected.value?.plus(1)
                 radioButtonSelected.setImageResource(R.drawable.ic_baseline_check_circle_24)
             }else{
-                Log.i(TAG,"stablishRadioButton...${ this@AlarmAdapter.numItemsSelected.value}")
-                this@AlarmAdapter.numItemsSelected.value = this@AlarmAdapter.numItemsSelected.value?.minus(1)
                 radioButtonSelected.setImageResource(R.drawable.ic_baseline_circle_24)
             }
         }
@@ -34,7 +31,9 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
         internal var detailsTextView:TextView = itemView.findViewById<TextView>(R.id.alarm_item_text_details)
         internal var switch:Switch = itemView.findViewById<Switch>(R.id.alarm_item_switchAlarm)
         internal var radioButtonSelected:ImageView  = itemView.findViewById(R.id.alarm_item_radioButtonSelected)
+
         init{
+            //stablishing listeners and observers
 
             itemView.setOnLongClickListener {
                 view ->
@@ -58,12 +57,9 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
                     }
                 }
             })
-                        /*
-            itemView.setOnTouchListener { v, event ->
-                itemView.setBackgroundColor(Color.GRAY)
-                true
-            }
-            */
+
+
+
         }
     }
 
@@ -77,21 +73,33 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
 
     override fun onBindViewHolder(viewHolder: ViewHolderAlarm, position: Int) {
         Log.i(TAG, "Calling onBindViewHolder")
-        viewHolder.timeTextView.text = dataSource.value?.get(position)?.time
-        viewHolder.detailsTextView.text = dataSource.value?.get(position)?.details
-        viewHolder.switch.isChecked = dataSource.value?.get(position)?.switch!!
 
-        viewHolder.stablishRadioButton(dataSource.value?.get(position)?.isSelected!!)
+        dataSource.value?.get(position)?.value.apply {
+            viewHolder.timeTextView.text = this?.time
+            viewHolder.detailsTextView.text = this?.details
+            viewHolder.switch.isChecked = this?.switch!!
+            viewHolder.establishRadioButton( this.isSelected)
+
+        }
+
 
         viewHolder.switch.setOnCheckedChangeListener { _, isChecked ->
-            dataSource.value?.get(position)?.switch = isChecked
-        }
-        viewHolder.itemView.setOnClickListener {
-            dataSource.value?.get(position)?.isSelected = !dataSource.value?.get(position)?.isSelected!!
-            viewHolder.stablishRadioButton(dataSource.value?.get(position)?.isSelected!!)
+            dataSource.value?.get(position)?.value?.switch = isChecked
         }
 
+
+
+        viewHolder.itemView.setOnClickListener {
+            if(viewModelFragmentAlarm.isActionModeOn.value  == true){
+                Log.i(TAG,"viewHolder.itemView.setOnClickListener " )
+                dataSource.value?.get(position)?.value?.isSelected = !dataSource.value?.get(position)?.value?.isSelected!!
+            }
+        }
+
+
+
     }
+
 
     override fun getItemCount(): Int {
         return dataSource.value?.size!!
