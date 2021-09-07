@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -82,7 +83,15 @@ class FragmentAlarm : Fragment() {
             Toast.makeText(this.context, "Adapter couldn't be loaded", Toast.LENGTH_SHORT).show()
         }
 
-
+        //best place to start observing actionMode Variable
+        viewModel.isActionModeOn.observe(this.viewLifecycleOwner, Observer {
+            isActionModeOn ->
+            if(isActionModeOn){
+                viewModel.actionMode = this.activity?.startActionMode(viewModel.callBackActionMode)
+            }else{
+                Log.i(TAG, "Getting out from the action mode...")
+            }
+        } )
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

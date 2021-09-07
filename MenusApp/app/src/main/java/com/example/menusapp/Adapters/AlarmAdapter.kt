@@ -6,22 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menusapp.Models.AlarmItem
 import com.example.menusapp.R
+import com.example.menusapp.ViewModels.ViewModelFragmentAlarm
 
-class AlarmAdapter(private val dataSource: ArrayList<AlarmItem>, internal val activity: FragmentActivity?) :RecyclerView.Adapter<AlarmAdapter.ViewHolderAlarm>() {
+class AlarmAdapter( val dataSource: ArrayList<AlarmItem>, val viewModelFragmentAlarm: ViewModelFragmentAlarm) :RecyclerView.Adapter<AlarmAdapter.ViewHolderAlarm>() {
 
-    class ViewHolderAlarm(itemView: View):RecyclerView.ViewHolder(itemView){
+    inner class ViewHolderAlarm(itemView: View):RecyclerView.ViewHolder(itemView){
         internal var timeTextView:TextView = itemView.findViewById<TextView>(R.id.alarm_item_text_hour)
         internal var detailsTextView:TextView = itemView.findViewById<TextView>(R.id.alarm_item_text_details)
         internal var switch:Switch = itemView.findViewById<Switch>(R.id.alarm_item_switchAlarm)
 
         init{
             itemView.setOnLongClickListener {
-                activity
-
+                view ->
+                if(!viewModelFragmentAlarm.isActionModeOn.value!!){
+                    viewModelFragmentAlarm.isActionModeOn.value = true
+                }
                 true
             }
             /*
