@@ -33,6 +33,14 @@ class MainActivity : AppCompatActivity() {
         MenuItem is a class object which has all the attributes of menu item
         including the ID in this way we can now which option item was clicked!
          */
+
+        /**
+         * In your implementation of onOptionsItemSelected(), use a switch statement on the itemId of the menu item.
+         * If the selected item is yours, handle the touch appropriately and return true to indicate that the click
+         * event has been handled.
+         * If the selected item is not yours, call the super implementation.
+         * By default, the super implementation returns false to allow menu processing to continue.
+         */
         return when(item.itemId){
             R.id.option_alarm ->{
                 setOnlyVisible(Tags.FRAGMENT_ALARM)
@@ -49,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else ->{
-                super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item) // this returns false so that other fragments methods implementations can  handle the itemselected
             }
         }
     }

@@ -1,10 +1,13 @@
 package com.example.menusapp.ViewModels
 
+import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +16,8 @@ import com.example.menusapp.Models.AlarmItem
 import com.example.menusapp.R
 
 class ViewModelFragmentAlarm: ViewModel() {
+    var contextFragment: Context? = null
+
     internal lateinit var alarmAdapter:AlarmAdapter
     internal var isActionModeOn: MutableLiveData<Boolean> = MutableLiveData(false)
     internal var actionMode:ActionMode? = null
@@ -136,7 +141,7 @@ class ViewModelFragmentAlarm: ViewModel() {
         if(dataSource.value != null ){
             printDataSource(dataSource.value!!)
             this.alarmAdapter = AlarmAdapter(dataSource,this)
-            putObservers()
+
             return true
         }
         return false
@@ -149,34 +154,6 @@ class ViewModelFragmentAlarm: ViewModel() {
 
     }
 
-
-    private fun putObservers() {
-        //set all data to unselected
-        /*
-        this.isActionModeOn.observeForever {
-                isActionModeOn ->
-            if(!isActionModeOn) unSelectAllData()
-        }
-        */
-/*
-        Log.i(TAG,"${dataSource.value?.size} ")
-        dataSource.value?.forEach {
-                mutableAlarmItem ->
-            mutableAlarmItem.observeForever {
-                Log.i(TAG, "mutableAlarmItem.observeForever ${mutableAlarmItem.value}")
-                if(!mutableAlarmItem.value?.firstTime!!){
-                    if(mutableAlarmItem.value?.isSelected!!){
-                        this.numItemsSelected.value = this.numItemsSelected.value?.plus(1)
-                    }else{
-                        this.numItemsSelected.value = this.numItemsSelected.value?.minus(1)
-                    }
-                    Log.i(TAG, "Items selected ${this.numItemsSelected.value}")
-
-                }
-                mutableAlarmItem.value?.firstTime = false
-            }
-        }*/
-    }
 
     private fun unSelectAllData() {
         this.unSelectAll.value = true
@@ -200,6 +177,20 @@ class ViewModelFragmentAlarm: ViewModel() {
             }
         }
         this.selectAll.value = true
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun deleteSelectedAlarms():Boolean{
+        Log.i(TAG, "Deleting selected items")
+        val result = this.dataSource.value?.removeIf {
+            alarmItem ->
+            alarmItem.isSelected
+        }
+        if(result == null){
+            Log.i(TAG, "There was a problem with the data source")
+        }
+        return result!!
+        Log.i(TAG, "Items selected deleted")
     }
 
 
