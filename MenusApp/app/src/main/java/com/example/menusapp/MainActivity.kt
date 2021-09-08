@@ -2,33 +2,22 @@ package com.example.menusapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
+import androidx.lifecycle.Observer
 import com.example.menusapp.Constants.Tags
 import com.example.menusapp.ViewModels.ViewModelMainActivity
 
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: ViewModelMainActivity by viewModels()
-    /**
-     * This method is called when the activity is starting so that it can show a menu
-     * from a xml resource with the main tag as root
-     *
-     * It is possible to add new items by using add method from the menu Object
-     * Menu xml elements are inflated ( create a kotlin object in memory of the Menu class )
-     * The items in Menu xml file are MenuItem Objects in kotlin or java
-     *
-     * Activity has a method menuInflater which has a method inflate -> to inflate a view on the UI
-     * Steps
-     *  1.- Create xml file in the res/menu folder
-     *  2.- override onCreateOptionsMenu so that the menu is inflate when running the ACT
-     *  3.- onOptionsItemSelected: -> override a method which is called when an optiones item is clicked
-     *
-     */
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = this.menuInflater
@@ -97,7 +86,14 @@ class MainActivity : AppCompatActivity() {
         }
         setOnlyVisible(Tags.FRAGMENT_ALARM)
 
+        this.viewModel.isActionModeOn.observe(this, Observer {
+            isActionModeOn ->
+            if(isActionModeOn){
 
+            }else{
+
+            }
+        })
     }
     companion object{
         const val TAG = "MainActivityLogger"

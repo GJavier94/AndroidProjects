@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class FragmentAlarm : Fragment() {
+    private lateinit var buttonDeleteSelectionAlarm: FloatingActionButton
     private val viewModel:ViewModelFragmentAlarm by viewModels()
     private val viewModelActivity: ViewModelMainActivity by activityViewModels()
 
@@ -65,6 +66,7 @@ class FragmentAlarm : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         buttonAddAlarm = view.findViewById(R.id.button_add_alarm)
+        buttonDeleteSelectionAlarm = view.findViewById<FloatingActionButton>(R.id.button_delete_selection_alarm)
         //we register the view for context menu
         this.registerForContextMenu(buttonAddAlarm)
 
@@ -86,10 +88,16 @@ class FragmentAlarm : Fragment() {
         //best place to start observing actionMode Variable
         viewModel.isActionModeOn.observe(this.viewLifecycleOwner, Observer {
             isActionModeOn ->
+            viewModelActivity.isActionModeOn.value = isActionModeOn
             if(isActionModeOn){
+                buttonAddAlarm.visibility = View.INVISIBLE
+                buttonDeleteSelectionAlarm.visibility = View.VISIBLE
+
                 Log.i(TAG, "The ActionMode is on")
                 viewModel.actionMode = this.activity?.startActionMode(viewModel.callBackActionMode)
             }else{
+                buttonAddAlarm.visibility = View.VISIBLE
+                buttonDeleteSelectionAlarm.visibility = View.INVISIBLE
                 Log.i(TAG, "The ActionMode is off")
             }
         } )
