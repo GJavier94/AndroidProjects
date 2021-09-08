@@ -16,39 +16,43 @@ class ViewModelFragmentAlarm: ViewModel() {
     internal lateinit var alarmAdapter:AlarmAdapter
     internal var isActionModeOn: MutableLiveData<Boolean> = MutableLiveData(false)
     internal var actionMode:ActionMode? = null
-    private var dataSource:MutableLiveData<ArrayList< MutableLiveData< AlarmItem> >> = MutableLiveData<ArrayList< MutableLiveData< AlarmItem> >>(
-        ArrayList(0)
-    )
-
-    var numItemsSelected = MutableLiveData<Int>(0)
+    private var dataSource:MutableLiveData<ArrayList< AlarmItem> > = MutableLiveData<ArrayList<AlarmItem>>(ArrayList())
+    internal var selectAll = MutableLiveData<Boolean>(false)
+    internal var unSelectAll = MutableLiveData<Boolean>(false)
 
 
+    val itemCountHandler = ItemCountHandler()
 
-    internal var callBackActionMode: ActionMode.Callback = object:ActionMode.Callback{
+    inner class ItemCountHandler {
+        var itemCount = MutableLiveData<Int>(0)
+        fun addItemToCount(){
+            Log.i(TAG,"${getItemCount()}")
+            if(itemCount.value?.compareTo(dataSource.value?.size!!)!! < 0 )itemCount.value = itemCount.value?.plus(1)
+        }
+        fun removeItemToCount(){
+            Log.i(TAG,"${getItemCount()}")
+            if(itemCount.value?.compareTo(0)!! > 0 ) itemCount.value = itemCount.value?.minus(1)
+        }
+        fun getItemCount(): Int? {
+            return itemCount.value
+        }
+    }
+
+    internal var callBackActionMode = object: ActionMode.Callback {
 
 
         override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
             val inflater:MenuInflater? = actionMode?.menuInflater
             inflater?.inflate(R.menu.activity_main_action_mode, menu)
             Log.i(TAG,"onCreateActionMode...Start observing")
-            Log.i( TAG, "${this@ViewModelFragmentAlarm.numItemsSelected.value}" )
+            //Log.i( TAG, "${this@ViewModelFragmentAlarm.numItemsSelected.value}" )
 
 
-            this@ViewModelFragmentAlarm.numItemsSelected.observeForever  {
-                menu?.findItem(R.id.action_bar_itemsSelected)?.title = "${this@ViewModelFragmentAlarm.numItemsSelected.value}"+ " selected"
-                Log.i(TAG,"${this@ViewModelFragmentAlarm.numItemsSelected.value} Hi" )
+            itemCountHandler.itemCount.observeForever  {
+                menu?.findItem(R.id.action_bar_itemsSelected)?.title = "${itemCountHandler.getItemCount()}"+ " items"
+
+                Log.i(TAG, "${itemCountHandler.getItemCount()}"+ " items selected")
             }
-
-            this@ViewModelFragmentAlarm.numItemsSelected.observeForever  {
-                    numItemsSelected ->
-                val menuItem = menu?.findItem(R.id.action_bar_selectAll)
-                if(numItemsSelected == dataSource.value?.size &&   !menuItem?.isChecked!! ){
-                    menuItem.isChecked = true
-                }
-
-                Log.i(TAG,"${this@ViewModelFragmentAlarm.numItemsSelected.value} Hi" )
-            }
-
 
             return true
         }
@@ -67,6 +71,13 @@ class ViewModelFragmentAlarm: ViewModel() {
                 }
                 R.id.action_bar_selectAll->{
                     menuItem.isChecked = !menuItem.isChecked
+                    var message:String? = null
+                    when(menuItem.isChecked){
+                        true -> message = "is checked"
+                        false -> message = " is not checked"
+                    }
+
+                    Log.i(TAG, "The menu item  $message")
 
                     when(menuItem.isChecked){
                         true->{
@@ -89,7 +100,8 @@ class ViewModelFragmentAlarm: ViewModel() {
         override fun onDestroyActionMode(actionMode: ActionMode?) {
             this@ViewModelFragmentAlarm.actionMode = null
             this@ViewModelFragmentAlarm.isActionModeOn.value = false
-            this@ViewModelFragmentAlarm.numItemsSelected.value = 0
+            this@ViewModelFragmentAlarm.itemCountHandler.itemCount.value = 0
+            unSelectAllData()
         }
 
     }
@@ -99,16 +111,16 @@ class ViewModelFragmentAlarm: ViewModel() {
         Log.i(TAG, "populateDataSource")
         if( dataSource.value != null ){
             dataSource.value?.apply {
-                add(MutableLiveData<AlarmItem>(AlarmItem("09:10", "Daily| Alarm in 17 hours 3 minutes", false,false,true)))
 
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
-                add(MutableLiveData<AlarmItem>(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true)))
+                add(AlarmItem("09:10", "Daily| Alarm in 17 hours 3 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
             }
 
         }else{
@@ -130,9 +142,9 @@ class ViewModelFragmentAlarm: ViewModel() {
         return false
     }
 
-    private fun printDataSource(arrayList: ArrayList<MutableLiveData<AlarmItem>>) {
+    private fun printDataSource(arrayList: ArrayList<AlarmItem>) {
         arrayList.forEach {
-            Log.i(TAG, it.value.toString())
+            Log.i(TAG, it.toString())
         }
 
     }
@@ -146,7 +158,7 @@ class ViewModelFragmentAlarm: ViewModel() {
             if(!isActionModeOn) unSelectAllData()
         }
         */
-
+/*
         Log.i(TAG,"${dataSource.value?.size} ")
         dataSource.value?.forEach {
                 mutableAlarmItem ->
@@ -163,21 +175,31 @@ class ViewModelFragmentAlarm: ViewModel() {
                 }
                 mutableAlarmItem.value?.firstTime = false
             }
-        }
+        }*/
     }
 
     private fun unSelectAllData() {
+        this.unSelectAll.value = true
         dataSource.value?.forEach {
                 alarmItem ->
-            if(alarmItem.value?.isSelected == true) alarmItem.value?.isSelected = false
+            if(alarmItem.isSelected) {
+                this.itemCountHandler.removeItemToCount()
+                alarmItem.isSelected = false
+            }
         }
+        this.unSelectAll.value = false
     }
 
     private fun selectAllData() {
+        this.selectAll.value = true
         dataSource.value?.forEach {
                 alarmItem ->
-            if(alarmItem.value?.isSelected == false) alarmItem.value?.isSelected = true
+            if(!alarmItem.isSelected){
+                this.itemCountHandler.addItemToCount()
+                alarmItem.isSelected = true
+            }
         }
+        this.selectAll.value = true
     }
 
 

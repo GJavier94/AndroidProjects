@@ -14,17 +14,18 @@ import com.example.menusapp.Models.AlarmItem
 import com.example.menusapp.R
 import com.example.menusapp.ViewModels.ViewModelFragmentAlarm
 
-class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<MutableLiveData<AlarmItem>>>, val viewModelFragmentAlarm: ViewModelFragmentAlarm) :RecyclerView.Adapter<AlarmAdapter.ViewHolderAlarm>() {
+class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val viewModelFragmentAlarm: ViewModelFragmentAlarm) :RecyclerView.Adapter<AlarmAdapter.ViewHolderAlarm>() {
 
 
     inner class ViewHolderAlarm(itemView: View):RecyclerView.ViewHolder(itemView){
 
-        fun establishRadioButton(selected: Boolean) {
+        fun establishRadioButton(selected: Boolean):Boolean {
             if(selected){
                 radioButtonSelected.setImageResource(R.drawable.ic_baseline_check_circle_24)
             }else{
                 radioButtonSelected.setImageResource(R.drawable.ic_baseline_circle_24)
             }
+            return true
         }
 
         internal var timeTextView:TextView = itemView.findViewById<TextView>(R.id.alarm_item_text_hour)
@@ -43,23 +44,16 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<MutableLiveData<Ala
                 true
             }
 
-            viewModelFragmentAlarm.isActionModeOn.observeForever( Observer {
-                    isActionModeOn ->
-                when(isActionModeOn){
-                    true  -> {
-                        switch.visibility = View.INVISIBLE
-                        radioButtonSelected.visibility = View.VISIBLE
-                    }
-                    false ->{
-                        switch.visibility = View.VISIBLE
-                        radioButtonSelected.setImageResource(R.drawable.ic_baseline_circle_24)
-                        radioButtonSelected.visibility = View.INVISIBLE
-                    }
+            this@AlarmAdapter.viewModelFragmentAlarm.selectAll.observeForever{
+                if(it){
+                    establishRadioButton(true)
                 }
-            })
-
-
-
+            }
+            this@AlarmAdapter.viewModelFragmentAlarm.unSelectAll.observeForever{
+                if(it){
+                    establishRadioButton(false)
+                }
+            }
         }
     }
 
@@ -74,27 +68,51 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<MutableLiveData<Ala
     override fun onBindViewHolder(viewHolder: ViewHolderAlarm, position: Int) {
         Log.i(TAG, "Calling onBindViewHolder")
 
-        dataSource.value?.get(position)?.value.apply {
-            viewHolder.timeTextView.text = this?.time
-            viewHolder.detailsTextView.text = this?.details
-            viewHolder.switch.isChecked = this?.switch!!
-            viewHolder.establishRadioButton( this.isSelected)
+        viewModelFragmentAlarm.isActionModeOn.observeForever( Observer {
+                isActionModeOn ->
+            when(isActionModeOn){
+                true  -> {
+                    viewHolder.switch.visibility = View.INVISIBLE
+                    viewHolder.radioButtonSelected.visibility = View.VISIBLE
+                }
+                false ->{
+                    viewHolder.switch.visibility = View.VISIBLE
+                    viewHolder.radioButtonSelected.setImageResource(R.drawable.ic_baseline_circle_24)
+                    viewHolder.radioButtonSelected.visibility = View.INVISIBLE
+                }
+            }
+        })
 
+
+        dataSource.value?.get(position)?.also {
+            alarmItem ->
+
+            viewHolder.timeTextView.text = alarmItem?.time
+            viewHolder.detailsTextView.text = alarmItem?.details
+            viewHolder.switch.isChecked = alarmItem?.switch!!
+            viewHolder.establishRadioButton( alarmItem.isSelected)
+            viewHolder.itemView.setOnClickListener {
+                if(viewModelFragmentAlarm.isActionModeOn.value  == true){
+                    alarmItem.isSelected = !alarmItem.isSelected
+                    if(viewHolder.establishRadioButton( alarmItem.isSelected)){
+                        if(alarmItem.isSelected){
+                            viewModelFragmentAlarm.itemCountHandler.addItemToCount()
+                        }else{
+                            viewModelFragmentAlarm.itemCountHandler.removeItemToCount()
+                        }
+                    }
+                }
+            }
         }
 
 
         viewHolder.switch.setOnCheckedChangeListener { _, isChecked ->
-            dataSource.value?.get(position)?.value?.switch = isChecked
+            dataSource.value?.get(position)?.switch = isChecked
         }
 
 
 
-        viewHolder.itemView.setOnClickListener {
-            if(viewModelFragmentAlarm.isActionModeOn.value  == true){
-                Log.i(TAG,"viewHolder.itemView.setOnClickListener " )
-                dataSource.value?.get(position)?.value?.isSelected = !dataSource.value?.get(position)?.value?.isSelected!!
-            }
-        }
+
 
 
 
