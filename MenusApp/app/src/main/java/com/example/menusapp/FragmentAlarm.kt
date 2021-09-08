@@ -122,7 +122,9 @@ class FragmentAlarm : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         Log.i(TAG, "onCreateOptionsMenu")
+
         inflater.inflate(R.menu.fragment_alarm_menu, menu)
+
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

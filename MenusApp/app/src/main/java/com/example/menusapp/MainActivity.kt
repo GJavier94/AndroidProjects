@@ -94,14 +94,7 @@ class MainActivity : AppCompatActivity() {
         }
         setOnlyVisible(Tags.FRAGMENT_ALARM)
 
-        this.viewModel.isActionModeOn.observe(this, Observer {
-            isActionModeOn ->
-            if(isActionModeOn){
 
-            }else{
-
-            }
-        })
     }
     companion object{
         const val TAG = "MainActivityLogger"
