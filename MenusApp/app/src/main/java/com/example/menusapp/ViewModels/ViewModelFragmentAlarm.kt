@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.menusapp.Adapters.AlarmAdapter
@@ -17,6 +18,7 @@ import com.example.menusapp.R
 
 class ViewModelFragmentAlarm: ViewModel() {
     var contextFragment: Context? = null
+    var fragmentManager:FragmentManager? = null
 
     internal lateinit var alarmAdapter:AlarmAdapter
     internal var isActionModeOn: MutableLiveData<Boolean> = MutableLiveData(false)

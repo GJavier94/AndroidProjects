@@ -4,4 +4,8 @@
     <string name="fragment_time_hour">fragment_time_hour</string>
     <string name="fragment_alarm">fragment_alarm</string>
     <string name="title_items_option">selected</string>
+    <string name="dialog_delete_message">Are you sure you want to delete this alarm?</string>
+    <string name="accept_text">Accept</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="delete_dialog_title">Delete</string>
 </resources>

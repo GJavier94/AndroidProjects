@@ -3,21 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuSearch"
+        android:id="@+id/fragment_time_hour_menuSearch"
         app:showAsAction="always"
         android:icon="@drawable/ic_search_black_24dp"
         android:orderInCategory="100"
         android:title="Search" />
+    <item
+        android:id="@+id/fragment_time_hour_menuEdit"
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:title="Edit"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/menuAbout"
+        android:id="@+id/fragment_time_hour_menuAbout"
         android:title="About" />
 
     <item
-        android:id="@+id/menuSettings"
+        android:id="@+id/fragment_time_hour_menuSettings"
         android:title="Settings" />
 
     <item
-        android:id="@+id/menuLogout"
+        android:id="@+id/fragment_time_hour_menuLogout"
         android:title="Logout" />
+    <item
+        android:id="@+id/fragment_time_hour_menuEditionDone"
+        android:icon="@drawable/ic_baseline_done_24"
+        android:orderInCategory="100"
+        android:title="Done"
+        android:visible="false"
+        app:showAsAction="always" />
+
 </menu>

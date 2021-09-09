@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.example.menusapp.DialogFragments.AlarmDelete
 import com.example.menusapp.Models.AlarmItem
 import com.example.menusapp.R
 import com.example.menusapp.ViewModels.ViewModelFragmentAlarm
@@ -92,61 +93,67 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
             viewHolder.establishRadioButton( alarmItem.isSelected)
             viewHolder.itemView.setOnClickListener {
                 view ->
-
-                if(viewModelFragmentAlarm.isActionModeOn.value!!){
-                    alarmItem.isSelected = !alarmItem.isSelected
-                    if(viewHolder.establishRadioButton( alarmItem.isSelected)){
-                        if(alarmItem.isSelected){
-                            viewModelFragmentAlarm.itemCountHandler.addItemToCount()
-                        }else{
-                            viewModelFragmentAlarm.itemCountHandler.removeItemToCount()
-                        }
-                    }
-                }
-                if(!viewModelFragmentAlarm.isActionModeOn.value!!){
-                    Log.i(TAG, "Creating popup when clicking item ")
-                    val context = viewModelFragmentAlarm.contextFragment
-
-                    if(context != null ){
-                        PopupMenu(context , view).apply {
-                            setOnMenuItemClickListener {
-                                    menuItem ->
-                                when(menuItem.itemId){
-                                    R.id.alarm_item_delete ->{
-                                        Toast.makeText(context, "Deleting alarm.. ",Toast.LENGTH_SHORT).show()
-                                        true
-                                    }
-                                    R.id.alarm_item_update -> {
-                                        Toast.makeText(context, "Update alarm.. ",Toast.LENGTH_SHORT).show()
-                                        true
-                                    }
-                                    else ->{ false }
-                                }
-                            }
-                            inflate(R.menu.popup_alarm_item_menu)
-                            show()
-                        }
-                    }else{
-                        Log.i(TAG,"The context is null ")
-
-                    }
-
-                }
+                updateAlarmUI(viewHolder, alarmItem)
+                createPopUpMenu(view)
             }
         }
-
 
         viewHolder.switch.setOnCheckedChangeListener { _, isChecked ->
             dataSource.value?.get(position)?.switch = isChecked
         }
 
 
+    }
 
+    private fun createPopUpMenu(view: View) {
+        if(!viewModelFragmentAlarm.isActionModeOn.value!!){
+            Log.i(TAG, "Creating popup when clicking item ")
+            val context = viewModelFragmentAlarm.contextFragment
 
+            if(context != null ){
+                PopupMenu(context , view).apply {
+                    setOnMenuItemClickListener {
+                            menuItem ->
+                        when(menuItem.itemId){
+                            R.id.alarm_item_delete ->{
 
+                                val alarmDialog = AlarmDelete()
+                                this@AlarmAdapter.viewModelFragmentAlarm.fragmentManager?.also {
+                                        fragmentManager ->
+                                    alarmDialog.show(fragmentManager, "delete_alarm")
+                                }
+                                true
+                            }
+                            R.id.alarm_item_update -> {
+                                Toast.makeText(context, "Update alarm.. ",Toast.LENGTH_SHORT).show()
+                                true
+                            }
+                            else ->{ false }
+                        }
+                    }
+                    inflate(R.menu.popup_alarm_item_menu)
+                    show()
+                }
+            }else{
+                Log.i(TAG,"The context is null ")
 
+            }
 
+        }
 
+    }
+
+    private fun updateAlarmUI(viewHolder: ViewHolderAlarm, alarmItem: AlarmItem) {
+        if(viewModelFragmentAlarm.isActionModeOn.value!!){
+            alarmItem.isSelected = !alarmItem.isSelected
+            if(viewHolder.establishRadioButton( alarmItem.isSelected)){
+                if(alarmItem.isSelected){
+                    viewModelFragmentAlarm.itemCountHandler.addItemToCount()
+                }else{
+                    viewModelFragmentAlarm.itemCountHandler.removeItemToCount()
+                }
+            }
+        }
     }
 
 

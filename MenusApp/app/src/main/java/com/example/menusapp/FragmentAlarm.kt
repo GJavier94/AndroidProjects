@@ -34,6 +34,8 @@ class FragmentAlarm : Fragment() {
         setHasOptionsMenu(true)
 
         viewModelFragmentAlarm.contextFragment = this.context
+        viewModelFragmentAlarm.fragmentManager = this.childFragmentManager
+
     }
 
     override fun onCreateView(
@@ -210,6 +212,7 @@ class FragmentAlarm : Fragment() {
         super.onDestroy()
         Log.i(TAG, "onDestroy")
         viewModelFragmentAlarm.contextFragment = null
+        viewModelFragmentAlarm.fragmentManager = null
     }
     companion object {
         const val TAG = "FragmentAlarmLogger"
