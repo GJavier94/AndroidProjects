@@ -94,7 +94,7 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
             viewHolder.itemView.setOnClickListener {
                 view ->
                 updateAlarmUI(viewHolder, alarmItem)
-                createPopUpMenu(view)
+                createPopUpMenu(view,position)
             }
         }
 
@@ -105,7 +105,7 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
 
     }
 
-    private fun createPopUpMenu(view: View) {
+    private fun createPopUpMenu(view: View, position: Int) {
         if(!viewModelFragmentAlarm.isActionModeOn.value!!){
             Log.i(TAG, "Creating popup when clicking item ")
             val context = viewModelFragmentAlarm.contextFragment
@@ -117,7 +117,7 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
                         when(menuItem.itemId){
                             R.id.alarm_item_delete ->{
 
-                                val alarmDialog = AlarmDelete()
+                                val alarmDialog = AlarmDelete(position)
                                 this@AlarmAdapter.viewModelFragmentAlarm.fragmentManager?.also {
                                         fragmentManager ->
                                     alarmDialog.show(fragmentManager, "delete_alarm")

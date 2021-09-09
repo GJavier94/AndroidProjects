@@ -7,6 +7,7 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -14,6 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.menusapp.Adapters.AlarmAdapter
 import com.example.menusapp.Models.AlarmItem
+import com.example.menusapp.NotificationUpdateDB.Notification
 import com.example.menusapp.R
 
 class ViewModelFragmentAlarm: ViewModel() {
@@ -21,6 +23,7 @@ class ViewModelFragmentAlarm: ViewModel() {
     var fragmentManager:FragmentManager? = null
 
     internal lateinit var alarmAdapter:AlarmAdapter
+
     internal var isActionModeOn: MutableLiveData<Boolean> = MutableLiveData(false)
     internal var actionMode:ActionMode? = null
     private var dataSource:MutableLiveData<ArrayList< AlarmItem> > = MutableLiveData<ArrayList<AlarmItem>>(ArrayList())
@@ -28,9 +31,40 @@ class ViewModelFragmentAlarm: ViewModel() {
     internal var unSelectAll = MutableLiveData<Boolean>(false)
 
 
-    val itemCountHandler = ItemCountHandler()
+    init{
 
+
+        Log.i(TAG, "Registering Notification observer...")
+        Notification.LiveDataDelete.observeForever {
+            delete ->
+            Log.i(TAG, "Receiving notification to delete...")
+            if(delete.ready){
+                delete.ready = false
+                if(delete.deleteChore){
+                    deleteDataItem(delete.position)
+                }
+                delete.ready = true
+                delete.deleteChore = false
+            }
+
+        }
+
+
+
+
+    }
+
+    private fun deleteDataItem(position: Int) {
+        Log.i(TAG, "Deleting item pos: $position")
+        val alarmItem = dataSource.value?.removeAt(position)
+        Log.i(TAG, "This was removed from the list $alarmItem")
+        this.alarmAdapter.notifyDataSetChanged()
+        Toast.makeText(this.contextFragment, "This was remove from the list $alarmItem", Toast.LENGTH_SHORT).show()
+    }
+
+    val itemCountHandler = ItemCountHandler()
     inner class ItemCountHandler {
+
         var itemCount = MutableLiveData<Int>(0)
         fun addItemToCount(){
             Log.i(TAG,"${getItemCount()}")
@@ -61,6 +95,13 @@ class ViewModelFragmentAlarm: ViewModel() {
                 Log.i(TAG, "${itemCountHandler.getItemCount()}"+ " items selected")
             }
 
+            isActionModeOn.observeForever {
+                isActionModeOn ->
+                if(!isActionModeOn){
+                    actionMode?.finish()
+                }
+            }
+
             return true
         }
 
@@ -73,7 +114,7 @@ class ViewModelFragmentAlarm: ViewModel() {
             when(menuItem?.itemId){
                 R.id.action_bar_close -> {
                     this@ViewModelFragmentAlarm.isActionModeOn.value = false
-                    actionMode?.finish()
+
                     return true
                 }
                 R.id.action_bar_selectAll->{
@@ -120,14 +161,14 @@ class ViewModelFragmentAlarm: ViewModel() {
             dataSource.value?.apply {
 
                 add(AlarmItem("09:10", "Daily| Alarm in 17 hours 3 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
-                add(AlarmItem("12:35", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:31", "Alarm in 20 hours 37 minutes", false,false,true))
+                add(AlarmItem("12:32", "Alarm in 20 hours 38 minutes", false,false,true))
+                add(AlarmItem("12:33", "Alarm in 20 hours 39 minutes", false,false,true))
+                add(AlarmItem("12:34", "Alarm in 20 hours 40 minutes", false,false,true))
+                add(AlarmItem("12:35", "Alarm in 20 hours 41 minutes", false,false,true))
+                add(AlarmItem("12:36", "Alarm in 20 hours 42 minutes", false,false,true))
+                add(AlarmItem("12:37", "Alarm in 20 hours 43 minutes", false,false,true))
+                add(AlarmItem("12:38", "Alarm in 20 hours 44 minutes", false,false,true))
             }
 
         }else{
@@ -188,6 +229,9 @@ class ViewModelFragmentAlarm: ViewModel() {
             alarmItem ->
             alarmItem.isSelected
         }
+        this.alarmAdapter.notifyDataSetChanged()
+        this.isActionModeOn.value = false
+
         if(result == null){
             Log.i(TAG, "There was a problem with the data source")
         }

@@ -11,12 +11,13 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
 import androidx.lifecycle.Observer
 import com.example.menusapp.Constants.Tags
+import com.example.menusapp.NotificationUpdateDB.Notification
 import com.example.menusapp.ViewModels.ViewModelMainActivity
 
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: ViewModelMainActivity by viewModels()
-
+    private val notifications = Notification.LiveDataDelete.value
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

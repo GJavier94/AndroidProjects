@@ -4,11 +4,14 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.menusapp.NotificationUpdateDB.Notification
 import com.example.menusapp.R
 
-class AlarmDelete: DialogFragment() {
+class AlarmDelete(position: Int) : DialogFragment() {
+    val position = position
 
     /**
      * Dialogs: they are small window that prompts to the user so that the user
@@ -55,7 +58,21 @@ class AlarmDelete: DialogFragment() {
                     dialog, which ->
                 when(which){
                     DialogInterface.BUTTON_POSITIVE ->{
+                        Log.i(TAG,"The alarm will be deleted" )
                         Toast.makeText(this@AlarmDelete.context, "The alarm will be deleted", Toast.LENGTH_SHORT   ).show()
+
+                        Notification.delete(this@AlarmDelete.position)
+
+                        Notification.LiveDataDelete.value.also {
+                            delete ->
+                            if(delete?.ready == true){
+                                delete.position = this@AlarmDelete.position
+                                delete.deleteChore = true
+                                Log.i(TAG, "$delete")
+                            }else{
+                                Toast.makeText(this@AlarmDelete.context, "Notifies is occupied", Toast.LENGTH_SHORT   ).show()
+                            }
+                        }
                     }
                 }
             })
@@ -81,5 +98,8 @@ class AlarmDelete: DialogFragment() {
      * It appears between the positive and negative buttons. For example, the action might be "Remind me later."
      */
 
+    companion object{
+        const val TAG = "AlarmDelete"
+    }
 
 }
