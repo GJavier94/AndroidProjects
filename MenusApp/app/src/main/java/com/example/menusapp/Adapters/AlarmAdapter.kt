@@ -120,7 +120,7 @@ class AlarmAdapter(val dataSource: MutableLiveData<ArrayList<AlarmItem>>, val vi
                                 val alarmDialog = AlarmDelete(position)
                                 this@AlarmAdapter.viewModelFragmentAlarm.fragmentManager?.also {
                                         fragmentManager ->
-                                    alarmDialog.show(fragmentManager, "delete_alarm")
+                                    alarmDialog.show(fragmentManager, AlarmDelete.TAG)
                                 }
                                 true
                             }

@@ -26,5 +26,9 @@
         android:id="@+id/option_settings"
         android:title="Settings"
         />
+    <item
+        android:id="@+id/option_changeMenuColor"
+        android:title="Change color"
+        />
 
 </menu>

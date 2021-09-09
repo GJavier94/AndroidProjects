@@ -8,4 +8,17 @@
     <string name="accept_text">Accept</string>
     <string name="cancel_text">Cancel</string>
     <string name="delete_dialog_title">Delete</string>
+    <string name="menu_color_dialog_title">Menu color</string>
+
+
+    <string name="color_red">red</string>
+    <string name="color_blue">blue</string>
+    <string name="color_orange">orange</string>
+
+    <string-array name="menu_colors">
+        <item>@string/color_red</item>
+        <item>@string/color_blue</item>
+        <item>@string/color_orange</item>
+    </string-array>
+
 </resources>

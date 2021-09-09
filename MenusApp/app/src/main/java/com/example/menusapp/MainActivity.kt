@@ -11,6 +11,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
 import androidx.lifecycle.Observer
 import com.example.menusapp.Constants.Tags
+import com.example.menusapp.DialogFragments.ColorsDialogFragment
 import com.example.menusapp.NotificationUpdateDB.Notification
 import com.example.menusapp.ViewModels.ViewModelMainActivity
 
@@ -57,6 +58,12 @@ class MainActivity : AppCompatActivity() {
             R.id.option_settings ->{
                 true
             }
+            R.id.option_changeMenuColor -> {
+                val colorsDialogFragment = ColorsDialogFragment()
+                colorsDialogFragment.show(this.supportFragmentManager,ColorsDialogFragment.TAG )
+                true
+            }
+
             else ->{
                 super.onOptionsItemSelected(item) // this returns false so that other fragments methods implementations can  handle the itemselected
             }
