@@ -31,4 +31,8 @@
         android:title="Change color"
         />
 
+    <item
+        android:id="@+id/option_mixedFragment"
+        android:title="Mixed fragment"
+        />
 </menu>

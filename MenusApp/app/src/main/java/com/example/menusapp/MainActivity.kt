@@ -13,11 +13,13 @@ import androidx.fragment.app.commitNow
 import com.example.menusapp.Constants.Tags
 import com.example.menusapp.DialogFragments.ColorsDialogFragment
 import com.example.menusapp.DialogFragments.DialogFragmentSignIn
+import com.example.menusapp.DialogFragments.MixedShowFragment
 import com.example.menusapp.NotificationUpdateDB.Notification
 import com.example.menusapp.ViewModels.ViewModelMainActivity
 
 class MainActivity : AppCompatActivity(), DialogFragmentSignIn.onClickFeelingButtonSignInListener {
 
+    private var orientationScreen:Boolean = false
     private val viewModel: ViewModelMainActivity by viewModels()
     private val notifications = Notification.LiveDataDelete.value
 
@@ -68,6 +70,40 @@ class MainActivity : AppCompatActivity(), DialogFragmentSignIn.onClickFeelingBut
                 colorsDialogFragment.show(this.supportFragmentManager,ColorsDialogFragment.TAG )
                 true
             }
+            R.id.option_mixedFragment ->{
+
+                Log.i(TAG, "$orientationScreen")
+                /**
+                 * this dialogfragment can shown as a dialog full screen fragment
+                 * or an embbed fragment
+                 * difference:
+                 *
+                 * we use in this case the app resources Framework
+                 * to decide which way based on the value of a boolean within the xml bools
+                 * show()
+                 * or as
+                 * action()
+                **/
+
+
+                when(orientationScreen){
+                    // it's portrait  -> fragment embedded -> transaction
+                    true ->{
+                        setOnlyVisible()
+                        this.supportFragmentManager.commit {
+                            add<MixedShowFragment>(R.id.fragmentContainer_optionMixedFragment, MixedShowFragment.TAG_FRAGMENT)
+                            addToBackStack(null)
+                        }
+
+                    }
+                    // it's landscape  -> fragment in Dialog ( modal way ) ->  show
+                    false ->{
+                        val mixedShowFragment = MixedShowFragment()
+                        mixedShowFragment.show(this.supportFragmentManager, MixedShowFragment.TAG_FDIALOG)
+                    }
+                }
+                true
+            }
 
             else ->{
                 super.onOptionsItemSelected(item) // this returns false so that other fragments methods implementations can  handle the itemselected
@@ -75,7 +111,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentSignIn.onClickFeelingBut
         }
     }
 
-    private fun setOnlyVisible(FragmentTag: String) {
+    private fun setOnlyVisible(fragmentTag: String = "NONE") {
         /**
          * The logic we have is that all the fragments are running because the tasks they have are already to small
          * so we just use show() and hide() method to show one fragment at a time
@@ -86,16 +122,23 @@ class MainActivity : AppCompatActivity(), DialogFragmentSignIn.onClickFeelingBut
                 hide(action)
             }
         }
-        this.supportFragmentManager.commit {
-            if(supportFragmentManager.findFragmentByTag(FragmentTag) != null){
-                show(supportFragmentManager.findFragmentByTag(FragmentTag)!!)
+        if(fragmentTag.compareTo("NONE") != 0){
+            this.supportFragmentManager.commit {
+                if(supportFragmentManager.findFragmentByTag(fragmentTag) != null){
+                    show(supportFragmentManager.findFragmentByTag(fragmentTag)!!)
+                }
             }
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        orientationScreen = resources.getBoolean(R.bool.portrait)
+
+
 
         /**
          * Create and commit the fragmentChild of this activity
