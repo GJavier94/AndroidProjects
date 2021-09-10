@@ -1,6 +1,7 @@
 package com.example.menusapp.DialogFragments
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -72,8 +73,24 @@ class MixedShowFragment:DialogFragment() {
         Log.i(TAG_FRAGMENT, "onDestroy")
     }
 
+    /**
+     * In case you need to perform certain actions when the dialog goes away,
+     * you can implement the onDismiss() method in your DialogFragment.
+     *
+     * By the developer  with dismiss()
+     * or by: clicking a button, back button, clicking outside the dialog
+     */
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        Log.i(TAG_FRAGMENT,"onDismiss")
 
 
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        Log.i(TAG_FRAGMENT,"onCancel")
+    }
     companion object{
         const val TAG_FRAGMENT = "MixedShowFragment"
         const val TAG_FDIALOG = "MixedShowFragmentDialog"
