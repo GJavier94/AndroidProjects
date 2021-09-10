@@ -2,20 +2,21 @@ package com.example.menusapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
-import androidx.lifecycle.Observer
 import com.example.menusapp.Constants.Tags
 import com.example.menusapp.DialogFragments.ColorsDialogFragment
+import com.example.menusapp.DialogFragments.DialogFragmentSignIn
 import com.example.menusapp.NotificationUpdateDB.Notification
 import com.example.menusapp.ViewModels.ViewModelMainActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DialogFragmentSignIn.onClickFeelingButtonSignInListener {
 
     private val viewModel: ViewModelMainActivity by viewModels()
     private val notifications = Notification.LiveDataDelete.value
@@ -53,6 +54,10 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.option_timer -> {
+                val dialogFragmentSignIn = DialogFragmentSignIn()
+
+                dialogFragmentSignIn.show(this.supportFragmentManager, DialogFragmentSignIn.TAG)
+                //here we only show the dialog to login the interface callbacks are at the bottom there we  show the fragment in case credentials are ok
                 true
             }
             R.id.option_settings ->{
@@ -99,11 +104,41 @@ class MainActivity : AppCompatActivity() {
         this.supportFragmentManager.commitNow{
             add<FragmentAlarm>(R.id.fragmentContainer_optionAlarm, Tags.FRAGMENT_ALARM)
             add<FragmentTimeHour>(R.id.fragmentContainer_optionTimeHour, Tags.FRAGMENT_TIME_HOUR)
+            add<FragmentTimer>(R.id.fragmentContainer_optionTimer, Tags.FRAGMENT_TIMER)
         }
         setOnlyVisible(Tags.FRAGMENT_ALARM)
 
 
     }
+    override fun onDialogPositiveClick(dialog: DialogFragmentSignIn) {
+        val email = dialog.loginEditTextEmail.text.toString()
+        val password = dialog.loginEditTextPassword.text.toString()
+
+        var correctEmail = true
+        var correctPass = true
+
+        if(email.compareTo("javarmgar@gmail.com") != 0 ){
+            Toast.makeText(this, "wrong email", Toast.LENGTH_LONG)
+            correctEmail = false
+        }
+        if(password.compareTo("123") != 0 ){
+            Toast.makeText(this, "wrong password", Toast.LENGTH_LONG)
+            correctPass = false
+        }
+
+        if(correctEmail && correctPass){
+            setOnlyVisible(Tags.FRAGMENT_TIMER)
+        }
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragmentSignIn) {
+        Toast.makeText(this, "The login was cancelled", Toast.LENGTH_SHORT)
+    }
+
+    override fun onDialogNeutralClick(dialog: DialogFragmentSignIn) {
+        Log.i(TAG, "This does nothing...")
+    }
+
     companion object{
         const val TAG = "MainActivityLogger"
 

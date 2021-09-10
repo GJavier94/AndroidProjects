@@ -20,5 +20,9 @@
         <item>@string/color_blue</item>
         <item>@string/color_orange</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_timer">"Hello im a fragment timer you could log in "</string>
+    <string name="sign_in_dialog_title">Login</string>
 
 </resources>

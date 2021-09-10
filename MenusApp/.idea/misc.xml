@@ -7,8 +7,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/activity_main_action_mode.xml" value="0.1" />
         <entry key="app/src/main/res/layout/alarm_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/dialog_sign_in.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_alarm.xml" value="0.32386363636363635" />
         <entry key="app/src/main/res/layout/fragment_time_hour.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.18" />
         <entry key="app/src/main/res/menu/activity_main_action_mode.xml" value="0.33" />
         <entry key="app/src/main/res/menu/alarm_item_menu.xml" value="0.22" />
         <entry key="app/src/main/res/menu/fragment_alarm_context_menu.xml" value="0.25" />
