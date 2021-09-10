@@ -21,16 +21,17 @@ app:layout_constraintBottom_toBottomOf="parent"        />
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/fragmentContainer_optionTimer"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
     <!--
-  <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/fragmentContainer_optionAlarm"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      />
-  <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/fragmentContainer_optionAlarm"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      />
-  -->
+ <androidx.fragment.app.FragmentContainerView
+     android:id="@+id/fragmentContainer_optionAlarm"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     />
+ -->
 </androidx.constraintlayout.widget.ConstraintLayout>
