@@ -1,4 +1,4 @@
-package com.example.storageapp.Models
+package com.example.storageapp.ViewModels
 
 
 import android.app.Application

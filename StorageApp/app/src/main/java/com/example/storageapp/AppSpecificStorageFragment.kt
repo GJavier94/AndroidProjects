@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
 import androidx.fragment.app.viewModels
-import com.example.storageapp.Models.ViewModelAppSpecificFragment
+import com.example.storageapp.ViewModels.ViewModelAppSpecificFragment
 
 
 class AppSpecificStorageFragment : Fragment() {
