@@ -2,6 +2,8 @@ package com.example.storageapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 
@@ -17,6 +19,10 @@ class MainActivity : AppCompatActivity() {
             add<AppSpecificStorageFragment>(R.id.fragmentContainer_appSpecificStorage, AppSpecificStorageFragment.TAG)
         }
 
+    }
+
+    companion object{
+        const val TAG = "MainActivityL"
     }
 
 
