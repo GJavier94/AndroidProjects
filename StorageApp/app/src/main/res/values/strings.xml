@@ -2,4 +2,13 @@
     <string name="app_name">StorageApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus nibh et metus suscipit maximus. Suspendisse mi libero, gravida sed odio eget, commodo vehicula purus. Nam interdum, lectus id bibendum luctus, lacus velit convallis ante, at pharetra justo justo ac nisl. Donec porttitor tellus ut est gravida, eu venenatis urna cursus. Morbi tristique condimentum urna, quis dignissim ipsum facilisis id. Nullam vel urna semper erat finibus venenatis. In hac habitasse platea dictumst. Etiam pellentesque urna consectetur sapien elementum feugiat.
+
+In cursus luctus ex. Maecenas massa augue, fringilla ut turpis eu, faucibus ultrices turpis. In elementum neque eu vulputate gravida. Duis eu accumsan sapien. Fusce quis placerat dui, a tristique odio. Aenean euismod viverra tellus in ornare. Vivamus pretium nec ligula dictum blandit.
+
+Donec fermentum eros et sodales eleifend. Nullam ut aliquet tellus. Maecenas eu tortor vitae enim efficitur vulputate non vel lacus. Etiam imperdiet, lacus vel elementum blandit, odio lacus tristique quam, at faucibus justo orci et elit. Proin in elementum ligula. Pellentesque id volutpat ex. Integer condimentum et ex sed molestie. Vivamus volutpat nisi mauris, non dictum urna consequat at. Morbi massa dui, ornare sed fringilla congue, feugiat ac arcu.
+
+Aliquam cursus nulla quis tortor ullamcorper, faucibus ultrices eros convallis. Vestibulum sit amet diam laoreet, lacinia dolor quis, eleifend odio. Donec pellentesque mollis ultrices. Aliquam pretium velit ex, facilisis varius orci vestibulum nec. Nulla posuere ante est, ac venenatis nisl vestibulum at. Donec in facilisis velit, et rhoncus nunc. Suspendisse consequat urna at neque dapibus tristique. Vestibulum vitae posuere diam.
+Donec in est ut ipsum condimentum euismod. Phasellus quis sagittis magna. Curabitur vel pretium neque. Aenean vehicula quam et congue tincidunt. Maecenas venenatis aliquam finibus. In hac habitasse platea dictumst. Nam sollicitudin metus at venenatis elementum. Sed vel tortor sed felis condimentum mattis. Nam pellentesque ultrices posuere. Aliquam tristique justo nec augue ultrices, et maximus ipsum elementum. Nulla finibus nisl vestibulum purus iaculis, at viverra sem semper. Proin maximus dui nulla, sed rhoncus nunc sollicitudin eu. Fusce eleifend leo tortor, in rhoncus ex rutrum at. Pellentesque id lectus eget metus convallis aliquam. Donec nec dictum massa. Vivamus et ullamcorper erat, at pharetra lectus.
+</string>
 </resources>
