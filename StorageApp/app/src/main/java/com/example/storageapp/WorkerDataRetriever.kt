@@ -45,6 +45,8 @@ class WorkerDataRetriever(var viewModelShareStorageFragment: ViewModelShareStora
                         val mediaImage = this.obj as MediaImage
                         viewModelShareStorageFragment.dataSource.value?.apply {
                             add(mediaImage)
+                            val lastIndex = this.lastIndex
+                            viewModelShareStorageFragment.pictureAdapter.notifyItemInserted(lastIndex)
                         }
                     }
                     if(this.what == MESSAGE_FINISH_RETRIEVING){
