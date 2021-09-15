@@ -14,8 +14,8 @@ class ViewModelActivity(application: Application):AndroidViewModel(application) 
     //ALL the member data associated with PERMISSIONS
     var permissionsRequested:Boolean = false
     var PERMISSIONS_STORAGE:MutableList<Pair<String, Int>> = mutableListOf() // the boolean indicates if the permission was conceded or not
-
-
+    val REQUEST_CODE = 200
+    val PERMISSION_REQUESTED = 5000
 
     init {
         //inserting pairs of permissions
@@ -25,8 +25,6 @@ class ViewModelActivity(application: Application):AndroidViewModel(application) 
         }
 
     }
-    val REQUEST_CODE = 200
-    val PERMISSION_REQUESTED = 5000
 
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -41,5 +39,8 @@ class ViewModelActivity(application: Application):AndroidViewModel(application) 
         }
         return permissionsRequested
     }
+
+
+
 
 }

@@ -25,24 +25,23 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = PageAdapter(this, NUM_PAGES)
 
+        checkPermissionRequested()
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun checkPermissionRequested() {
         if(!viewModel.arePermissionRequested()){
             val arrayPermissionsRequired = viewModel.PERMISSIONS_STORAGE.filter {
-                perPair: Pair<String, Int> ->
+                    perPair: Pair<String, Int> ->
                 perPair.second != PackageManager.PERMISSION_GRANTED
             }.map { it.first }.toTypedArray() // this method helps to convert a list into an arrayList
-            
             for(i in 0..viewModel.PERMISSIONS_STORAGE.size-1){
                 if(viewModel.PERMISSIONS_STORAGE[i].second != PackageManager.PERMISSION_GRANTED){
-                    viewModel.PERMISSIONS_STORAGE[i] = viewModel.PERMISSIONS_STORAGE[i].copy(second = viewModel.PERMISSION_REQUESTED)
-                }
+                    viewModel.PERMISSIONS_STORAGE[i] = viewModel.PERMISSIONS_STORAGE[i].copy(second = viewModel.PERMISSION_REQUESTED) }
             }
-             
-            
             this.requestPermissions(arrayPermissionsRequired, viewModel.REQUEST_CODE)
         }
-
-
     }
 
     override fun onRequestPermissionsResult(
@@ -60,16 +59,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
     companion object{
         const val TAG = "MainActivityL"
         const val NUM_PAGES:Int = 2
     }
-
-
-
 
 }

@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_pictures"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        tools:listitem="@layout/item_picture_recycler_view"
+        tools:visibility="visible"
+    >
+
+    </androidx.recyclerview.widget.RecyclerView>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:visibility="invisible">
         <ProgressBar
-            android:id="@+id/progressBar_"
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -17,18 +31,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"></ProgressBar>
         <TextView
-            android:gravity="center"
-            android:text="Loading..."
-            android:layout_marginVertical="16dp"
             android:id="@+id/textView_progressbar_text"
+            android:gravity="center"
+            android:text="@string/progress_bar_loading"
+            android:layout_marginVertical="16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintWidth="wrap_content"
             android:minWidth="100dp"
             android:maxWidth="300dp"
-            app:layout_constraintStart_toStartOf="@id/progressBar_"
-            app:layout_constraintEnd_toEndOf="@id/progressBar_"
-            app:layout_constraintTop_toBottomOf="@id/progressBar_"
+            app:layout_constraintStart_toStartOf="@id/progressBar"
+            app:layout_constraintEnd_toEndOf="@id/progressBar"
+            app:layout_constraintTop_toBottomOf="@id/progressBar"
+
             ></TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
