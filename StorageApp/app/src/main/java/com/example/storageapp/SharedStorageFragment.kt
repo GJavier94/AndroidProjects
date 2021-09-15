@@ -49,30 +49,21 @@ class SharedStorageFragment: Fragment() {
                 progressBarRetrieveData.visibility = View.INVISIBLE
                 textViewProgressBarText.text = getString(R.string.SHOW_FILES)
                 textViewProgressBarText.visibility = View.INVISIBLE
-                recyclerViewPictures.visibility = View.VISIBLE
             }
         })
 
-        //in our logic the recyclerView is built once the data is retrieve so we will need to wait for the datasource with an Observer
-        viewModel.dataSourceRetrieved.observe(this.viewLifecycleOwner,{
-            isDataSourceRetrieved ->
-            if(isDataSourceRetrieved){
+        //In out logic we want the adapter starts working as soons it gets shown on the UI and updates it each time the datasource loads new data
+        // let's define the LayoutManager for the RecyclerView
+        recyclerViewPictures.layoutManager = LinearLayoutManager(this.context)
+        //let's create the adapter and set it into the RecyclerView
+        recyclerViewPictures.adapter = viewModel.pictureAdapter
 
-                // let's define the LayoutManager for the RecyclerView
-                recyclerViewPictures.layoutManager = LinearLayoutManager(this.context)
-                //let's create the adapter and set it into the RecyclerView
-                recyclerViewPictures.adapter = PicturesAdapter(viewModel.dataSource) // it need the data source to adapt to the picture view holder
-            }
-        })
 
 
         viewModel.textProgress.observe(this.viewLifecycleOwner, Observer {
             textProgress ->
             textViewProgressBarText.text = textProgress
         })
-        //IT is time to create the dataSource which will fill the recyclerView
-        //first We will need a view model to hold data from this fragment
-
 
 
     }

@@ -12,7 +12,9 @@ import com.example.storageapp.Models.MediaImage
 import com.example.storageapp.R
 
 class PicturesAdapter(var dataSource: MutableLiveData<MutableList<MediaImage>>) : RecyclerView.Adapter<PicturesAdapter.PictureViewHolder>() {
-
+    init {
+        Log.i(TAG, "Hi im $TAG the size of the dataSource is ${dataSource.value?.size}")
+    }
     inner class PictureViewHolder(var itemView: View) :RecyclerView.ViewHolder(itemView){
         internal var imageViewImage: ImageView
         internal var textViewContentUri: TextView
