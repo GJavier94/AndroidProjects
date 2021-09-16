@@ -3,6 +3,7 @@ package com.example.storageapp.ViewModels
 import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
@@ -29,18 +30,17 @@ class ViewModelActivity(application: Application):AndroidViewModel(application) 
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun arePermissionRequested(): Boolean {
-        if(permissionsRequested)return permissionsRequested
-        var i:Int
-        var requestPermissions = false
+        Log.i(TAG, "Checking permissions...")
+        permissionsRequested = true
         for(i in 0..PERMISSIONS_STORAGE.size-1){
             val isGranted = context.checkSelfPermission( PERMISSIONS_STORAGE[i].first)
+            Log.i(TAG, "$isGranted")
             PERMISSIONS_STORAGE[i] = PERMISSIONS_STORAGE[i].copy(second = isGranted )
             if(isGranted == PackageManager.PERMISSION_DENIED) permissionsRequested = false
         }
         return permissionsRequested
     }
-
-
-
-
+    companion object{
+        const val TAG = "ViewModelActivityL"
+    }
 }

@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/fragment_app_specific_storage.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_share_storage.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_picture_recycler_view.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/main_bar_menu.xml" value="0.22" />
       </map>
     </option>
   </component>
