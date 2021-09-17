@@ -11,6 +11,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.example.storageroomapp.Constants.Constants
 import com.example.storageroomapp.Entities.*
+import com.example.storageroomapp.Entities.Relationships.PlayListWithSongs
+import com.example.storageroomapp.Entities.Relationships.SongWithPlayLists
+import com.example.storageroomapp.Entities.Relationships.UserAndLibrary
+import com.example.storageroomapp.Entities.Relationships.UserWithPlayListsAndSongs
 import com.example.storageroomapp.Models.AppDatabase
 
 class ViewModelMainActivity(application: Application): AndroidViewModel(application) {
@@ -389,6 +393,45 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
                     }
                 }else{
                     Log.i(TAG, "retreveSongsWithPlayLists: the songWithPlayListsList is null")
+                }
+
+            }
+        }).start()
+    }
+
+    /**
+     * Nested Relationship
+     * in case we want to make a join of multiple tables
+     * we can use the data holder relationship class to declare the relation in recursive way
+     * relationship
+     *      entity
+     *      relation()
+     *      another relation ... and so on !
+     * for example we can join Users Playlist Songs
+     * with a data holder class  UsersWithPlayListsAndSongs
+     * then maked this  data holder relationship class holds relationship  PlaylistAndSongs
+     *
+     */
+
+    fun retrieveUsersWithPlaylistsAndSongs() {
+        Thread(object : Runnable {
+            override fun run() {
+                Log.i(TAG, "retrieving table Users With Playlists And Songs of each User...")
+                val userWithPlayListsAndSongsList: List<UserWithPlayListsAndSongs>?  = dataBase?.userDAO()?.getAllUsersWithPlayListsAndSongs()
+                if(userWithPlayListsAndSongsList != null){
+                    userWithPlayListsAndSongsList.forEach {
+                            userWithPlayListsAndSongs ->
+                        Log.i(TAG, """retrieveUsersWithPlaylistsAndSongs:
+                            ${userWithPlayListsAndSongs.user} 
+                            ${userWithPlayListsAndSongs.playLists?.joinToString("\n\r") {
+                                playListWithSongs ->
+                                playListWithSongs.playList.toString().plus("\n\r").plus(
+                                    playListWithSongs.songs?.joinToString("-"){it.toString()}
+                                )}
+                            }""")
+                    }
+                }else{
+                    Log.i(TAG, "retrieveUsersWithPlaylistsAndSongs: the userWithPlayListsAndSongsList is null")
                 }
 
             }

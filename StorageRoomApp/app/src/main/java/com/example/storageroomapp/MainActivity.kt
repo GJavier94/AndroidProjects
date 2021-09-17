@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.retrieveUserPlayLists()
                 viewModel.retrievePlayListsWithSongs()
                 viewModel.retreveSongsWithPlayLists()
+
+                viewModel.retrieveUsersWithPlaylistsAndSongs()
             }
         })
 

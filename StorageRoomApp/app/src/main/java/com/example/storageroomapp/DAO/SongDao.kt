@@ -1,9 +1,8 @@
 package com.example.storageroomapp.DAO
 
 import androidx.room.*
-import com.example.storageroomapp.Entities.PlayListWithSongs
 import com.example.storageroomapp.Entities.Song
-import com.example.storageroomapp.Entities.SongWithPlayLists
+import com.example.storageroomapp.Entities.Relationships.SongWithPlayLists
 
 @Dao
 interface SongDao {

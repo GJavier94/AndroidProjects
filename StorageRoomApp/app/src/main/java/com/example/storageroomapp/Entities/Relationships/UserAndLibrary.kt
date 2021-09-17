@@ -1,19 +1,21 @@
-package com.example.storageroomapp.Entities
+package com.example.storageroomapp.Entities.Relationships
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.example.storageroomapp.Entities.Library
+import com.example.storageroomapp.Entities.User
 
 /**
  * In my logic some users can not to have libraries that implies that there will be some user with no libraries
  * when doing the join between the two tables library can be null that's why the '?'
  */
 data class UserAndLibrary (
-    @Embedded val user:User,
+    @Embedded val user: User,
     @Relation(
         parentColumn = "uid",
         entityColumn = "userOwnerId"
     )
-    val library:Library?
+    val library: Library?
 )
 
 /****

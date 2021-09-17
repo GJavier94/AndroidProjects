@@ -2,8 +2,7 @@ package com.example.storageroomapp.DAO
 
 import androidx.room.*
 import com.example.storageroomapp.Entities.PlayList
-import com.example.storageroomapp.Entities.PlayListWithSongs
-import com.example.storageroomapp.Entities.UserAndLibrary
+import com.example.storageroomapp.Entities.Relationships.PlayListWithSongs
 import com.example.storageroomapp.Entities.UserAndPlayList
 
 @Dao

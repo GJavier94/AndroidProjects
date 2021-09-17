@@ -2,7 +2,7 @@ package com.example.storageroomapp.DAO
 
 import androidx.room.*
 import com.example.storageroomapp.Entities.Library
-import com.example.storageroomapp.Entities.UserAndLibrary
+import com.example.storageroomapp.Entities.Relationships.UserAndLibrary
 
 @Dao
 interface LibraryDao {

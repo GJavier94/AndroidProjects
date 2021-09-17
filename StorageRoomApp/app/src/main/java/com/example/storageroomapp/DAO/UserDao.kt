@@ -2,6 +2,7 @@ package com.example.storageroomapp.DAO
 
 import androidx.room.*
 import com.example.storageroomapp.Entities.NameTuple
+import com.example.storageroomapp.Entities.Relationships.UserWithPlayListsAndSongs
 import com.example.storageroomapp.Entities.User
 
 /**
@@ -81,6 +82,13 @@ interface UserDao {
      * you can also pass a collection to a query ( like if it were a list or an entire field
      * fun functionName(param1:List<String>) @Query("-- -- - - - - - in (:param1)- - - - - -")
      * */
+
+    //defining a user join playlist join song
+    //          table1  join1 table2 join2 table3 ---> n-1 joins for n tables
+    @Transaction
+    @Query("select * from User") // it also execute some other queries to join the three tables
+    fun getAllUsersWithPlayListsAndSongs():List<UserWithPlayListsAndSongs>
+
 
 }
 
