@@ -1,7 +1,6 @@
 package com.example.storageroomapp.DAO
 
 import androidx.room.*
-import com.example.storageroomapp.Entities.Book
 import com.example.storageroomapp.Entities.NameTuple
 import com.example.storageroomapp.Entities.User
 

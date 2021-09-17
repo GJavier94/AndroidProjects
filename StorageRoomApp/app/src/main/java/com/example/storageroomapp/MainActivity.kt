@@ -36,8 +36,17 @@ class MainActivity : AppCompatActivity() {
         viewModel.dataBaseIsPopulated.observe(this, Observer {
             isDatabasePopulated ->
             if(isDatabasePopulated){
+
                 viewModel.retrieveAllUsers()
                 viewModel.retrieveBooksUser()
+                viewModel.retrieveAllLibraries()
+                viewModel.retrieveAllPlaylists()
+                viewModel.retrieveAllSongs()
+
+                viewModel.retrieveUserLibraries()
+                viewModel.retrieveUserPlayLists()
+                viewModel.retrievePlayListsWithSongs()
+                viewModel.retreveSongsWithPlayLists()
             }
         })
 

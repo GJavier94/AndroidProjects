@@ -13,9 +13,9 @@ import androidx.room.PrimaryKey
  */
 @Entity(ignoredColumns = arrayOf("picture"))
 data class User(
-    @PrimaryKey(autoGenerate = true) val uid:Int?,
-    @ColumnInfo(name = "first_name") val firstName:String?,
-    @ColumnInfo(name = "second_name")val secondName:String?,
+    @PrimaryKey(autoGenerate = true) val uid:Long,
+    @ColumnInfo(name = "first_name") val firstName:String,
+    @ColumnInfo(name = "second_name")val secondName:String,
 
 
 ){
