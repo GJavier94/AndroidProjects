@@ -10,18 +10,21 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.example.storageroomapp.Constants.Constants
+import com.example.storageroomapp.Entities.Book
 import com.example.storageroomapp.Entities.User
 import com.example.storageroomapp.Models.AppDatabase
 
 class ViewModelMainActivity(application: Application): AndroidViewModel(application) {
 
     val userList = mutableListOf<User>()
+    val bookList = mutableListOf<Book>()
+
     var dataBase: AppDatabase? = null
     val looper = getApplication<Application>().mainLooper
     val sharePreferences = getApplication<Application>().getSharedPreferences(Constants.DEFAULT_SHARED_PREFERENCES,Context.MODE_PRIVATE)
     val dataBaseIsPopulated:MutableLiveData<Boolean>
-    init{
 
+    init{
         dataBaseIsPopulated = MutableLiveData<Boolean>(sharePreferences.getBoolean(Constants.DATABASE_POPULATED, false))
     }
 
@@ -31,7 +34,15 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
         userList.apply {
             add(User(null, "javier", "armenta"))
             add(User(null, "nicolas", "armenta"))
-            add(User(null, "ludivina", "garcia"))
+            add(User(null, "ludivina", "garcia" ))
+            add(User(null, "pedro", "vera" ))
+        }
+
+        bookList.apply {
+            add(Book(null, "Angels and demons", 1))
+            add(Book(null, "Twilight", 2))
+            add(Book(null, "New moon", 3))
+
         }
         Log.i(TAG, "populateDatabase:Mutable list of Users created...")
         Log.i(TAG, "populateDatabase:Invoking a thread of population...")
@@ -61,6 +72,9 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
                 Log.i(TAG, "populateDB: getting the DAO " )
                 val userDao = dataBase?.userDAO()
                 userDao?.insertAll(*userList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
+                val bookDao = dataBase?.bookDAO()
+                bookDao?.insertAll(*bookList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
+
                 sendMessageFinish()
             }
 
@@ -77,7 +91,6 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
     }
 
     fun retrieveAllUsers() {
-
         Thread(object : Runnable {
             override fun run() {
                 Log.i(TAG, "retrieving users...")
@@ -87,10 +100,7 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
                         user ->
                     Log.i(TAG, user.toString())
                 }
-
             }
-
-
         }).start()
 
     }
@@ -111,6 +121,22 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
             if(dataBase != null ) "The database has been created " else "The database is null "
         )
 
+
+    }
+
+    fun retrieveBooksUser() {
+        Thread(object : Runnable {
+            override fun run() {
+                Log.i(TAG, "retrieving books of some user...")
+                val name:String = userList[2].firstName!!
+                val bookOwnedList = dataBase?.bookDAO()?.findBooksByNameSync(name)
+                var logPrintedUsers = "\n\r"
+                bookOwnedList?.forEach {
+                        book ->
+                    Log.i(TAG, book.toString())
+                }
+            }
+        }).start()
 
     }
 

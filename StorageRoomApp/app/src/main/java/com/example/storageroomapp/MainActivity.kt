@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             isDatabasePopulated ->
             if(isDatabasePopulated){
                 viewModel.retrieveAllUsers()
+                viewModel.retrieveBooksUser()
             }
         })
 
