@@ -24,6 +24,6 @@ interface BookDao {
      */
 
     @Query("select * from Book inner join User on User.uid = Book.user_id where User.first_name = :userName")
-    fun findBooksByNameSync(userName:String):List<Book>
+    fun findBooksByNameSync(userName: String): List<Book>
 
 }

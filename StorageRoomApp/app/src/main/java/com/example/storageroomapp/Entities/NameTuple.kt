@@ -1,5 +1,6 @@
 package com.example.storageroomapp.Entities
 
+
 import androidx.room.ColumnInfo
 
 data class NameTuple(
