@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.example.storageroomapp.Constants.Constants
 import com.example.storageroomapp.Entities.*
@@ -16,8 +18,13 @@ import com.example.storageroomapp.Entities.Relationships.SongWithPlayLists
 import com.example.storageroomapp.Entities.Relationships.UserAndLibrary
 import com.example.storageroomapp.Entities.Relationships.UserWithPlayListsAndSongs
 import com.example.storageroomapp.Models.AppDatabase
+import kotlinx.coroutines.*
+import java.lang.Runnable
+import kotlin.coroutines.CoroutineContext
 
 class ViewModelMainActivity(application: Application): AndroidViewModel(application) {
+
+    val retrieveText: MutableLiveData<String> = MutableLiveData("")
 
     val userList = mutableListOf<User>()
     val bookList = mutableListOf<Book>()
@@ -25,17 +32,18 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
     val playListList = mutableListOf<PlayList>()
     val songList = mutableListOf<Song>()
     val playListsSongsCrossRefList = mutableListOf<PlaylistSongCrossRef>()
+    private val context: CoroutineContext = Dispatchers.Main
 
 
 
 
     var dataBase: AppDatabase? = null
-    val looper = getApplication<Application>().mainLooper
     val sharePreferences = getApplication<Application>().getSharedPreferences(Constants.DEFAULT_SHARED_PREFERENCES,Context.MODE_PRIVATE)
     val dataBaseIsPopulated:MutableLiveData<Boolean>
 
     init{
         dataBaseIsPopulated = MutableLiveData<Boolean>(sharePreferences.getBoolean(Constants.DATABASE_POPULATED, false))
+        Log.i(TAG, "dataBaseIsPopulated:${dataBaseIsPopulated.value} ")
     }
 
     fun populateDatabase() {
@@ -116,82 +124,59 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
 
 
         Log.i(TAG, "populateDatabase:Invoking a thread of population...")
-        // lets populate the data base with some user values
-        Thread(object:Runnable{
-            lateinit var handler:Handler
-            @RequiresApi(Build.VERSION_CODES.P)
-            override fun run() {
 
-                handler = Handler.createAsync(   this@ViewModelMainActivity.looper, Handler.Callback {
-                    message ->
-                    if(message.what == Constants.THREAD_FINISHED){
-                        Log.i(TAG, "The population of the database has finished")
-                        val sharedPreferences = getApplication<Application>().getSharedPreferences(Constants.DEFAULT_SHARED_PREFERENCES,Context.MODE_PRIVATE)
-                        with(sharedPreferences.edit()){
-                            putBoolean(Constants.DATABASE_POPULATED, true )
-                        }
-                        dataBaseIsPopulated.value = true
 
-                    }
-                    true
-                })
+        viewModelScope.launch{
+            Log.i(TAG, "Coroutine scope with value: ${this.hashCode()}")
+            Log.i(TAG, "The scope is in ${Thread.currentThread().name}")
+
+            val job = launch(Dispatchers.Default) {
+                Log.i(TAG, "Coroutine scope with value: ${this.hashCode()}")
+                Log.i(TAG, "running populateDatabase inner coroutine in ${Thread.currentThread().name}")
+
                 populateDB()
-            }
-
-            private fun populateDB() {
-                Log.i(TAG, "populateDB: getting the userDAO " )
-                val userDao = dataBase?.userDAO()
-                userDao?.insertAll(*userList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
-
-                Log.i(TAG, "populateDB: getting the bookDAO " )
-                val bookDao = dataBase?.bookDAO()
-                bookDao?.insertAll(*bookList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
-
-                Log.i(TAG, "populateDB: getting the libraryDAO " )
-                val libraryDAO = dataBase?.libraryDAO()
-                libraryDAO?.insertAll(*libraryList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
-
-                Log.i(TAG, "populateDB: getting the playListDAO " )
-                val playListDAO = dataBase?.playListDAO()
-                playListDAO?.insertAll(*playListList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
-
-                Log.i(TAG, "populateDB: getting the playListDAO " )
-                val songDAO = dataBase?.songDAO()
-                songDAO?.insertAll(*songList.toTypedArray()) //
-
-
-                Log.i(TAG, "populateDB: getting the playListsSongsCrossRefDAO " )
-                val playListSongCrossRefDAO = dataBase?.playListSongCrossRefDAO()
-                playListSongCrossRefDAO?.insertAll(*playListsSongsCrossRefList.toTypedArray()) //
-
-                sendMessageFinish()
-            }
-
-            private fun sendMessageFinish() {
-                val message = handler.obtainMessage().apply {
-                    what = Constants.THREAD_FINISHED
+                Log.i(TAG, "The population of the database has finished")
+                val sharedPreferences = getApplication<Application>().getSharedPreferences(Constants.DEFAULT_SHARED_PREFERENCES,Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()){
+                    putBoolean(Constants.DATABASE_POPULATED, true )
+                    commit()
                 }
-                handler.sendMessage(message)
+                delay(5000L)
             }
+            Log.i(TAG,"the job of population has been launched...")
+            job.join()
+            this@ViewModelMainActivity.dataBaseIsPopulated.value = true
+            Log.i(TAG," Hola ${this@ViewModelMainActivity.dataBaseIsPopulated.value}")
 
-        }).start()
-
-
+        }
     }
 
-    fun retrieveAllUsers() {
-        Thread(object : Runnable {
-            override fun run() {
-                Log.i(TAG, "retrieving users...")
-                val userList = dataBase?.userDAO()?.getAll()
-                var logPrintedUsers = "\n\r"
-                userList?.forEach {
-                        user ->
-                    Log.i(TAG, user.toString())
-                }
-            }
-        }).start()
+    private suspend fun populateDB() {
+        // this function is run into a coroutine
+        Log.i(TAG, "populateDB: getting the userDAO " )
+        val userDao = dataBase?.userDAO()
+        userDao?.insertAll(*userList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
 
+        Log.i(TAG, "populateDB: getting the bookDAO " )
+        val bookDao = dataBase?.bookDAO()
+        bookDao?.insertAll(*bookList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
+
+        Log.i(TAG, "populateDB: getting the libraryDAO " )
+        val libraryDAO = dataBase?.libraryDAO()
+        libraryDAO?.insertAll(*libraryList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
+
+        Log.i(TAG, "populateDB: getting the playListDAO " )
+        val playListDAO = dataBase?.playListDAO()
+        playListDAO?.insertAll(*playListList.toTypedArray()) // we can send an array of data to a vararg argument define in the function
+
+        Log.i(TAG, "populateDB: getting the playListDAO " )
+        val songDAO = dataBase?.songDAO()
+        songDAO?.insertAll(*songList.toTypedArray()) //
+
+
+        Log.i(TAG, "populateDB: getting the playListsSongsCrossRefDAO " )
+        val playListSongCrossRefDAO = dataBase?.playListSongCrossRefDAO()
+        playListSongCrossRefDAO?.insertAll(*playListsSongsCrossRefList.toTypedArray()) //
     }
 
     fun createDataBase(context: Context?) {
@@ -213,64 +198,102 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
 
     }
 
-    fun retrieveBooksUser() {
-        Thread(object : Runnable {
-            override fun run() {
-                Log.i(TAG, "retrieving books of some user...")
-                val name:String = userList[2].firstName!!
-                val bookOwnedList = dataBase?.bookDAO()?.findBooksByNameSync(name)
-                var logPrintedUsers = "\n\r"
-                bookOwnedList?.forEach {
-                        book ->
-                    Log.i(TAG, book.toString())
+    fun retrieveAllUsers() {
+        var retrievedData:String = ""
+        viewModelScope.launch {
+            val job = launch(Dispatchers.Default){
+                Log.i(TAG, "retrieving users...")
+                val userList = dataBase?.userDAO()?.getAll()
+
+                userList?.forEach {
+                        user ->
+                    Log.i(TAG, user.toString())
+                    retrievedData = retrievedData.plus(user.toString())
                 }
             }
-        }).start()
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
+    }
+
+    fun retrieveBooksUser() {
+
+        viewModelScope.launch {
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
+                Log.i(TAG, "retrieving books of some user...")
+                if(userList.size > 0 ){
+                    val name:String = userList[2].firstName
+                    val bookOwnedList = dataBase?.bookDAO()?.findBooksByNameSync(name)
+                    bookOwnedList?.forEach {
+                            book ->
+                        Log.i(TAG, book.toString())
+                        retrievedData = retrievedData.plus(book.toString())
+                    }
+                }
+            }
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
+
+
 
     }
 
     fun retrieveAllLibraries() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch {
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default) {
                 Log.i(TAG, "retrieving all libraries  ...")
 
                 val librariesList = dataBase?.libraryDAO()?.getAll()
                 librariesList?.forEach {
                         library ->
                     Log.i(TAG, """retrieveAllLibraries:$library""")
+                    retrievedData = retrievedData.plus("""retrieveAllLibraries:$library""")
+
                 }
             }
-        }).start()
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
     }
 
     fun retrieveAllPlaylists() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch{
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
                 Log.i(TAG, "retrieving all Playlists  ...")
 
                 val playListList = dataBase?.playListDAO()?.getAll()
                 playListList?.forEach {
                         playList ->
                     Log.i(TAG, """retrieveAllLibraries:$playList""")
+                    retrievedData = retrievedData.plus("""retrieveAllLibraries:$playList""")
                 }
             }
-        }).start()
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
     }
 
 
     fun retrieveAllSongs() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch{
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
                 Log.i(TAG, "retrieving all Songs  ...")
 
                 val songList = dataBase?.songDAO()?.getAll()
                 songList?.forEach {
                         song ->
                     Log.i(TAG, """retrieveAllSongs:$song""")
+                    retrievedData = retrievedData.plus("""retrieveAllSongs:$song""")
                 }
             }
-        }).start()
-
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
     }
 
     /**
@@ -284,21 +307,24 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
      */
 
     fun retrieveUserLibraries() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch{
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
                 Log.i(TAG, "retrieving table users and libraries of all users...")
                 val libraryUserList: List<UserAndLibrary>?  = dataBase?.libraryDAO()?.getUsersAndLibraries()
                 if(libraryUserList != null){
                     libraryUserList.forEach {
                             libraryUser ->
                         Log.i(TAG, """retrieveUserLibraries:${libraryUser}""")
+                        retrievedData = retrievedData.plus("""retrieveUserLibraries:${libraryUser}""")
                     }
                 }else{
                     Log.i(TAG, "retrieveUserLibraries: the libraryUserList is null")
                 }
-
             }
-        }).start()
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
     }
 
     /**
@@ -313,8 +339,9 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
      * Also the query on the DAO object is just calling the Parent table an returning a list of the data holder relationship class -> UserAndPlayList
      */
     fun retrieveUserPlayLists() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch{
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
                 Log.i(TAG, "retrieving table User PlayLists of all users...")
                 val libraryUserPlayList: List<UserAndPlayList>?  = dataBase?.playListDAO()?.getUsersAndPlayLists()
                 if(libraryUserPlayList != null){
@@ -322,14 +349,17 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
                             libraryPlayList ->
                         Log.i(TAG, """retrieveUserPlayLists:${libraryPlayList.user} and its user playlist are: ${
                             libraryPlayList.playlistList?.joinToString("-") { it.toString() }}}""")
+                        retrievedData = retrievedData.plus("""retrieveUserPlayLists:${libraryPlayList.user} and its user playlist are: ${
+                            libraryPlayList.playlistList?.joinToString("-") { it.toString() }}}""")
+
                     }
                 }else{
                     Log.i(TAG, "retrieveUserPlayLists: the libraryUserPlayList is null")
                 }
-
             }
-        }).start()
-
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
     }
 
     /** for many to many relationships
@@ -361,8 +391,9 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
      */
 
     fun retrievePlayListsWithSongs() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch{
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
                 Log.i(TAG, "retrieving table PlayLists With Songs of each PlayList...")
                 val playListWithSongsList: List<PlayListWithSongs>?  = dataBase?.playListDAO()?.getPlayListsWithSongs()
                 if(playListWithSongsList != null){
@@ -370,19 +401,26 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
                             playListWithSongs ->
                         Log.i(TAG, """retrievePlayListsWithSongs:${playListWithSongs.playList} and its user playlist are: ${
                             playListWithSongs.songs?.joinToString("-") { it.toString() }}}""")
+
+                        retrievedData = retrievedData.plus("""retrievePlayListsWithSongs:${playListWithSongs.playList} and its user playlist are: ${
+                            playListWithSongs.songs?.joinToString("-") { it.toString() }}}""")
                     }
                 }else{
                     Log.i(TAG, "retrievePlayListsWithSongs: the playListWithSongsList is null")
                 }
-
             }
-        }).start()
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
+
 
     }
 
     fun retreveSongsWithPlayLists() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch{
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
+
                 Log.i(TAG, "retrieving table Songs With PlayLists of each Song...")
                 val songWithPlayListsList: List<SongWithPlayLists>?  = dataBase?.songDAO()?.getSongsWithPlayLists()
                 if(songWithPlayListsList != null){
@@ -390,13 +428,18 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
                             songWithPlayLists ->
                         Log.i(TAG, """retreveSongsWithPlayLists:${songWithPlayLists.song} and its user playlist are: ${
                             songWithPlayLists.playList?.joinToString("-") { it.toString() }}}""")
+
+                        retrievedData = retrievedData.plus("""retreveSongsWithPlayLists:${songWithPlayLists.song} and its user playlist are: ${
+                            songWithPlayLists.playList?.joinToString("-") { it.toString() }}}""")
                     }
                 }else{
                     Log.i(TAG, "retreveSongsWithPlayLists: the songWithPlayListsList is null")
                 }
-
             }
-        }).start()
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
+
     }
 
     /**
@@ -414,8 +457,9 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
      */
 
     fun retrieveUsersWithPlaylistsAndSongs() {
-        Thread(object : Runnable {
-            override fun run() {
+        viewModelScope.launch{
+            var retrievedData:String = ""
+            val job = launch(Dispatchers.Default){
                 Log.i(TAG, "retrieving table Users With Playlists And Songs of each User...")
                 val userWithPlayListsAndSongsList: List<UserWithPlayListsAndSongs>?  = dataBase?.userDAO()?.getAllUsersWithPlayListsAndSongs()
                 if(userWithPlayListsAndSongsList != null){
@@ -425,18 +469,31 @@ class ViewModelMainActivity(application: Application): AndroidViewModel(applicat
                             ${userWithPlayListsAndSongs.user} 
                             ${userWithPlayListsAndSongs.playLists?.joinToString("\n\r") {
                                 playListWithSongs ->
-                                playListWithSongs.playList.toString().plus("\n\r").plus(
-                                    playListWithSongs.songs?.joinToString("-"){it.toString()}
-                                )}
-                            }""")
+                            playListWithSongs.playList.toString().plus("\n\r").plus(
+                                playListWithSongs.songs?.joinToString("-"){it.toString()}
+                            )}
+                        }""")
+
+                        retrievedData = retrievedData.plus("""retrieveUsersWithPlaylistsAndSongs:
+                            ${userWithPlayListsAndSongs.user} 
+                            ${userWithPlayListsAndSongs.playLists?.joinToString("\n\r") {
+                                playListWithSongs ->
+                            playListWithSongs.playList.toString().plus("\n\r").plus(
+                                playListWithSongs.songs?.joinToString("-"){it.toString()}
+                            )}
+                        }""")
+
                     }
                 }else{
                     Log.i(TAG, "retrieveUsersWithPlaylistsAndSongs: the userWithPlayListsAndSongsList is null")
                 }
-
             }
-        }).start()
+            job.join()
+            retrieveText.value = retrieveText.value?.plus(retrievedData)
+        }
+
     }
+
 
     companion object{
         const val TAG = "ViewModelMainActivityL"

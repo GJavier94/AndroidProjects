@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 
@@ -14,6 +17,8 @@ import com.example.storageroomapp.ViewModels.ViewModelMainActivity
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var textViewRetrieve: TextView
+    private lateinit var progressBar: ProgressBar
     val viewModel by viewModels<ViewModelMainActivity>{ ViewModelMainFactory(application) }
 
     lateinit var  sharedPreference:SharedPreferences
@@ -21,21 +26,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        progressBar = findViewById<ProgressBar>(R.id.progress_bar)
+        textViewRetrieve = findViewById<TextView>(R.id.textView_retrieving)
+
+        viewModel.retrieveText.observe(this, Observer {
+            retrieveText ->
+            textViewRetrieve.text = retrieveText
+        })
+
         sharedPreference = this.applicationContext.getSharedPreferences(Constants.DEFAULT_SHARED_PREFERENCES,Context.MODE_PRIVATE)
         with(sharedPreference.edit()){
             putInt("prueba",0)
             commit()
         }
-
-        viewModel.createDataBase(this.applicationContext)
-
-        if(checkFirstLaunch()){
-            viewModel.populateDatabase()
-        }
-
+        Log.i(TAG,"dataBaseIsPopulated: observing...")
         viewModel.dataBaseIsPopulated.observe(this, Observer {
-            isDatabasePopulated ->
+                isDatabasePopulated ->
             if(isDatabasePopulated){
+                Log.i(TAG,"Database is populated...")
+                progressBar.visibility = View.INVISIBLE
+                textViewRetrieve.visibility = View.VISIBLE
 
                 viewModel.retrieveAllUsers()
                 viewModel.retrieveBooksUser()
@@ -51,6 +61,18 @@ class MainActivity : AppCompatActivity() {
                 viewModel.retrieveUsersWithPlaylistsAndSongs()
             }
         })
+
+
+        Log.i(TAG,"createDataBase")
+        viewModel.createDataBase(this.applicationContext)
+
+        Log.i(TAG,"checkFirstLaunch")
+        if(checkFirstLaunch()){
+            Log.i(TAG,"checkFirstLaunch:True.... invoking populateDatabase()")
+            viewModel.populateDatabase()
+        }
+
+
 
 
     }
