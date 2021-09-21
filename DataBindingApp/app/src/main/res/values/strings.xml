@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DataBindingApp</string>
+    <plurals name="numberUsers">
+        <item quantity="zero">There are no users</item>
+        <item quantity="one">there is %d user</item>
+        <item quantity="other">there are %d users</item>
+    </plurals>
+</resources>

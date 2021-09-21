@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Language expression allows you to -> handle events triggered by the views
+    Data Binding library -> autogenerate classes    which binds the VIEW with the DATA OBJECTS
+    in order to generate the class we need a new tag element
+    <data> -> the the bind class activity_main -> MainActivityBinding.java
+        <variable> the object attribute for the previous class
+            name name of the object
+            class full qualified class name  of the object
+
+
+   Expression language has many features like some other languages
+===>operators:
+        mathematical + - / *
+        string concatenation +
+        logical && ||
+        binary & | ^
+        unary + - ! ~
+        shift >> << >>>
+        comparison == , >=, <=, and &lt (lower than ) you know the problme with < it is also used for opening a tag- that's why
+        grouping()
+        literals -> 'a', "Hello", 4, null
+        cast -> (class)object
+        method calls -> object.method()
+        field -> access object.field1
+        array access -> []
+        ternary operator-> ? :
+
+        So the code which seemed weird to write on the activity, fragment and so on that only involves ui variable
+        we can write directly here in the xml
+    le already includes java.lang
+
+
+===> YOU can also reference to another view component's value
+                    android:text="@{passwordUser.text + `im just doing a view reference =) `}"
+
+    We can have also collections by making the IMPORTS!!
+
+===> REFERENCE RESOURCES
+    res/
+        drawable, layout,mipmap, strings , bools, menu, ...
+    so for example
+
+    android:text="@{@plurals/numberUsers(viewModelMainActivity.numberOfUsers)}"
+
+-->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <import type="java.util.Map"/>
+        <variable
+            name="mapNamePass"
+            type="Map&lt;String,String>" />
+
+        <variable
+            name="viewModelMainActivity"
+            type="com.example.databindingapp.viewmodels.ViewModelMainActivity" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:id="@+id/formUser"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/resultLinearLayout">
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Name"
+                android:text="@{viewModelMainActivity.nameEditText}"/>
+
+            <EditText
+                android:id="@+id/surnameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Surname"
+                android:text="@{viewModelMainActivity.surnameEditText}"/>
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:text="@{viewModelMainActivity.passwordEditText}"
+                />
+
+            <EditText
+                android:id="@+id/ageEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="number"
+                android:text="@{viewModelMainActivity.ageEditText}"/>
+
+            <Button
+                android:id="@+id/buttonSend"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add new user"
+                android:onClick="@{viewModelMainActivity::onClickSender}"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resultLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/formUser">
+
+
+            <TextView
+                android:id="@+id/textViewText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModelMainActivity.textViewText}"
+                tools:text="Hello" />
+
+            <TextView
+                android:id="@+id/nameUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ viewModelMainActivity.userList[viewModelMainActivity.lastIndex].name ?? `not yet` }"
+                tools:text="nameUser">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/surnameUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModelMainActivity.userList[viewModelMainActivity.lastIndex].surname ?? `not yet`}"
+                tools:text="surname user">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/passwordUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModelMainActivity.userList[viewModelMainActivity.lastIndex].password ?? `not yet`}"
+                tools:text="password user">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/disclaimerAgeUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{viewModelMainActivity.userList[viewModelMainActivity.lastIndex].age &lt; 18 ? "Disclaimer you shouldnt use this app" : "you have legal age to be here"  }'
+                tools:text="password user">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/referencePasswordUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{passwordUser.text ?? `not yet` + `im just doing a view reference =) `}"
+
+                >
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/mapValueViewText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`key `+ ` Javier` + ` value `+ mapNamePass[`Javier`] + `Im a  value  saved into a map`}" />
+
+            <TextView
+                android:id="@+id/numberUsersTextView"
+                android:layout_margin="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ viewModelMainActivity.numberOfUsers > 0 ? @plurals/numberUsers(viewModelMainActivity.numberOfUsers,viewModelMainActivity.numberOfUsers): @plurals/numberUsers(viewModelMainActivity.numberOfUsers)}"
+                tools:text ="there is one user"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
