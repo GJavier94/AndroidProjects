@@ -2,6 +2,7 @@ package com.example.databindingapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.RadioGroup
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.databindingapp.databinding.ActivityMainBinding
@@ -35,6 +36,24 @@ class MainActivity : AppCompatActivity() {
          * DataBindingUtil.inflate()
          */
 
+        /**
+         * In order to bind the ViewModel with the layout it is necessary to user the Binding class
+         * because Binding Class generates tons of findViewById => it has the views in code
+         *
+         * => these views need to => observe data ViewModel attrs data source
+         * ==> the observers needs  a LifeCycleOwner to just notify when active
+         */
+        binding.lifecycleOwner = this
+
+
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModelMainActivity.mainActivity = null
+        viewModelMainActivity.binding = null
     }
 
 }

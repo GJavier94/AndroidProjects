@@ -44,6 +44,15 @@
 
     android:text="@{@plurals/numberUsers(viewModelMainActivity.numberOfUsers)}"
 
+
+
+IT is possible to bind the layout view to architecture components
+i.e -> bind layout view component to ViewModel
+            UI <____>      datasource
+
+For getters it is invisible binding class has register observers so that UI automatically updates
+for setters
+    1) in case is a listener -> e.g. checkbox or radioButtons  i define a lambda function used by the listener to change set the value of the viewmodel attr sex with changeSex method
 -->
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -111,6 +120,36 @@
                 android:inputType="number"
                 android:text="@{viewModelMainActivity.ageEditText}"/>
 
+
+            <RadioGroup
+                android:id="@+id/sexRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:onCheckedChanged="@{ (view,pos) -> viewModelMainActivity.changeSex(view,pos)}"
+                >
+
+                <RadioButton
+                    android:id="@+id/maleSexRadioButton"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/UserSexMale"
+                    android:layout_weight="1"
+                    android:checked="true"/>
+                <RadioButton
+
+                    android:id="@+id/femaleSexRadioButton"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/UserSexFemale"
+                    android:layout_weight="1"/>
+
+            </RadioGroup>
+
+
+
             <Button
                 android:id="@+id/buttonSend"
                 android:layout_gravity="center"
@@ -173,7 +212,7 @@
                 android:id="@+id/disclaimerAgeUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{viewModelMainActivity.userList[viewModelMainActivity.lastIndex].age &lt; 18 ? "Disclaimer you shouldnt use this app" : "you have legal age to be here"  }'
+                android:text='@{viewModelMainActivity.userList[viewModelMainActivity.lastIndex].age &lt; 18 ? "Disclaimer you shouldnt use this app" : "you have legal age +18 to be here"  }'
                 tools:text="password user">
 
             </TextView>
@@ -182,7 +221,7 @@
                 android:id="@+id/referencePasswordUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{passwordUser.text ?? `not yet` + `im just doing a view reference =) `}"
+                android:text="@{`im just doing a view reference =) ` + passwordUser.text ?? `not yet` }"
 
                 >
 
@@ -199,7 +238,7 @@
                 android:layout_margin="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{ viewModelMainActivity.numberOfUsers > 0 ? @plurals/numberUsers(viewModelMainActivity.numberOfUsers,viewModelMainActivity.numberOfUsers): @plurals/numberUsers(viewModelMainActivity.numberOfUsers)}"
+                android:text="@{ viewModelMainActivity.numberOfUsers == 0 ? `There are no users`: @plurals/numberUsers(viewModelMainActivity.numberOfUsers,viewModelMainActivity.numberOfUsers)}"
                 tools:text ="there is one user"
                 />
 
