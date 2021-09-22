@@ -21,15 +21,25 @@ class ViewModelMainActivity :ViewModel(){
     var mainActivity: MainActivity? = null
     var textViewText = "This is a text in viewModel"
     var numberOfUsers:MutableLiveData<Int> = MutableLiveData(0)
-
     val userList = MutableLiveData<MutableList<User>>(mutableListOf())
     var lastIndex:MutableLiveData<Int> = MutableLiveData<Int>(0)
-
     var binding: ActivityMainBinding? = null
     var sex:MutableLiveData<Int> = MutableLiveData(Sex.MALE)
-
     var rememberUser:MutableLiveData<Boolean> = MutableLiveData(false)
 
+
+    /**
+     * In this case it was necessary to declare it as a live data
+     * why ? this values are changed by the view component specifically the user
+     * so the binding class sets listener when the user  enters new data so that by using two way data binding the ViewModel attr is set with the new value
+     * we should use live data in case there are other observers than the view component itself
+     */
+    var name:String = ""
+    var surname:String = ""
+    var password:String = ""
+    var age: String = ""
+
+g
     fun changeSex(view: View,radioButtonId:Int){
         Log.i(TAG, "view:$view, radioButtonId: $radioButtonId")
         when(radioButtonId){
@@ -42,21 +52,8 @@ class ViewModelMainActivity :ViewModel(){
         }
         Log.i(TAG, "you changed your sex to ${sex.value}")
     }
-    fun rememberChanged(view:View, value:Boolean){
-        //it meant that the checkbox was pressed once again so it is toggled
-        this.rememberUser.value?.also {
-            rememberUser ->
-            this.rememberUser.value = value
-        }
-        Log.i(TAG,"Making change on variable rememberUser $value")
-    }
 
-    fun onClickSender(view:View, nameEditText:EditText, surnameEditText:EditText, passwordEditText:EditText, ageEditText: EditText, sex:MutableLiveData<Int>){
-        val name = nameEditText.text.toString()
-        val surname = surnameEditText.text.toString()
-        val password = passwordEditText.text.toString()
-        val age = ageEditText.text.toString().toInt()
-
+    fun onClickSender(view:View){
 
         Log.i(TAG, "onClickSender()...called...")
         Log.i(TAG, "onClickSender().. $name, $surname, $password, $age")
@@ -66,9 +63,9 @@ class ViewModelMainActivity :ViewModel(){
             Toast.makeText(this@ViewModelMainActivity.mainActivity?.applicationContext,"adding the user to the list of users...",Toast.LENGTH_SHORT).show()
 
             userList.value?.also {
-                userList ->
-                userList.add(User(name, surname, password, age, sex.value?:Sex.MALE)).also {
-                    wasRetrieved ->
+                    userList ->
+                userList.add(User(name, surname, password, age.toInt(), sex.value?:Sex.MALE)).also {
+                        wasRetrieved ->
                     if(wasRetrieved){
                         lastIndex.value = userList.lastIndex
                         numberOfUsers.value = numberOfUsers.value?.plus(1)
