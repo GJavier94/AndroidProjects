@@ -52,8 +52,23 @@ i.e -> bind layout view component to ViewModel
 
 For getters it is invisible binding class has register observers so that UI automatically updates
 for setters
+
+using One Way EXAMPLES:
+
     1) in case is a listener -> e.g. checkbox or radioButtons  i define a lambda function used by the listener to change set the value of the viewmodel attr sex with changeSex method
+    2) checkbox ->
+                android:checked="@{viewModelMainActivity.rememberUser}"
+                android:onCheckedChanged="@{(view,value) -> viewModelMainActivity.rememberChanged(view,value)}"
+
+   @{}
+
+Two way data bind
+We only need to change to @={} this makes that the view component listens for changes in data <-> and data listens for changes made by using the view component
+we will be using two methods for this
 -->
+
+
+
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -149,6 +164,16 @@ for setters
 
             </RadioGroup>
 
+            <CheckBox
+                android:id="@+id/rememberCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rememberUserTitle"
+                android:checked="@{viewModelMainActivity.rememberUser}"
+                android:onCheckedChanged="@{(view,value) -> viewModelMainActivity.rememberChanged(view,value)}"
+                >
+
+            </CheckBox>
 
 
             <Button

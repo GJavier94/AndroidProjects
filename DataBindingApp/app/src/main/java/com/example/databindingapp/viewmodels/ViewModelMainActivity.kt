@@ -28,6 +28,7 @@ class ViewModelMainActivity :ViewModel(){
     var binding: ActivityMainBinding? = null
     var sex:MutableLiveData<Int> = MutableLiveData(Sex.MALE)
 
+    var rememberUser:MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun changeSex(view: View,radioButtonId:Int){
         Log.i(TAG, "view:$view, radioButtonId: $radioButtonId")
@@ -41,7 +42,14 @@ class ViewModelMainActivity :ViewModel(){
         }
         Log.i(TAG, "you changed your sex to ${sex.value}")
     }
-
+    fun rememberChanged(view:View, value:Boolean){
+        //it meant that the checkbox was pressed once again so it is toggled
+        this.rememberUser.value?.also {
+            rememberUser ->
+            this.rememberUser.value = value
+        }
+        Log.i(TAG,"Making change on variable rememberUser $value")
+    }
 
     fun onClickSender(view:View, nameEditText:EditText, surnameEditText:EditText, passwordEditText:EditText, ageEditText: EditText, sex:MutableLiveData<Int>){
         val name = nameEditText.text.toString()
