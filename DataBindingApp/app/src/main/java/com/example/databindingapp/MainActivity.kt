@@ -2,6 +2,7 @@ package com.example.databindingapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.RadioGroup
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
         binding.viewModelMainActivity = viewModelMainActivity
 
-
+        val ageEditText = findViewById<EditText>(R.id.ageEditText)
 
         val mapNamePass: MutableMap<String, String> = mutableMapOf()
         mapNamePass["Javier"] = "Armenta"
