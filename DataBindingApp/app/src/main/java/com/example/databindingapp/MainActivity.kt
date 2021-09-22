@@ -2,10 +2,12 @@ package com.example.databindingapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.RadioGroup
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.databindingapp.databinding.ActivityMainBinding
 import com.example.databindingapp.viewmodels.ViewModelMainActivity
 
@@ -46,7 +48,14 @@ class MainActivity : AppCompatActivity() {
          */
         binding.lifecycleOwner = this
 
-
+        /**
+         * we can still create anonymous observers so that we can still be printing logs
+         * when data changes
+         */
+        viewModelMainActivity.rememberUser.observe(this, Observer {
+            rememberUser ->
+            Log.i(TAG, "rememberUser value change to $rememberUser")
+        })
 
     }
 
@@ -55,6 +64,9 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         viewModelMainActivity.mainActivity = null
         viewModelMainActivity.binding = null
+    }
+    companion object{
+        const val TAG = "MainActivityL"
     }
 
 }
