@@ -4,6 +4,7 @@
     <string name="UserSexFemale">female</string>
 
     <string name="rememberUserTitle">remember me ?</string>
+    <string name="add_new_user">Add new user</string>
 
     <plurals name="numberUsers">
         <item quantity="one">there is %d user</item>
