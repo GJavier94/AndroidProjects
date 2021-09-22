@@ -1,9 +1,9 @@
 package com.example.databindingapp.viewmodels
 
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,11 +25,6 @@ class ViewModelMainActivity :ViewModel(){
     val userList = MutableLiveData<MutableList<User>>(mutableListOf())
     var lastIndex:MutableLiveData<Int> = MutableLiveData<Int>(0)
 
-    var nameEditText = ""
-    var surnameEditText = ""
-    var passwordEditText = ""
-    var ageEditText = ""
-
     var binding: ActivityMainBinding? = null
     var sex:MutableLiveData<Int> = MutableLiveData(Sex.MALE)
 
@@ -48,17 +43,15 @@ class ViewModelMainActivity :ViewModel(){
     }
 
 
-    fun onClickSender(view: View){
+    fun onClickSender(view:View, nameEditText:EditText, surnameEditText:EditText, passwordEditText:EditText, ageEditText: EditText, sex:MutableLiveData<Int>){
+        val name = nameEditText.text.toString()
+        val surname = surnameEditText.text.toString()
+        val password = passwordEditText.text.toString()
+        val age = ageEditText.text.toString().toInt()
+
+
         Log.i(TAG, "onClickSender()...called...")
-        if(this.mainActivity != null ){
-            nameEditText = this.mainActivity?.findViewById<EditText>(R.id.nameEditText)?.text.toString()
-            surnameEditText =this.mainActivity?.findViewById<EditText>(R.id.surnameEditText)?.text.toString()
-            passwordEditText= this.mainActivity?.findViewById<EditText>(R.id.passwordEditText)?.text.toString()
-            ageEditText =this.mainActivity?.findViewById<EditText>(R.id.ageEditText)?.text.toString()
-
-        }
-
-        Log.i(TAG, "onClickSender().. $nameEditText, $surnameEditText, $passwordEditText, $ageEditText")
+        Log.i(TAG, "onClickSender().. $name, $surname, $password, $age")
         if(userList.value != null ){
 
             Log.i(TAG, "adding the user to the list of users...")
@@ -66,7 +59,7 @@ class ViewModelMainActivity :ViewModel(){
 
             userList.value?.also {
                 userList ->
-                userList.add(User(nameEditText, surnameEditText, passwordEditText, ageEditText.toInt())).also {
+                userList.add(User(name, surname, password, age, sex.value?:Sex.MALE)).also {
                     wasRetrieved ->
                     if(wasRetrieved){
                         lastIndex.value = userList.lastIndex

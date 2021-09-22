@@ -90,7 +90,7 @@ for setters
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:hint="Name"
-                android:text="@{viewModelMainActivity.nameEditText}"/>
+                android:text=""/>
 
             <EditText
                 android:id="@+id/surnameEditText"
@@ -99,7 +99,8 @@ for setters
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:hint="Surname"
-                android:text="@{viewModelMainActivity.surnameEditText}"/>
+                android:text=""/>
+
 
             <EditText
                 android:id="@+id/passwordEditText"
@@ -108,7 +109,7 @@ for setters
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="Password"
-                android:text="@{viewModelMainActivity.passwordEditText}"
+                android:text=""
                 />
 
             <EditText
@@ -118,7 +119,7 @@ for setters
                 android:ems="10"
                 android:hint="Age"
                 android:inputType="number"
-                android:text="@{viewModelMainActivity.ageEditText}"/>
+                android:text=""/>
 
 
             <RadioGroup
@@ -157,7 +158,7 @@ for setters
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add new user"
-                android:onClick="@{viewModelMainActivity::onClickSender}"
+                android:onClick="@{ (view) -> viewModelMainActivity.onClickSender(view, nameEditText ,surnameEditText , passwordEditText , ageEditText , viewModelMainActivity.sex)}"
                 />
 
         </LinearLayout>
