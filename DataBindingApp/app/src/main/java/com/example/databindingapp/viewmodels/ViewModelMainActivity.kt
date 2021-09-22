@@ -10,8 +10,10 @@ import androidx.lifecycle.ViewModel
 import com.example.databindingapp.MainActivity
 import com.example.databindingapp.R
 import com.example.databindingapp.Sex
+import com.example.databindingapp.converters.DateConverter
 import com.example.databindingapp.databinding.ActivityMainBinding
 import com.example.databindingapp.models.User
+import java.util.*
 
 /**
  * In this case this is the data class to be used on the xml layout activity_main
@@ -28,6 +30,7 @@ class ViewModelMainActivity :ViewModel(){
     var rememberUser:MutableLiveData<Boolean> = MutableLiveData(false)
 
 
+
     /**
      * In this case it was necessary to declare it as a live data
      * why ? this values are changed by the view component specifically the user
@@ -38,8 +41,17 @@ class ViewModelMainActivity :ViewModel(){
     var surname:String = ""
     var password:String = ""
     var age: String = ""
+    var birthDate: Date = setDefaultDate()
 
-g
+    private fun setDefaultDate(): Date {
+        val calendarDate = Calendar.getInstance().apply {
+            this.set(Calendar.YEAR, 1990)
+            this.set(Calendar.MONTH, 12)
+            this.set(Calendar.DAY_OF_MONTH, 24)
+        }
+        return Date(calendarDate.timeInMillis)
+    }
+
     fun changeSex(view: View,radioButtonId:Int){
         Log.i(TAG, "view:$view, radioButtonId: $radioButtonId")
         when(radioButtonId){
@@ -56,7 +68,7 @@ g
     fun onClickSender(view:View){
 
         Log.i(TAG, "onClickSender()...called...")
-        Log.i(TAG, "onClickSender().. $name, $surname, $password, $age")
+        Log.i(TAG, "onClickSender().. $name, $surname, $password, $age $birthDate")
         if(userList.value != null ){
 
             Log.i(TAG, "adding the user to the list of users...")
@@ -64,7 +76,7 @@ g
 
             userList.value?.also {
                     userList ->
-                userList.add(User(name, surname, password, age.toInt(), sex.value?:Sex.MALE)).also {
+                userList.add(User(name, surname, password, age.toInt(), sex.value?:Sex.MALE, birthDate)).also {
                         wasRetrieved ->
                     if(wasRetrieved){
                         lastIndex.value = userList.lastIndex
@@ -86,7 +98,14 @@ g
 
     }
 
+    fun birthDateChange(sequence:CharSequence, start:Int, end:Int, count:Int){
+        Log.i(TAG, "$sequence:CharSequence, $start:Int, $end:Int, $count:Int")
+        if(sequence.length == 9 ){
+            val stringDate = sequence.toString()
+             birthDate = DateConverter.stringToDate(stringDate)
 
+        }
+    }
     companion object{
         const val TAG = "ViewModelMainActivityL"
     }
