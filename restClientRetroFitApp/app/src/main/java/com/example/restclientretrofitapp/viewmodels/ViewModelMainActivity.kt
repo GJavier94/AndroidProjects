@@ -5,11 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.restclientretrofitapp.models.MarsPhoto
 import com.example.restclientretrofitapp.services.MarsApi
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class ViewModelMainActivity: ViewModel() {
+
+    private var _photosList:MutableLiveData<List<MarsPhoto>> = MutableLiveData(mutableListOf())
+    val photosList:LiveData<List<MarsPhoto>> = _photosList
 
 
     private var _status = MutableLiveData<String>()
@@ -38,8 +42,10 @@ class ViewModelMainActivity: ViewModel() {
          */
         viewModelScope.launch {
             try {
-                _status.value = MarsApi.retrofitService.getPhotos()
-                Log.i(TAG, "Retrieving data ${status.value}")
+
+                _photosList.value = MarsApi.retrofitService.getPhotos()
+
+                Log.i(TAG, "Retrieving data ${_photosList}")
 
             }catch (e:Exception){
                 Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")

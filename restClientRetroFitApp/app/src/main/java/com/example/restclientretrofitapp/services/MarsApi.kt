@@ -1,8 +1,20 @@
 package com.example.restclientretrofitapp.services
 
+import com.example.restclientretrofitapp.models.MarsPhoto
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.GET
 
+/**
+ * Once the dependencies have been changed we can make use of moshi third party library
+ */
 
+private val moshi = Moshi.Builder().run {
+    add(KotlinJsonAdapterFactory())
+    build()
+}
 
 /**
  * This is the BASE URI used to established communication with the rest API Service
@@ -17,8 +29,8 @@ val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com"
  * the converterfactory object to convert json to string
  */
 
-val retrofit:Retrofit = Retrofit.Builder().run {
-                            addConverterFactory(ScalarsConverterFactory.create())
+val retrofit: Retrofit = Retrofit.Builder().run {
+                            addConverterFactory(MoshiConverterFactory.create(moshi))
                             baseUrl(BASE_URL)
                             build()
                         }
@@ -36,7 +48,7 @@ interface MarsApiService{
     // retrofit  creates the URI "https://android-kotlin-fun-mars-server.appspot.com/photos"
     // let's tell the return type is an string so that the moshi converter converts the json into string
     @GET("photos")
-    suspend fun getPhotos():String
+    suspend fun getPhotos():List<MarsPhoto>
 
 }
 
