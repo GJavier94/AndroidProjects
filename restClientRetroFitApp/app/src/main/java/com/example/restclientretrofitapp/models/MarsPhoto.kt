@@ -1,8 +1,10 @@
 package com.example.restclientretrofitapp.models
 
+import com.squareup.moshi.Json
+
 data class MarsPhoto(
-    val id:String,
-    val img_src:String
+    @Json(name = "id") val id:String,
+    @Json(name = "img_src")val img_src:String
 
     /**
      * names match with key names from the json objects

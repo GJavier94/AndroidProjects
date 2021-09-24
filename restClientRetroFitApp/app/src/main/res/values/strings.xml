@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">restClientRetroFitApp</string>
+    <string name="send_request">Send request</string>
+    <string name="GET">GET</string>
+    <string name="GET_API_USER">GET_API_USER</string>
+    <string name="GET_API_USERwithID">GET_API_USERwithID</string>
+    <string name="POST">POST</string>
+    <string name="PUT">PUT</string>
+    <string name="DELETE">DELETE</string>
+
+    <string-array name="httpRetroFitOptions">
+        <item>@string/GET</item>
+        <item>@string/GET_API_USER</item>
+        <item>@string/GET_API_USERwithID</item>
+        <item>@string/POST</item>
+        <item>@string/PUT</item>
+        <item>@string/DELETE</item>
+    </string-array>
 </resources>
