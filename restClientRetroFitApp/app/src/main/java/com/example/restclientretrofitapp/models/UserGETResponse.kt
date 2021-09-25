@@ -2,8 +2,10 @@ package com.example.restclientretrofitapp.models
 
 import com.squareup.moshi.Json
 
-
-data class UserResponse (
+/**
+ * This is a response for a GET
+ */
+data class UserGETResponse (
     @Json(name="meta") val meta:Meta?,
     @Json(name="data") val data:List<User>?
     )

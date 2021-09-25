@@ -9,12 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.restclientretrofitapp.MainActivity
 import com.example.restclientretrofitapp.R
-import com.example.restclientretrofitapp.models.MarsPhoto
-import com.example.restclientretrofitapp.models.User
-import com.example.restclientretrofitapp.models.UserResponse
+import com.example.restclientretrofitapp.models.*
 import com.example.restclientretrofitapp.services.MarsApi.MarsApi
 import com.example.restclientretrofitapp.services.UsersApi.UsersApi
 import kotlinx.coroutines.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +36,7 @@ class ViewModelMainActivity: ViewModel() {
     private var _status = MutableLiveData<String>()
     val status:LiveData<String> = _status
 
-
+    private var user:User? = null
 
     fun setInstanceVariables(mainActivity: MainActivity) {
         this.mainActivityInstance = mainActivity
@@ -93,9 +92,19 @@ class ViewModelMainActivity: ViewModel() {
                     Toast.makeText(this@ViewModelMainActivity.mainActivityInstance!!.applicationContext, "POST Request sent waiting for data ", Toast.LENGTH_SHORT).show()
                 }
                 getString(R.string.PUT) ->{
-
+                    Log.i(TAG, "sending UPDATE request...")
+                    Toast.makeText(this@ViewModelMainActivity.mainActivityInstance!!.applicationContext, "sending UPDATE request...", Toast.LENGTH_SHORT).show()
+                    this@ViewModelMainActivity.updateUser()
+                    Toast.makeText(this@ViewModelMainActivity.mainActivityInstance!!.applicationContext, "UPDATE Request sent waiting for data ", Toast.LENGTH_SHORT).show()
                 }
                 getString(R.string.DELETE) ->{
+
+                }
+                getString(R.string.DELETEwithID) ->{
+                    Log.i(TAG, "sending DELETE request...")
+                    Toast.makeText(this@ViewModelMainActivity.mainActivityInstance!!.applicationContext, "sending DELETE request...", Toast.LENGTH_SHORT).show()
+                    this@ViewModelMainActivity.deleteUser()
+                    Toast.makeText(this@ViewModelMainActivity.mainActivityInstance!!.applicationContext, "DELETE Request sent waiting for data ", Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -104,28 +113,112 @@ class ViewModelMainActivity: ViewModel() {
 
     }
 
-    private fun postUser() {
-        Log.i(TAG, "POST request END Point  photos API gorest...")
+    private fun deleteUser() {
+        Log.i(TAG, "DELETE request END Point  photos API gorest...")
         try {
 
-            val user = User(null, "javier", "javarmgar@gmail.com", "male", "active")
-
-
-            val call:Call<UserResponse> = UsersApi.retrofitUserApiService.postUser(user)
-            call.enqueue(object:Callback<UserResponse>{
+            val call:Call<ResponseBody?> = UsersApi.retrofitUserApiService.deleteUser(user!!.id.toString(), UsersApi.user)
+            call.enqueue(object:Callback<ResponseBody?>{
                 override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
+                    call: Call<ResponseBody?>,
+                    responseBody: Response<ResponseBody?>
                 ) {
-                    if(response.isSuccessful){
-                        Log.i(TAG,"The response was successful... this is the response \n\r ${response.raw()}")
-                        val userResponse = response.body() as UserResponse
-                        val resultString:String = userResponse.toString()
+                    if(responseBody.isSuccessful){
+                        Log.i(TAG,"The response was successful... this is the response \n\r ${responseBody.raw()}")
+                        if(responseBody.body() != null ){
+                            val userResponseBody = responseBody.body() as ResponseBody
+                            val resultString:String = userResponseBody.toString()
+                            Log.i(TAG, "Data retrieved :${resultString}")
+                            this@ViewModelMainActivity._status.value = resultString
+                        }else{
+                            Log.i(TAG, "Delete returned null body")
+                        }
+
+                    }
+                }
+                override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                    Log.i(TAG, "Error: ${t.printStackTrace()}")
+                }
+
+            })
+
+
+
+
+        }catch (e:Exception){
+            Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
+        }
+
+
+    }
+
+    private fun updateUser(){
+        Log.i(TAG, "UPDATE request END Point  photos API gorest...")
+        try {
+
+            user?.apply {
+                this.gender = "female"
+                this.name = "mariana"
+            }
+
+            val call:Call<UserPUTResponse> = UsersApi.retrofitUserApiService.updateUser(user!!.id.toString(),user!!, UsersApi.user)
+            call.enqueue(object:Callback<UserPUTResponse>{
+                override fun onResponse(
+                    call: Call<UserPUTResponse>,
+                    putResponse: Response<UserPUTResponse>
+                ) {
+                    if(putResponse.isSuccessful){
+                        Log.i(TAG,"The response was successful... this is the response \n\r ${putResponse.raw()}")
+                        val userPUTResponse = putResponse.body() as UserPUTResponse
+                        val resultString:String = userPUTResponse.toString()
                         Log.i(TAG, "Data retrieved :${resultString}")
                         this@ViewModelMainActivity._status.value = resultString
                     }
                 }
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                override fun onFailure(call: Call<UserPUTResponse>, t: Throwable) {
+                    Log.i(TAG, "Error: ${t.printStackTrace()}")
+                }
+
+            })
+
+
+
+
+        }catch (e:Exception){
+            Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
+        }
+
+    }
+    private fun postUser() {
+        Log.i(TAG, "POST request END Point  photos API gorest...")
+        try {
+
+            /**
+             * In order to make the post request  as we remmeber
+             * there's an object of type RequestBody to fill the body of the request
+             * and also there's an object of type ResponseBody that gives the response in some format
+             *
+             * If moshi can convert the kotlin object to json then this can be sent into the body of the http request
+             *
+             */
+            user = User(null, "Mildreth", "beltranTorres@hotmail.com", "female", "active")
+
+            val call:Call<UserPOSTResponse> = UsersApi.retrofitUserApiService.postUser(user!!, UsersApi.user)
+            call.enqueue(object:Callback<UserPOSTResponse>{
+                override fun onResponse(
+                    call: Call<UserPOSTResponse>,
+                    postResponse: Response<UserPOSTResponse>
+                ) {
+                    if(postResponse.isSuccessful){
+                        Log.i(TAG,"The response was successful... this is the response \n\r ${postResponse.raw()}")
+                        val postResponse = postResponse.body() as UserPOSTResponse
+                        user?.id = postResponse.data?.id
+                        val resultString:String = postResponse.toString()
+                        Log.i(TAG, "Data retrieved :${resultString}")
+                        this@ViewModelMainActivity._status.value = resultString
+                    }
+                }
+                override fun onFailure(call: Call<UserPOSTResponse>, t: Throwable) {
                     Log.i(TAG, "Error: ${t.printStackTrace()}")
                 }
 
@@ -144,21 +237,21 @@ class ViewModelMainActivity: ViewModel() {
         Log.i(TAG, "Retrieving data from API web service USER")
         Log.i(TAG, "Thread.name ${Thread.currentThread().name}")
         try {
-            val call:Call<UserResponse> = UsersApi.retrofitUserApiService.getUsersResponse()
-            call.enqueue(object:Callback<UserResponse>{
+            val call:Call<UserGETResponse> = UsersApi.retrofitUserApiService.getUsersResponse()
+            call.enqueue(object:Callback<UserGETResponse>{
                 override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
+                    call: Call<UserGETResponse>,
+                    GETResponse: Response<UserGETResponse>
                 ) {
-                   if(response.isSuccessful){
-                       Log.i(TAG,"The response was successful... this is the response \n\r ${response.raw()}")
-                       val userResponse = response.body() as UserResponse
+                   if(GETResponse.isSuccessful){
+                       Log.i(TAG,"The response was successful... this is the response \n\r ${GETResponse.raw()}")
+                       val userResponse = GETResponse.body() as UserGETResponse
                        val resultString:String = userResponse.toString()
                        Log.i(TAG, "Data retrieved :${resultString}")
                        this@ViewModelMainActivity._status.value = resultString
                    }
                 }
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                override fun onFailure(call: Call<UserGETResponse>, t: Throwable) {
                     Log.i(TAG, "Error: ${t.printStackTrace()}")
                 }
 
@@ -173,21 +266,21 @@ class ViewModelMainActivity: ViewModel() {
         Log.i(TAG, "Retrieving item  from API web service endpoint Photos")
         try {
             val id = 34
-            val call:Call<UserResponse> = UsersApi.retrofitUserApiService.getUser(id)
-            call.enqueue(object:Callback<UserResponse>{
+            val call:Call<UserGETResponse> = UsersApi.retrofitUserApiService.getUser(id)
+            call.enqueue(object:Callback<UserGETResponse>{
                 override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
+                    call: Call<UserGETResponse>,
+                    GETResponse: Response<UserGETResponse>
                 ) {
-                    if(response.isSuccessful){
-                        Log.i(TAG,"The response was successful... this is the response \n\r ${response.raw()}")
-                        val userResponse = response.body() as UserResponse
+                    if(GETResponse.isSuccessful){
+                        Log.i(TAG,"The response was successful... this is the response \n\r ${GETResponse.raw()}")
+                        val userResponse = GETResponse.body() as UserGETResponse
                         val resultString:String = userResponse.toString()
                         Log.i(TAG, "Data retrieved :${resultString}")
                         this@ViewModelMainActivity._status.value = resultString
                     }
                 }
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                override fun onFailure(call: Call<UserGETResponse>, t: Throwable) {
                     Log.i(TAG, "Error: ${t.printStackTrace()}")
                 }
 

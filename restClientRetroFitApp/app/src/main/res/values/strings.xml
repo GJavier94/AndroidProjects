@@ -8,6 +8,7 @@
     <string name="POST_one_USER">POST_one_USER</string>
     <string name="PUT">PUT</string>
     <string name="DELETE">DELETE</string>
+    <string name="DELETEwithID">DELETEwithID</string>
 
     <string-array name="httpRetroFitOptions">
         <item>@string/GET</item>
@@ -17,5 +18,6 @@
         <item>@string/POST_one_USER</item>
         <item>@string/PUT</item>
         <item>@string/DELETE</item>
+        <item>@string/DELETEwithID</item>
     </string-array>
 </resources>

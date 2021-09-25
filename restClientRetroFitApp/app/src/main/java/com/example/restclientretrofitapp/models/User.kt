@@ -1,9 +1,9 @@
 package com.example.restclientretrofitapp.models
 
 data class User (
-    val id:Long? = null ,
-    val name:String,
-    val email:String,
-    val gender:String,
-    val status:String
+    var id:Long? = null ,
+    var name:String,
+    var email:String,
+    var gender:String,
+    var status:String
     )
