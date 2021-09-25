@@ -5,6 +5,7 @@
     <string name="GET_API_USER">GET_API_USER</string>
     <string name="GET_API_USERwithID">GET_API_USERwithID</string>
     <string name="POST">POST</string>
+    <string name="POST_one_USER">POST_one_USER</string>
     <string name="PUT">PUT</string>
     <string name="DELETE">DELETE</string>
 
@@ -13,6 +14,7 @@
         <item>@string/GET_API_USER</item>
         <item>@string/GET_API_USERwithID</item>
         <item>@string/POST</item>
+        <item>@string/POST_one_USER</item>
         <item>@string/PUT</item>
         <item>@string/DELETE</item>
     </string-array>

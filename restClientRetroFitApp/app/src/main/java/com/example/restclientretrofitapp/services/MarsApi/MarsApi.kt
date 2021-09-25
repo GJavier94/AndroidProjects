@@ -71,7 +71,7 @@ object MarsApi {
         // retrofit  creates the URI "https://android-kotlin-fun-mars-server.appspot.com/photos"
         // let's tell the return type is an string so that the moshi converter converts the json into string
         @GET("photos")
-        suspend fun getPhotos(): Call<List<MarsPhoto>>
+        fun getPhotos(): Call<List<MarsPhoto>>
 
     }
 

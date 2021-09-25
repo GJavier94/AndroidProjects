@@ -7,11 +7,11 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.restclientretrofitapp.MainActivity
 import com.example.restclientretrofitapp.R
 import com.example.restclientretrofitapp.models.MarsPhoto
 import com.example.restclientretrofitapp.models.User
+import com.example.restclientretrofitapp.models.UserResponse
 import com.example.restclientretrofitapp.services.MarsApi.MarsApi
 import com.example.restclientretrofitapp.services.UsersApi.UsersApi
 import kotlinx.coroutines.*
@@ -86,6 +86,12 @@ class ViewModelMainActivity: ViewModel() {
                 getString(R.string.POST) ->{
 
                 }
+                getString(R.string.POST_one_USER) ->{
+                    Log.i(TAG, "sending POST request...")
+                    Toast.makeText(this@ViewModelMainActivity.mainActivityInstance!!.applicationContext, "sending POST request...", Toast.LENGTH_SHORT).show()
+                    this@ViewModelMainActivity.postUser()
+                    Toast.makeText(this@ViewModelMainActivity.mainActivityInstance!!.applicationContext, "POST Request sent waiting for data ", Toast.LENGTH_SHORT).show()
+                }
                 getString(R.string.PUT) ->{
 
                 }
@@ -98,51 +104,102 @@ class ViewModelMainActivity: ViewModel() {
 
     }
 
+    private fun postUser() {
+        Log.i(TAG, "POST request END Point  photos API gorest...")
+        try {
+
+            val user = User(null, "javier", "javarmgar@gmail.com", "male", "active")
+
+
+            val call:Call<UserResponse> = UsersApi.retrofitUserApiService.postUser(user)
+            call.enqueue(object:Callback<UserResponse>{
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    if(response.isSuccessful){
+                        Log.i(TAG,"The response was successful... this is the response \n\r ${response.raw()}")
+                        val userResponse = response.body() as UserResponse
+                        val resultString:String = userResponse.toString()
+                        Log.i(TAG, "Data retrieved :${resultString}")
+                        this@ViewModelMainActivity._status.value = resultString
+                    }
+                }
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Log.i(TAG, "Error: ${t.printStackTrace()}")
+                }
+
+            })
+
+
+
+
+        }catch (e:Exception){
+            Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
+        }
+
+    }
+
     private fun getUsers() {
         Log.i(TAG, "Retrieving data from API web service USER")
-        viewModelScope.launch(CoroutineName("COROUTINE_GET_USERS")) {
-            Log.i(TAG, "Thread.name ${Thread.currentThread().name}")
-            try {
-                val userList:List<User> = UsersApi.retrofitUserApiService.getUsers()
+        Log.i(TAG, "Thread.name ${Thread.currentThread().name}")
+        try {
+            val call:Call<UserResponse> = UsersApi.retrofitUserApiService.getUsersResponse()
+            call.enqueue(object:Callback<UserResponse>{
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                   if(response.isSuccessful){
+                       Log.i(TAG,"The response was successful... this is the response \n\r ${response.raw()}")
+                       val userResponse = response.body() as UserResponse
+                       val resultString:String = userResponse.toString()
+                       Log.i(TAG, "Data retrieved :${resultString}")
+                       this@ViewModelMainActivity._status.value = resultString
+                   }
+                }
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Log.i(TAG, "Error: ${t.printStackTrace()}")
+                }
 
-                /*val resultString:String? = userList.run{ map { userList -> userList.toString() }.reduce { acc, s -> acc + "\n\r" + s } }
-                Log.i(TAG, "Data retrieved :${resultString}")
-                this@ViewModelMainActivity._status.value = resultString*/
-            }catch (e:Exception){
-                Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
-            }
+            })
+        }catch (e:Exception){
+            Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
         }
+
     }
 
     private fun getUserwithID() {
         Log.i(TAG, "Retrieving item  from API web service endpoint Photos")
-        viewModelScope.launch {
-            try {
-                val id = 34
-                val call: Call<User> = UsersApi.retrofitUserApiService.getUser(id)
-                call.enqueue(object:Callback<User>{
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
-                        if(response.isSuccessful){
-                            val user:User? = response.body()
-                            Log.i(TAG, "The user is ${user.toString()}")
-                            this@ViewModelMainActivity._status.value = user.toString()
-                        }else{
-                            // check for the error response 404 , 500 and so on
-                            Log.i(TAG, "${response.raw()}")
-                        }
+        try {
+            val id = 34
+            val call:Call<UserResponse> = UsersApi.retrofitUserApiService.getUser(id)
+            call.enqueue(object:Callback<UserResponse>{
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    if(response.isSuccessful){
+                        Log.i(TAG,"The response was successful... this is the response \n\r ${response.raw()}")
+                        val userResponse = response.body() as UserResponse
+                        val resultString:String = userResponse.toString()
+                        Log.i(TAG, "Data retrieved :${resultString}")
+                        this@ViewModelMainActivity._status.value = resultString
                     }
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                        Log.i(TAG, "Error: ${t.printStackTrace()}")
-                    }
-                })
+                }
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Log.i(TAG, "Error: ${t.printStackTrace()}")
+                }
+
+            })
 
 
 
 
-            }catch (e:Exception){
-                Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
-            }
+        }catch (e:Exception){
+            Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
         }
+
 
     }
 
@@ -160,40 +217,42 @@ class ViewModelMainActivity: ViewModel() {
          * or the timeout can expire
          * so an exception is throw
          */
-        viewModelScope.launch {
+        Log.i(TAG,"The request is made in ${Thread.currentThread().name}")
+        try {
+            val call:Call<List<MarsPhoto>> = MarsApi.retrofitService.getPhotos()
+            Log.i(TAG,"${Thread.currentThread().name} the ${MarsApi.retrofitService.getPhotos()} has been invoked...")
 
-            try {
-                val call:Call<List<MarsPhoto>> = MarsApi.retrofitService.getPhotos()
-                call.enqueue(object:Callback<List<MarsPhoto>>{
-                    override fun onResponse(
-                        call: Call<List<MarsPhoto>>,
-                        response: Response<List<MarsPhoto>>
-                    ) {
-                        if(response.isSuccessful){
-                            val marsPhotoList:List<MarsPhoto>? = response.body()
-                            _photosList.value = marsPhotoList
-                            val resultString:String? = photosList.value?.run{ map { marsPhoto -> marsPhoto.toString() }.reduce { acc, s -> acc + "\n\r" + s } }
-                            Log.i(TAG, "Data retrieved :${resultString}")
-                            this@ViewModelMainActivity._status.value = resultString
-                        }else{
-                            // check for the error response 404 , 500 and so on
-                            Log.i(TAG, "${response.raw()}")
-                        }
+            call.enqueue(object:Callback<List<MarsPhoto>>{
+                override fun onResponse(
+                    call: Call<List<MarsPhoto>>,
+                    response: Response<List<MarsPhoto>>
+                ) {
+                    Log.i(TAG, "The response has been received ${response.raw()}")
+                    if(response.isSuccessful){
+                        val marsPhotoList:List<MarsPhoto>? = response.body()
+                        _photosList.value = marsPhotoList
+                        val resultString:String? = photosList.value?.run{ map { marsPhoto -> marsPhoto.toString() }.reduce { acc, s -> acc + "\n\r" + s } }
+                        Log.i(TAG, "Data retrieved :${resultString}")
+                        this@ViewModelMainActivity._status.value = resultString
+                    }else{
+                        // check for the error response 404 , 500 and so on
+                        Log.i(TAG, "${response.raw()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<List<MarsPhoto>>, t: Throwable) {
-                        Log.i(TAG, "Error: ${t.printStackTrace()}")
-                    }
+                override fun onFailure(call: Call<List<MarsPhoto>>, t: Throwable) {
+                    Log.i(TAG, "Error: ${t.printStackTrace()}")
+                }
 
-                })
-
-
+            })
 
 
-            }catch (e:Exception){
-                Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
-            }
+
+
+        }catch (e:Exception){
+            Log.i(TAG, "There was a failure trying to make the request ${e.printStackTrace()}")
         }
+
     }
 
     fun clearInstanceVariables() {

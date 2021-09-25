@@ -3,6 +3,7 @@ package com.example.restclientretrofitapp.services.UsersApi
 
 import android.util.Log
 import com.example.restclientretrofitapp.models.User
+import com.example.restclientretrofitapp.models.UserResponse
 import com.example.restclientretrofitapp.services.UsersApi.Authentication.AuthenticationInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -12,7 +13,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 object UsersApi {
@@ -42,7 +45,7 @@ object UsersApi {
         build()
     }
 
-    private val BASE_URL = "https://gorest.co.in/public/v1"
+    private val BASE_URL = "https://gorest.co.in/public/v1/"
 
 
     private val retrofit: Retrofit = Retrofit.Builder().run {
@@ -54,12 +57,14 @@ object UsersApi {
 
 
     interface ClientsApiService{
+        @GET("users") // we can use parameters on the URL (URI) to refine the http verb
+        fun getUsersResponse():Call<UserResponse>
 
-            @GET("users") // we can use parameters on the URL (URI) to refine the http verb
-            suspend fun getUsers():List<User>
-            @GET("users?id={id}")
-            suspend fun getUser(id: Int): Call<User>
+        @GET("users")
+        fun getUser(@Query("id") id: Int): Call<UserResponse>
 
+        @GET("users")
+        fun postUser(@Body user: User): Call<UserResponse>
     }
 
 
