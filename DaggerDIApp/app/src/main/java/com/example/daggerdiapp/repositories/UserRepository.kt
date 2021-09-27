@@ -1,16 +1,14 @@
 package com.example.daggerdiapp.repositories
 
 import android.util.Log
-import com.example.daggerdiapp.MyCustomScope
+import com.example.daggerdiapp.OnlyOneInstanceScope
 import com.example.daggerdiapp.models.UserLocalDataSource
 import com.example.daggerdiapp.models.UserRemoteDataSource
 import javax.inject.Inject
-import javax.inject.Scope
-import javax.inject.Singleton
 
 
 //@Singleton
-@MyCustomScope
+@OnlyOneInstanceScope
 class UserRepository @Inject constructor(
     val localDataSource: UserLocalDataSource,
     val remoteDataSource: UserRemoteDataSource){

@@ -5,14 +5,13 @@ import android.util.Log
 import com.example.daggerdiapp.models.NetWorkModule
 import dagger.Component
 import javax.inject.Scope
-import javax.inject.Singleton
 
 
 // Creates MyCustomScope
 @Scope
 @MustBeDocumented
 @Retention(value = AnnotationRetention.RUNTIME)
-annotation class MyCustomScope
+annotation class OnlyOneInstanceScope
 
 /**
  * For classes which are not instantiated by the user
@@ -30,13 +29,13 @@ annotation class MyCustomScope
  * (this.applicattionContext as <nameClassInjector>).<nameInterface>.inject(<client>)
  * (this.applicattionContext as MyApplication).appComponent.inject(this)
  */
-@MyCustomScope
+@OnlyOneInstanceScope
 @Component(modules = [NetWorkModule::class])
 interface ApplicationComponent{
     fun inject(activity: MainActivity)
 }
 
-@MyCustomScope
+@OnlyOneInstanceScope
 class MyApplication: Application() {
     val appComponent:ApplicationComponent = DaggerApplicationComponent.create()
 

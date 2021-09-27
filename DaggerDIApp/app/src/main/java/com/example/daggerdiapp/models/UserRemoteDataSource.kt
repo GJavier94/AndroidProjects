@@ -9,7 +9,6 @@ class UserRemoteDataSource @Inject constructor(
     val exampleRestService: ApiService
 ){
     val data = "Hi im UserRemoteDataSource"
-
     init {
         Log.i(TAG, data)
         this.exampleRestService.getUsersResponse().enqueue(object:
@@ -27,7 +26,6 @@ class UserRemoteDataSource @Inject constructor(
             override fun onFailure(call: Call<UserGETResponse>, t: Throwable) {
                 Log.i(TAG,"context.getString(R.string.FAILURE)" )
             }
-
         })
     }
     companion object{
