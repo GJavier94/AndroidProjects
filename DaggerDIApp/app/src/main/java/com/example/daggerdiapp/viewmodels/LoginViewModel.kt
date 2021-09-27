@@ -1,9 +1,12 @@
 package com.example.daggerdiapp.viewmodels
 
 import android.util.Log
+import com.example.daggerdiapp.ActivityScope
+import com.example.daggerdiapp.MainActivity
 import com.example.daggerdiapp.repositories.UserRepository
 import javax.inject.Inject
 
+@ActivityScope
 class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository
 ){
@@ -11,6 +14,7 @@ class LoginViewModel @Inject constructor(
 
     init {
         Log.i(TAG, "Hi im a LoginViewModel")
+        Log.i(TAG, "LoginViewModel hash: ${this.hashCode()}")
         printRepositoryValues()
     }
 
@@ -21,6 +25,6 @@ class LoginViewModel @Inject constructor(
 
     companion object{
 
-        const val TAG = "LoginViewModelL"
+        const val TAG = "LOG:LoginViewModelL"
     }
 }

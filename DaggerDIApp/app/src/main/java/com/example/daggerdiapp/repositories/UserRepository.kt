@@ -14,7 +14,9 @@ class UserRepository @Inject constructor(
     val remoteDataSource: UserRemoteDataSource){
 
     init {
+
         Log.i(TAG, "Initializing UserRepository")
+        Log.i(TAG, "UserRepository ${this.hashCode()}")
     }
 
     companion object {

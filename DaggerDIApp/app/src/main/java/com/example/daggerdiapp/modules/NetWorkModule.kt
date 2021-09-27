@@ -1,4 +1,4 @@
-package com.example.daggerdiapp.models
+package com.example.daggerdiapp.modules
 
 import android.util.Log
 import com.example.daggerdiapp.OnlyOneInstanceScope

@@ -1,6 +1,6 @@
 package com.example.daggerdiapp
 
-import com.example.daggerdiapp.models.NetWorkModule
+import com.example.daggerdiapp.modules.NetWorkModule
 import com.example.daggerdiapp.repositories.UserRepository
 import dagger.Component
 
