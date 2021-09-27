@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DaggerDIApp</string>
+    <string name="FAILURE">There was a failure</string>
+</resources>
