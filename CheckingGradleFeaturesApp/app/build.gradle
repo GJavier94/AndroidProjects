@@ -1,0 +1,170 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk 31
+    //this entry class is used for general or common build type and product flavor
+    defaultConfig {
+        applicationId "com.example.checkinggradlefeaturesapp"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [hostName:"www.example.com"]
+    }
+    signingConfigs{
+        release{
+            storeFile file("/home/javier/Android/android.keystore")
+            storePassword "123456"
+            keyAlias "checkinggradlefeaturesapp"
+            keyPassword "123456"
+        }
+    }
+    /**
+     * build variants
+     * build types and product flavors
+     * using a specific set of rules to combine settings, code, and resources configured in your build types and product flavors.
+     *
+     */
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+        //we can create another build type so that it inherits from default an copies from another build type
+        staging{
+            initWith debug // this is the variable to reference another build type
+            // now let's override sth from default
+            manifestPlaceholders = [hostname:"internal.example.com"]
+            applicationIdSuffix = ".debugStagging" // we override this from debug build type
+        }
+
+    }
+
+
+    /**
+     * Product flavors
+     * Creating product flavors is similar to creating build types:
+     * add them to the productFlavors block in your build configuration
+     * and
+     * include the settings you want.
+     * The product flavors support the same properties as defaultConfig—
+     * this is because defaultConfig actually belongs to the ProductFlavor class.
+     * This means you can provide the base configuration for all flavors in the defaultConfig block,
+     * and each flavor can change any of these default values,
+     * such as the applicationId. T
+     */
+    //flavor dimension-> group of product flavors for all p.f needs to belong to a flavor dimension
+
+
+    /**
+     * we can have many product flavors which belong to the same flavor dimension
+     * and we can have many dimensions
+     * we can created build variantas by mergin pf that belong to diferent dimensions
+     * => a Dimension  X => many pf can be in X so they are like xi's in X
+     * => there can be another dimension Y and can have many pf yi's in Y
+     * so we define the set B of build types we will have the next variants
+     *
+     * Bx{XxY} where {} represente the set of differente product flavor dimensions
+     *
+     * e.g.
+     * build types
+     * B = {release, debug, staging}
+     * flavor dimensions
+     * X = api = {minApi21, minApi23, minApi24}
+     * Y = mode = {demo, full}
+     *and the  #V = #{BxXxY} = #B.#X.#Y  = 3.3.2 = 18
+     *
+     */
+    flavorDimensions "api", "version"
+    productFlavors{
+        demo{
+            dimension "version"
+            applicationIdSuffix ".demo"
+            versionNameSuffix "-demo"
+
+        }
+        full{
+            dimension "version"
+            applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
+        }
+
+        minApi24{
+            dimension "api"
+            minSdkVersion 24
+            applicationIdSuffix ".minApi24"
+            versionNameSuffix "-minApi24"
+            versionCode 40000 + android.defaultConfig.versionCode // the device will receive the highest compatible version code for some API value
+        }
+
+        minApi23{
+            dimension "api"
+            minSdkVersion 23
+            applicationIdSuffix ".minApi23"
+            versionNameSuffix "-minApi23"
+            versionCode 30000 + android.defaultConfig.versionCode // the device will receive the highest compatible version code for some API value
+        }
+
+        minApi21{
+            dimension "api"
+            minSdkVersion 21
+            applicationIdSuffix ".minApi21"
+            versionNameSuffix "-minApi21"
+            versionCode 10000 + android.defaultConfig.versionCode // the device will receive the highest compatible version code for some API value
+        }
+
+        /**
+         * cardinality of Build variants = Cartesian product of the bt and pf
+         * if we want to ignore some of them we can by  using setIgnores(true) attr from variantFilter
+         */
+
+        /*variantFilter{
+            variant ->
+                def names = variant.flavors*.name
+                if(names.contains("minApi21") && names.contains("demo")){
+                    // ignore it
+                    setIgnore(true)
+                }
+        }*/
+
+        /**
+         * now we know that in directory  <appName>
+         */
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation 'junit:junit:4.+'
+    /**
+     * What if we want a specific dependency only for one build variant
+     * sintax
+     * <BuildVariantName><ConfDependency> '....'
+     * debugImplmentation '...'
+     */
+}
