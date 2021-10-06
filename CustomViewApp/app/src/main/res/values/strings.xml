@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CustomViewApp</string>
+    <string name="defaultMessage">Hello how are you Im the initial text</string>
+</resources>

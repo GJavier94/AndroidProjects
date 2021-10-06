@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    xmlns:custom = "http://schemas.android.com/apk/res-auto"
+    res-auto is replaced by the package name of the project at build time
+    be sure there are no conflict names
+    I can choose any alias for the namespace's name
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom = "http://schemas.android.com/apk/com.example.customviewapp.CustomViews"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+    <!--In this case it is working because is a file class
+    in case it was an inner class we will need to user sintax ....<outer-class>$<innerClass>
+    How the attributes are send to the class when instantiating in java or kotlin ?
+    in an object AttributeSet on the constructor
+
+    -->
+    <com.example.customviewapp.CustomViews.PieChart
+        android:id="@+id/pieChart"
+        android:layout_margin="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/border_yellow"
+        custom:showText = "true"
+        custom:labelPosition = "left"
+        android:text = "@string/defaultMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        >
+    </com.example.customviewapp.CustomViews.PieChart>
+
+    <EditText
+        android:layout_margin="16dp"
+        android:id="@+id/EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pieChart"
+        >
+
+    </EditText>
+
+    <Button
+        android:id="@+id/Button"
+        android:layout_width="wrap_content"
+        android:text="change text"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ToggleButton"
+        app:layout_constraintTop_toBottomOf="@id/EditText"
+        >
+
+    </Button>
+
+    <ToggleButton
+        android:id="@+id/ToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOff="show text"
+        app:layout_constraintStart_toEndOf="@id/Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/Button">
+
+    </ToggleButton>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

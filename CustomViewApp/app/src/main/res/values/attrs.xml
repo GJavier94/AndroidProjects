@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- We define an styleable entity
+       which is
+       <declare-styleable name ="nameEntity"
+       />
+       The entitty needs attributes
+       there is a tag element called attr ->   <attr
+       it has attributes to specify the format ( data type ) with tag element format ->  <attr name ="<attrName>" format = "<dataType| format >
+       -->
+    <declare-styleable name="PieChart">
+        <attr name="showText" format="boolean">
+        </attr>
+        <attr name="labelPosition" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="android:text"/>
+    </declare-styleable>
+
+</resources>
