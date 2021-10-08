@@ -1,7 +1,7 @@
 # Android Projects
 ### This repository was developed to grasp the fundamentals of Android Development
 
-**The project is formed by a set of subprojects wich are:**
+**The project is formed by a set of subprojects which are:**
 
 1. __BroadcastReceptorApp__:*Broadcast Receiver entry point*
 1. __CheckingGradleFeaturesApp__:*Gradle and how it works for product flavors and Build Types*
