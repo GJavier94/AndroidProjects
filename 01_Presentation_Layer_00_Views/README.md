@@ -28,16 +28,30 @@ __01_Presentation_Layer_00_Views__:<br>
     - SurfaceView
     - Guideline
     - Barrier
-    - Switch
+    
     - Button related:
       - Button
+        - attrs: drawableLeft
       - FloatingActionButton
+      - ImageButton
+      - ToggleButton:
+        - attrs: textOff, textOn, checked,...
+        - behaviour: setOnCheckedChangeListener
+      - Switch
+        - behaviour: setOnCheckedChangeListener
     - CalendarView
        - behavior:
          - setOnDateChangeListener
     - Text View related:
       - TextView
       - CheckedTextView
+      - EditText
+        - textMultiLine
+        - time
+        - date
+        - number
+        - AutoCompleteTextView
+        - CheckedTextView  
     - List view related:
       - ListView
     - Spinner
@@ -47,6 +61,12 @@ __01_Presentation_Layer_00_Views__:<br>
         - onCloseListener
         - onQueryTextListener
         - onSuggestionListener
+    - CheckBox
+    - Groups
+      - ChipGroup
+        - Chip: chipIcon, closeIcon, .. 
+      - RadioGroup
+        - RadioButton
 - Classes 
   - ColorStateList
   - ArrayAdapter
