@@ -18,6 +18,9 @@ __01_Presentation_Layer_03_CustomViews__:<br>
 __01_Presentation_Layer_04_Recyclerview__:<br>
 > - Understanding Recycler View as a improvement of List View
 
+__02_Entry_Point_Services_00:<br>
+> - Android Services fundamentals
+
 __02_Entry_Point_Services_01_IPC__:<br>
 > - Messenger API to  make IPC
 
