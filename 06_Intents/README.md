@@ -1,5 +1,5 @@
 # Android Projects
-### The purpose of this section is to {//TODO}
+### The purpose of this section is to learn and put in practice the next topics.
 
 __06_Intents__:<br>
 > - Understanding Intents Implicit, Explicit
