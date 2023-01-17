@@ -1,7 +1,7 @@
 # Android Projects
 ### This repository was developed to grasp the fundamentals of Android Development
 
-__02_Entry_Point_Services_01_IPC__Server:<br>
+__02_Entry_Point_Services_01_IPC_Server__:<br>
 > - Messenger API to  make IPC
   
 ### Service overview
