@@ -9,11 +9,11 @@ __04_Entry_Point_Broadcast_Receiver__:<br>
 
   - Android Broadcast receiver related
     - Android OS messages 
-      - Action 
-        - ACTION_HEADSET_PLUG
-    - BroadcastReceiver 
+      - __Action__ 
+        - __ACTION_HEADSET_PLUG__
+    - __BroadcastReceiver__ 
       - onReceive
-    - LocalBroadcastManager
+    - __LocalBroadcastManager__
       - registerReceiver
       - sendBroadcast
       - unregisterReceiver
@@ -23,12 +23,12 @@ __04_Entry_Point_Broadcast_Receiver__:<br>
         - unregisterReceiver
         - sendOrderedBroadcast
         - sendBroadcast
-      - IntentFilter
+      - __IntentFilter__
 
 
 
 - Kotlin/Java topics
-  - StringBuilder
+  - __StringBuilder__
     - append
   - repeat
 
