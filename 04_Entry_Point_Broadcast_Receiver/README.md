@@ -1,5 +1,5 @@
  # Android Projects
-### The purpose of this section is to learn and implement in practice the next topics.
+### The purpose of this section is to learn and put in practice the next topics.
 
 __04_Entry_Point_Broadcast_Receiver__:<br>
 > - Broadcast Receiver entry point
