@@ -2,7 +2,7 @@
 ### The purpose of this section is to learn and put in practice the next topics.
 
 __08_Storage_02_Structured_Data_Room__:<br>
-> - Understanding the 4th type of data storage:structured data storage -> SLite and Room app o implementation of Coroutines for asynchronous DAO calls
+> - Understanding the 4th type of data storage:structured data storage -> SLite and Room app and implementation of Coroutines for asynchronous DAO calls
   
 Taken from android guides
 
@@ -40,5 +40,5 @@ When storing sensitive data—data that shouldn't be accessible from any other a
 
 
 __08_Storage_02_Structured_Data_Room__:<br>
-> - Understanding the 4th type of data storage:structured data storage -> SLite and Room app o implementation of Coroutines for asynchronous DAO calls
+> - Understanding the 4th type of data storage:structured data storage -> SLite and Room app and implementation of Coroutines for asynchronous DAO calls
  
