@@ -165,5 +165,40 @@ By default, __Retrofit__ gives you sane defaults, but it allows for customizatio
 
 
 
+### REST API for this project MARS API and Client API Service
+1. MARS API: __GET__  method example:
+  - __END-POINT__ : https://android-kotlin-fun-mars-server.appspot.com
+```
+interface MarsApiService{
+        //This tells retrofit that it is going to be a get request and that the end point is value = "photos"
+        // retrofit  creates the URI "https://android-kotlin-fun-mars-server.appspot.com/photos"
+        // let's tell the return type is an string so that the moshi converter converts the json into string
+        @GET("photos")
+        fun getPhotos(): Call<List<MarsPhoto>>
 
+    }
+    
+```
+
+1. Client API Service: __GET__, __PUT__, __POST__, __DELETE__  methods examples.
+  - __END-POINT__ : https://gorest.co.in/public/v1/users
+```
+interface ClientsApiService{
+        @GET("users") // we can use parameters on the URL (URI) to refine the http verb
+        fun getUsersResponse():Call<UserGETResponse>
+
+        @GET("users")
+        fun getUser(@Query("id") id: Int): Call<UserGETResponse>
+
+
+        @POST("users")
+        fun postUser(@Body user: User, @Query("access-token") accessToken:String): Call<UserPOSTResponse>
+
+        @PUT("users/{id}")
+        fun updateUser(@Path("id") id:String, @Body user: User,@Query("access-token") accessToken:String): Call<UserPUTResponse>
+
+        @DELETE("users/{id}")
+        fun deleteUser(@Path("id") id: String, @Query("access-token") accessToken:String): Call<ResponseBody?>
+    }
+```
 
