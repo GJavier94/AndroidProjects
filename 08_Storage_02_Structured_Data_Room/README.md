@@ -42,3 +42,91 @@ When storing sensitive data—data that shouldn't be accessible from any other a
 __08_Storage_02_Structured_Data_Room__:<br>
 > - Understanding the 4th type of data storage:structured data storage -> SLite and Room app and implementation of Coroutines for asynchronous DAO calls
  
+Taken from android documentation
+
+####  Room Overview
+
+The Room persistence library provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite. In particular, Room provides the following benefits:
+
+- Compile-time verification of SQL queries.
+- Convenience annotations that minimize repetitive and error-prone boilerplate code.
+- Streamlined database migration paths
+
+
+#### Components
+
+There are three major components:
+  1. __The database class__ that holds the database and serves as the main access point for the underlying connection to your app's persisted data.
+  1. __Data entities__ that represent tables in your app's database.
+  1. __Data access objects (DAOs)__ that provide methods that your app can use to query, update, insert, and delete data in the database.
+
+// =====================TODO  diagram =======
+
+##### Entity
+
+The following code defines a User data entity. Each instance of User represents a row in a user table in the app's database.<br>  
+```
+@Entity
+data class User(
+    @PrimaryKey val uid: Int,
+    @ColumnInfo(name = "first_name") val firstName: String?,
+    @ColumnInfo(name = "last_name") val lastName: String?
+)
+```
+
+##### Data access object (DAO)
+
+Provides the methods that the rest of the app uses to interact with data in the table.
+
+```
+@Dao
+interface UserDao {
+    @Query("SELECT * FROM user")
+    fun getAll(): List<User>
+
+    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
+    fun loadAllByIds(userIds: IntArray): List<User>
+
+    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
+           "last_name LIKE :last LIMIT 1")
+    fun findByName(first: String, last: String): User
+
+    @Insert
+    fun insertAll(vararg users: User)
+
+    @Delete
+    fun delete(user: User)
+}
+```
+
+##### Database
+
+The following code defines a class to hold the database.  It defines the database configuration and serves as the app's main access point to the persisted data. 
+
+```
+@Database(entities = [User::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
+}
+```
+
+
+##### Usage
+
+  1. Create an instance of the database: <br>
+    ```
+    val db = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java, "database-name"
+            ).build()
+    ``` 
+
+  1. Use the abstract methods from the Database to get an instance of the DAO.<br>
+    ```
+    val userDao = db.userDao()
+    ```
+
+  1. Then, use the methods from the DAO instance to interact with the database: <br>
+    ```
+    val users: List<User> = userDao.getAll()
+    ```
