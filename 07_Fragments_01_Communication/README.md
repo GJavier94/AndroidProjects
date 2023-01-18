@@ -2,7 +2,7 @@
 ### The purpose of this section is to learn and put in practice the next topics.
 
 __07_Fragments_01_Communication__:<br>
-> - How to stablish communications between Fragments by using built inlisteners and ViewModel
+> - How to stablish communications between Fragments by using built in listeners and ViewModel
   
 - Concepts, Classes,...
   - __Parcelable__
