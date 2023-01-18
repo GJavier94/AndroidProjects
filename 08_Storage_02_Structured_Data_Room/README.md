@@ -46,9 +46,9 @@ Taken from android documentation
 
 ####  Room Overview
 
-The Room persistence library provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite. In particular, Room provides the following benefits:
+The Room persistence library provides an abstraction layer over __SQLite__ to allow fluent database access while harnessing the full power of __SQLite__. In particular, __Room__ provides the following benefits:
 
-- Compile-time verification of SQL queries.
+- Compile-time verification of __SQL queries__.
 - Convenience annotations that minimize repetitive and error-prone boilerplate code.
 - Streamlined database migration paths
 
@@ -64,7 +64,7 @@ There are three major components:
 
 ##### Entity
 
-The following code defines a User data entity. Each instance of User represents a row in a user table in the app's database.<br>  
+The following code defines a data entity. Each instance of this entity represents a row in an entity table in the app's database.<br>  
 ```
 @Entity
 data class User(
@@ -121,12 +121,12 @@ abstract class AppDatabase : RoomDatabase() {
             ).build()
     ``` 
 
-  1. Use the abstract methods from the Database to get an instance of the DAO.<br>
+  1. Use the abstract methods from the database to get an instance of the __DAO__.<br>
     ```
     val userDao = db.userDao()
     ```
 
-  1. Then, use the methods from the DAO instance to interact with the database: <br>
+  1. Then, use the methods from the __DAO__ instance to interact with the database: <br>
     ```
     val users: List<User> = userDao.getAll()
     ```
