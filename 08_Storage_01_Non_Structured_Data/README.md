@@ -39,3 +39,97 @@ If you have data that's only meaningful for your app, use app-specific storage. 
 - __Should the data be private to your app?__<br>
 When storing sensitive data—data that shouldn't be accessible from any other app—use internal storage, preferences, or a database. Internal storage has the added benefit of the data being hidden from users.
 
+
+__08_Storage_01_Non_Structured_Data__:<br>
+> - Understanding the 4 types of non structured data storage; App specific, Media Storage, SharedPreferences.
+
+
+- Concepts, Classes,...
+  - __UI__ related
+    - __Fragment__ related 
+      - __FragmentStateAdapter__
+        - behaviour: 
+          - getItemCount
+          - createFragment
+    - __ViewPager2__
+  - ViewModel related 
+    - __AndroidViewModel__
+  - Android Framework, Android OS related 
+    - androidx.annotation 
+      - __@RequiresApi(Build.VERSION_CODES.M)__
+    - androidx.core
+      - getSystemService
+  - Android Framework storage locations related
+    - android.os.storage
+      - __StorageManager__
+        - getUuidForPath
+        - getAllocatableBytes
+        - allocateBytes
+    - context 
+      - getExternalFilesDir
+      - mainLooper
+    - __ContextCompat__
+      - getExternalFilesDirs, ...
+    - __Environment__
+      - attrs and constants: 
+        - __MEDIA_MOUNTED__
+        - __MEDIA_MOUNTED_READ_ONLY__
+  
+  - Shared Preferences
+    - context
+      - behaviour: 
+        - getSharedPreferences
+      - __SharedPreferences__
+        - getInt, ...
+      - __MODE_PRIVATE__
+  - intent 
+    - action: __StorageManager.ACTION_MANAGE_STORAGE__
+
+  - Content Provider Storage related
+    - Data Storage 
+      - __Cursor__
+        - getColumnIndexOrThrow
+        - moveToNext
+        - getLong
+        - getString
+      - __ContentResolver__
+        - loadThumbnail
+      - __MediaImage__
+  - Multithreading for data storage 
+    - __Handler__
+      - handleMessage
+      - obtainMessage
+      - sendMessage
+    - __Message__
+      - what
+
+  - Graphics related 
+    - __Bitmap__
+
+
+
+
+- Kotlin/Java topics
+  - mutableListOf
+  - __Pair__
+  - __LocalDateTime__
+    - now
+  - forEach
+  - map 
+  - copy
+  - __File__
+    - behaviour:
+      - exists
+      - createNewFile
+      - bufferedReader
+        - useLines
+      - createTempFile
+      - listFiles
+      - lastModified
+  - __String__ 
+    - toRegex
+  - __Runnable__
+  - __Thread__
+    - currentThread
+      - name
+    - start
