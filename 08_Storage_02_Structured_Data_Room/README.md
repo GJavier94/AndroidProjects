@@ -60,7 +60,8 @@ There are three major components:
   1. __Data entities__ that represent tables in your app's database.
   1. __Data access objects (DAOs)__ that provide methods that your app can use to query, update, insert, and delete data in the database.
 
-// =====================TODO  diagram =======
+![Drag Racing](https://developer.android.com/static/images/training/data-storage/room_architecture.png) <br>
+*Diagram of Room library architecture.*
 
 ##### Entity
 
@@ -129,4 +130,20 @@ abstract class AppDatabase : RoomDatabase() {
   1. Then, use the methods from the __DAO__ instance to interact with the database: <br>
     ```
     val users: List<User> = userDao.getAll()
-    ```
+    ``` <br>
+- Concepts, Classes,...
+  - __ViewModelProvider.Factory__
+    - behaviour: 
+      - create
+  - coroutines
+    - __viewModelScope__
+      - behaviour:
+        - launch
+    - __Dispatchers__
+      - attrs and vars: __Default__
+      - __Job__
+        - join
+        - start 
+        - cancel
+
+
