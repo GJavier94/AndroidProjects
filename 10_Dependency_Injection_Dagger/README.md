@@ -19,3 +19,10 @@ Dagger automatically generates code that mimics the code would have been hand-wr
 Because the code is generated at compile time, it's traceable and more performant than other reflection-based solutions.
 
 ### MVVM Architecture
+
+__MVVM__ is an architectural pattern in computer software that facilitates the separation of the development of the graphical user interface (GUI; the view)—be it via a markup language or GUI code—from the development of the business logic or back-end logic (the model) such that the view is not dependent upon any specific model platform.
+
+Explanation an differences with MVP here: [android-ui-architecture-mvvm](https://blog.dashlane.com/android-ui-architecture-mvvm/)
+
+![MVVM](https://blog.dashlane.com/wp-content/uploads/2022/07/MVVM.png) <br>
+*Model-View-ViewModel architecture diagram*
