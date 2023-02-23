@@ -80,7 +80,7 @@ __01_Presentation_Layer_00_Views__:<br>
     - runOnUiThread
     - execute
   - Thread
-  - Intent
+  - [Intent](https://developer.android.com/guide/components/intents-filters)
   - AppCompatActivity
     - startActivity
       
