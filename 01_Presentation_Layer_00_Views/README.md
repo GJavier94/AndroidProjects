@@ -1,5 +1,5 @@
 # Android Projects
-### The purpose of this section is to learn and implement in practice the next topics.
+### The purpose of this section is to learn and put in practice the following topics.
 
 __01_Presentation_Layer_00_Views__:<br>
 > - For understanding Views (Button, EditText, TextView, ListView, ChipGroup...) andViewGroups( LinearLayout, ConstraintLayout, RelativeLayout, FrameLayout, GridLayout)
