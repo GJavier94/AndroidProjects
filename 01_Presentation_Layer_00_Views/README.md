@@ -83,5 +83,5 @@ __01_Presentation_Layer_00_Views__:<br>
   - [Intent](https://developer.android.com/guide/components/intents-filters)
   - [Manifest file](https://developer.android.com/guide/components/fundamentals#Components)
   - AppCompatActivity
-    - startActivity
+    - [startActivity](https://developer.android.com/reference/android/content/Context#startActivity(android.content.Intent))
       
