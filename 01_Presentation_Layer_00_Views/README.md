@@ -9,9 +9,9 @@ __01_Presentation_Layer_00_Views__:<br>
     - chains (weights)
     - bias
   - [RelativeLayout](https://developer.android.com/develop/ui/views/layout/relative)
-  - LinearLayout
+  - [LinearLayout](https://developer.android.com/reference/android/widget/LinearLayout)
 - Views (widgets)
-    - View
+    - [View](https://developer.android.com/reference/android/view/View)
       - behavior:
         - [visibility](https://developer.android.com/reference/android/view/View#VISIBLE)
         - setOnClickListener
@@ -34,16 +34,16 @@ __01_Presentation_Layer_00_Views__:<br>
         - attrs: drawableLeft
       - [FloatingActionButton](https://developer.android.com/develop/ui/views/components/floating-action-button)
       - [ImageButton](https://developer.android.com/reference/android/widget/ImageButton)
-      - ToggleButton:
+      - [ToggleButton]:(https://developer.android.com/develop/ui/views/components/togglebutton)
         - attrs: textOff, textOn, checked,...
         - behaviour: setOnCheckedChangeListener
-      - Switch
+      - [Switch](https://developer.android.com/reference/android/widget/Switch)
         - behaviour: setOnCheckedChangeListener
     - CalendarView
        - behavior:
          - setOnDateChangeListener
     - Text View related:
-      - TextView
+      - [TextView](https://developer.android.com/reference/android/widget/TextView)
       - CheckedTextView
       - EditText
         - textMultiLine
@@ -54,26 +54,26 @@ __01_Presentation_Layer_00_Views__:<br>
         - CheckedTextView  
     - List view related:
       - ListView
-    - Spinner
+    - [Spinner](https://developer.android.com/develop/ui/views/components/spinner)
       - attrs: tools -> listheader
     - SearchView
       - behavior: 
         - onCloseListener
         - onQueryTextListener
         - onSuggestionListener
-    - CheckBox
+    - [CheckBox](https://developer.android.com/develop/ui/views/components/checkbox)
     - Groups
-      - ChipGroup
+      - [ChipGroup](https://developer.android.com/reference/com/google/android/material/chip/ChipGroup)
         - Chip: chipIcon, closeIcon, .. 
-      - RadioGroup
+      - [RadioGroup](https://developer.android.com/develop/ui/views/components/radiobutton)
         - RadioButton
 - Classes 
   - ColorStateList
-  - ArrayAdapter
+  - [ArrayAdapter](https://developer.android.com/develop/ui/views/components/spinner)
     - Behavior: 
       - setDropDownViewResource
       - createFromResource
-  - resources
+  - [resources](https://developer.android.com/guide/topics/resources/providing-resources)
     - behaviour:  
       - getStringArray
   - AsyncTask
