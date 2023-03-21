@@ -5,15 +5,15 @@ __01_Presentation_Layer_00_Views__:<br>
 > - For understanding Views (Button, EditText, TextView, ListView, ChipGroup...) andViewGroups( LinearLayout, ConstraintLayout, RelativeLayout, FrameLayout, GridLayout)
   
 - View groups
-  - ConstraintLayout
+  - [ConstraintLayout](https://developer.android.com/develop/ui/views/layout/constraint-layout)
     - chains (weights)
     - bias
-  - RelativeLayout
+  - [RelativeLayout](https://developer.android.com/develop/ui/views/layout/relative)
   - LinearLayout
 - Views (widgets)
     - View
       - behavior:
-        - visibility
+        - [visibility](https://developer.android.com/reference/android/view/View#VISIBLE)
         - setOnClickListener
     - ImageView
     - Bars
@@ -32,8 +32,8 @@ __01_Presentation_Layer_00_Views__:<br>
     - Button related:
       - Button
         - attrs: drawableLeft
-      - FloatingActionButton
-      - ImageButton
+      - [FloatingActionButton](https://developer.android.com/develop/ui/views/components/floating-action-button)
+      - [ImageButton](https://developer.android.com/reference/android/widget/ImageButton)
       - ToggleButton:
         - attrs: textOff, textOn, checked,...
         - behaviour: setOnCheckedChangeListener
