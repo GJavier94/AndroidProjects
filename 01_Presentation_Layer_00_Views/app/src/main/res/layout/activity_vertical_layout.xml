@@ -16,14 +16,14 @@
         android:layout_weight="1"
         android:layout_marginEnd="30dp"
         android:paddingEnd="60dp"
-        android:text="TextView 1" />
+        android:text="@string/place_holder_lorem" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="TextView 2" />
+        android:text="@string/place_holder_lorem"/>
 
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="TextView 3" />
+        android:text="@string/place_holder_lorem" />
 
 
     <TextView
@@ -39,13 +39,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="TextView 4" />
+        android:text="@string/place_holder_lorem" />
 
     <Button
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView 5" />
+        android:text="@string/place_holder_button" />
 
 
 

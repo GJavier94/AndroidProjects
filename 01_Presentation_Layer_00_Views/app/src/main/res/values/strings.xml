@@ -18,4 +18,6 @@
     <string name="ratingBar">RatingBarView</string>
     <string name="ImgContentDesc">This is just an image for learning purposes</string>
     <string name="date_label">Selected date:</string>
+    <string name="place_holder_button">Button Text</string>
+    <string name="place_holder_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit velit non sapien bibendum, eget dictum mauris bibendum. Maecenas et sollicitudin felis. Donec eget ante at eros porttitor efficitur vel sed mauris. Nunc a mauris id libero tristique varius. Fusce vestibulum augue enim, id posuere neque</string>
 </resources>
