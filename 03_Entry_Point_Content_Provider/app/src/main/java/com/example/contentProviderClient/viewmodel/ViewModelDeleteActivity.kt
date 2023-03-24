@@ -5,7 +5,6 @@ import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.contentProviderClient.activities.ViewModelUpdateActivity
 
 class ViewModelDeleteActivity: ViewModel() {
 

@@ -4,10 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_1.xml" value="0.1" />
+        <entry key="../../../Library/Android/sdk/platforms/android-30/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3596014492753623" />
+        <entry key="../../../Library/Android/sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.3596014492753623" />
+        <entry key="app/src/main/res/drawable/buttom_custom.xml" value="0.248" />
         <entry key="app/src/main/res/drawable/custom_background_search_view.xml" value="0.15703125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.3515" />
         <entry key="app/src/main/res/layout/activity_constraint_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_constraint_layout_2.xml" value="0.12284482758620689" />
         <entry key="app/src/main/res/layout/activity_constraint_widgets.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/activity_relative_layout.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_vertical_layout.xml" value="0.35733695652173914" />
+        <entry key="app/src/main/res/layout/text_view_custom.xml" value="0.3596014492753623" />
       </map>
     </option>
   </component>

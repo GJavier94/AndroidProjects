@@ -14,8 +14,7 @@ class MyBroadCastReceiver : BroadcastReceiver() {
 
         /**
          * Broadcast receiver can only execute some tasks that doesn't las that  much
-         * because it is registered to the context of a component  ( except from the declared in manifest file)
-         *
+         * because it is registered to the context of a component  (except from the declared in manifest file)
          */
 
         Log.i(TAG,"Receiving a Broadcast Message")

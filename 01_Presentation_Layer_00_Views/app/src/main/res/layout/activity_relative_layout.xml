@@ -6,17 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".RelativeLayoutActivity">
 
-    <!-- setting styled button by modifing src  property -->
+    <!-- setting styled button by modifying src  property -->
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="20dp"
         android:src="@drawable/buttom_custom"
         tools:srcCompat="@tools:sample/avatars" />
-    <!-- setting styled button by modifing bacground property -->
+    <!-- setting styled button by modifying background property -->
     <Button
         android:id="@+id/button2"
         android:layout_width="20dp"
@@ -37,7 +42,8 @@
         android:layout_marginHorizontal="30dp"
         android:layout_toRightOf="@id/toggleButton3"
         android:drawableLeft="@drawable/ic_baseline_delete_24"
-        android:text="Delete" />
+        android:text="Delete"
+        tools:text="borrar"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -111,13 +117,15 @@
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="RadioButton"
+            />
 
         <RadioButton
             android:id="@+id/radioButton5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="RadioButton"
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/radioButton4"

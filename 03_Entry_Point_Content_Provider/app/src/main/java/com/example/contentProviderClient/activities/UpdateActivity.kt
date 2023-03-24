@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.contentProviderClient.R
+import com.example.contentProviderClient.viewmodel.ViewModelUpdateActivity
 
 class UpdateActivity : AppCompatActivity() {
     private lateinit var textViewResultUpdate: TextView

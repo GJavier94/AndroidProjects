@@ -1,4 +1,4 @@
-package com.example.contentProviderClient.activities
+package com.example.contentProviderClient.viewmodel
 
 import android.content.ContentResolver
 import android.content.ContentValues

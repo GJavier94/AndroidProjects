@@ -123,7 +123,7 @@ class ChildFragment : Fragment() {
         super.onDestroy()
         Log.i(TAG,"...onDestroy...")
     }
-    override fun onDetach() {
+        override fun onDetach() {
         super.onDetach()
         Log.i(TAG,"...onDetach...")
     }

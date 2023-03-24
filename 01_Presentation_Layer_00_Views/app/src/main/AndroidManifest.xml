@@ -11,7 +11,7 @@
         android:theme="@style/Theme.UserInterfaces">
         <activity
             android:name=".ConstraintWidgetsActivity"
-            android:exported="true"
+            android:exported="false"
             android:windowSoftInputMode="adjustPan"
             />
         <activity android:name=".ConstraintActivityProperties" />

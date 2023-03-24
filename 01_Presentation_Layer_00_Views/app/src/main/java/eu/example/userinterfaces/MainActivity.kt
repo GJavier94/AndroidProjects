@@ -5,12 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import androidx.core.view.get
-import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,33 +23,43 @@ class MainActivity : AppCompatActivity() {
 
         val spinner: Spinner = findViewById(R.id.spinner)
 
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.activities_layouts,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
+        ArrayAdapter.createFromResource(this, R.array.activities_layouts, R.layout.text_view_custom).apply {
+            spinner.adapter = this
         }
 
 
         val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener{
-            _ ->
-            val position = spinner.selectedItemPosition
-            val array:Array<String> = resources.getStringArray( R.array.activities_layouts)
-            val nameActivity:String = array[position]
-            Log.d(TAG,"""$position ${array[position]}""" )
+        button.setOnClickListener {
+                _ ->
+            val nameActivity = getActivitySelected(spinner.selectedItemPosition)
 
-            val intent = Intent(applicationContext,Class.forName("eu.example.userinterfaces.$nameActivity"))
+            val intent = Intent(this@MainActivity,Class.forName("eu.example.userinterfaces.$nameActivity"))
 
             startActivity(intent)
         }
 
+        val btnDismiss = findViewById<Button>(R.id.btn_dismis)
+
+        btnDismiss.setOnClickListener {
+            when (spinner.visibility){
+                View.VISIBLE -> spinner.visibility = View.INVISIBLE
+                View.INVISIBLE -> spinner.visibility = View.VISIBLE
+
+            }
+        }
     }
 
+    private fun getActivitySelected(selectedItemPosition: Int): String {
+        val position = selectedItemPosition
+        val array:Array<String> = resources.getStringArray( R.array.activities_layouts)
+        val nameActivity:String = array[position]
+        Log.d(TAG,"""$position ${array[position]}""" )
+        return nameActivity
+    }
 
     companion object{
         const val TAG = "eu.example.userinterfaces.MainActivity"
     }
+
+
 }

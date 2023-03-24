@@ -38,7 +38,7 @@ class ChildFragment : Fragment() {
 
         //Once the fragment is created it is necessary to stablish one of the fragments in this level
         // as the primary navigation so that the button backpressed interact with the back stack of this specific fragment
-        this.parentFragmentManager.commit {
+            this.parentFragmentManager.commit {
             setPrimaryNavigationFragment(this@ChildFragment)
         }
         // Inflate the layout for this fragment
