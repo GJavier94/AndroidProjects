@@ -6,11 +6,11 @@ __01_Presentation_Layer_04_Recyclerview__:<br>
 > - Understanding Recycler View as a improvement of List View
   
 - Concepts, Classes,...
-  - RecyclerView
+  - [RecyclerView](https://developer.android.com/develop/ui/views/layout/recyclerview)
     - Behavior: 
       - attrs: layoutManager
       - tools attrs: listitem
-    - Adapter (oop Design pattern)
+    - [Adapter](https://www.geeksforgeeks.org/adapter-pattern/?ref=gcse) (oop Design pattern)
       - RecyclerView.Adapter<Class extends ViewHolderAlarm>
         - onCreateViewHolder
         - onBindViewHolder
