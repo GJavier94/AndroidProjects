@@ -6,7 +6,7 @@ __01_Presentation_Layer_03_CustomViews__:<br>
   
 
 
- ### Creating a Custom View
+ ### [Creating a Custom View](https://developer.android.com/develop/ui/views/layout/custom-views/custom-components)
  
  All of the view class inherit from View  ( even ViewGroups )
  you can create a custom view by inheriting from View or some of its subclasses
@@ -42,7 +42,7 @@ __01_Presentation_Layer_03_CustomViews__:<br>
         | `<declare-styleable name =  <name> >`      | `R.styleable.<name>`       |
 - Concepts, Classes,...
   - Android Framework 
-    - Gestures
+    - [Gestures](https://developer.android.com/jetpack/compose/touch-input/pointer-input/understand-gestures)
       - OnGestureListener
         - onDown
         - onShowPress
@@ -50,7 +50,5 @@ __01_Presentation_Layer_03_CustomViews__:<br>
         - onScroll
         - onLongPress
         - onFling
-      - GestureDetector
-
-
+      - [GestureDetector](https://developer.android.com/reference/android/view/GestureDetector)
   
