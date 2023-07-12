@@ -7,10 +7,10 @@ __05_Multithreading__:<br>
 - Concepts, Classes,...
   - Multithreading
     - Thread 
-      - currentThread
-    - HandlerThread
+      - [currentThread](https://www.javatpoint.com/java-thread-currentthread-method)
+    - [HandlerThread](https://betterprogramming.pub/a-detailed-story-about-handler-thread-looper-message-queue-ac2cd9be0d78)
       - run
-    - Handler
+    - [Handler](https://betterprogramming.pub/a-detailed-story-about-handler-thread-looper-message-queue-ac2cd9be0d78)
       - handleMessage
       - obtainMessage
       - sendMessage
