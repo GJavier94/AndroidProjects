@@ -1,5 +1,5 @@
 # Android Projects
-### This repository was developed to grasp the fundamentals of Android Development
+### This repository was developed to grasp the fundamentals of Android Development on Android 11 Version | API Level 30
 
 **The project is formed by a set of subprojects which are:**
 
