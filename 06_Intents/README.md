@@ -6,35 +6,34 @@ __06_Intents__:<br>
   
 - Concepts, Classes,...
   - __Android OS__
-    - __Environment__
+    - [__Environment__](https://developer.android.com/reference/android/os/Environment)
       - global variables: __DIRECTORY_PICTURES__
   - __Android core__ 
-    - __FileProvider__
+    - __[FileProvider](https://developer.android.com/reference/androidx/core/content/FileProvider)__
       - getUriForFile
-  - __Androidx Lifecycle__ 
-    - __ViewModelProvider__
-  - __Android.provider__
-    - __MediaStore__
+  - __[Androidx Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)__ 
+    - __[ViewModelProvider](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider)__
+  - __[Android.provider](https://developer.android.com/reference/android/provider/package-summary)__
+    - [__MediaStore__](https://developer.android.com/reference/android/provider/MediaStore)
       - vars: 
         - __ACTION_IMAGE_CAPTURE__
         - __ACTION_VIDEO_CAPTURE__
   - __Activity__ 
     - behaviour: 
-      - startActivityForResult
-      - onActivityResult
+      - [startActivityForResult](https://developer.android.com/training/basics/intents/result)
+      - [onActivityResult](https://developer.android.com/training/basics/intents/result#launch)
   - __Intent__
     - action: MediaStore.__ACTION_IMAGE_CAPTURE__
   - context 
-    - getExternalFilesDir
-  - __MediaScannerConnection__
+    - [getExternalFilesDir](https://developer.android.com/reference/android/content/Context#getExternalFilesDir(java.lang.String))
+  - __[MediaScannerConnection](https://developer.android.com/reference/android/media/MediaScannerConnection)__
     - scanFile
-    - __OnScanCompletedListener__
-  - Common Intents
-    - 
+    - __[OnScanCompletedListener](https://developer.android.com/reference/android/media/MediaScannerConnection.OnScanCompletedListener)__
+  - [Common Intents](https://developer.android.com/guide/components/intents-common)
 
 - Kotlin/Java topics
-  - __File__
-    - createTempFile
+  - __[File](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/java.io.-file/)__
+    - [createTempFile](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/create-temp-file.html)
     - absolutePath
-  - __Locale__ 
-  - __SimpleDateFormat__
+  - __[Locale](https://developer.android.com/reference/java/util/Locale)
+  - [__SimpleDateFormat__](https://developer.android.com/reference/android/icu/text/SimpleDateFormat)
