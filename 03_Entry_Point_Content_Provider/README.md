@@ -7,42 +7,42 @@ __03_Entry_Point_Content_Provider__:<br>
 
 - Concepts, Classes,...
 
-  - Android Content Provider related
-    - Cursor
-    - SimpleCursorAdapter
+  - [Android Content Provider related](https://developer.android.com/guide/topics/providers/content-providers)
+    - [Cursor](https://developer.android.com/reference/android/widget/CursorAdapter)
+    - [SimpleCursorAdapter](https://developer.android.com/reference/android/widget/SimpleCursorAdapter)
       - Constructor: context, layout, cursor, array from, array to
       - swapCursor
-    - android.provider
+    - [android.provider](https://developer.android.com/reference/android/provider/package-summary)
       - Telephony
       - ContactsContract
       -  ContactsContract.CommonDataKinds
-    - ContentResolver
+    - [ContentResolver](https://developer.android.com/reference/android/content/ContentResolver)
       - insert
       - update
       - query
-    - ContentValues
+    - [ContentValues](https://developer.android.com/reference/android/content/ContentValues)
       - put
-    - Uri
-    - ContentUris
+    - [Uri](https://developer.android.com/reference/android/net/Uri)
+    - [ContentUris](https://developer.android.com/reference/android/content/ContentUris)
       - parseId
 
-  - Android Permissions 
+  - [Android Permissions](https://developer.android.com/guide/topics/permissions/overview) 
     - context 
       - behaviour: 
-        - checkSelfPermission
-        - requestPermissions
-        - onRequestPermissionsResult
+        - [checkSelfPermission](https://developer.android.com/reference/androidx/core/content/ContextCompat)
+        - [requestPermissions](https://developer.android.com/training/permissions/requesting)
+        - [onRequestPermissionsResult](https://developer.android.com/training/permissions/requesting#manage-request-code-yourself)
           - args: requestCode, permissions, grantResults
-    - PackageManager
+    - [PackageManager](https://developer.android.com/reference/android/content/pm/PackageManager)
       - attrs: PERMISSION_DENIED
-  - ViewModel 
+  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 
     - onCleared
 
   
 - Kotlin/Java topics
   
-  - intArrayOf
-  - by lazy
+  - [intArrayOf](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/int-array-of.html)
+  - [by lazy](https://medium.com/kotlin-dev-reactor/android-java-inicializando-variables-tard%C3%ADamente-lazy-y-lateinit-b648167c71b5)
 
 
 ### CRUD operations on Content Provider 
