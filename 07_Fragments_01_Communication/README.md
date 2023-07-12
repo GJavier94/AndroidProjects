@@ -1,24 +1,24 @@
 # Android Projects
 ### The purpose of this section is to learn and put in practice the next topics.
 
-__07_Fragments_01_Communication__:<br>
+[__07_Fragments_01_Communication__](https://developer.android.com/guide/fragments/communicate):<br>
 > - How to stablish communications between Fragments by using built in listeners and ViewModel
   
 - Concepts, Classes,...
-  - __Parcelable__
+  - __[Parcelable](https://developer.android.com/reference/android/os/Parcelable)__
      - writeToParcel
   - __Parcelable.Creator<T>__
     - createFromParcel
     - newArray
   - androidx.fragment.app
-    -  __by viewModels()__
+    - [ __by viewModels()__](https://developer.android.com/topic/libraries/architecture/viewmodel?hl=es-419)
     - __by activityViewModels()__
-    - setFragmentResult
+    - [setFragmentResult](https://developer.android.com/guide/fragments/communicate#fragment-result)
     - setFragmentResultListener
-  - __bundle__ 
+  - [__bundle__](https://developer.android.com/reference/android/os/Bundle)
     - putParcelable
 - Kotlin/Java topics
-  - __@JvmField__
+  - [__@JvmField__](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/)
 
 ### Fragment communication API
 
