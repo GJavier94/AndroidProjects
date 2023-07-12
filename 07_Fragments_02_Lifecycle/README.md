@@ -1,9 +1,9 @@
 # Android Projects
-### The purpose of this section is to {//TODO}
+### The purpose of this section is to understand Activity and Fragment lifecycle 
 
 __07_Fragments_01_Communication__:<br>
 > - Testing behaviour of lifecycle states in hierarchical fragment structure -> __Activity - ParentFragment - ChildFragment__
-- __Activity__ Lifecycle 
+- [__Activity__ Lifecycle ](https://developer.android.com/guide/components/activities/activity-lifecycle)
   - onCreate
   - onStart
   - onRestoreInstanceState
@@ -13,7 +13,7 @@ __07_Fragments_01_Communication__:<br>
   - onSaveInstanceState
   - onDestroy
   
-- __Fragment__ Lifecycle
+- [__Fragment__ Lifecycle](https://developer.android.com/guide/fragments/lifecycle)
   - onAttach
   - onCreate
   - onCreateView
