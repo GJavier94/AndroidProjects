@@ -15,22 +15,22 @@ __01_Presentation_Layer_00_Views__:<br>
       - behavior:
         - [visibility](https://developer.android.com/reference/android/view/View#VISIBLE)
         - setOnClickListener
-    - ImageView
+    - [ImageView](https://developer.android.com/reference/android/widget/ImageView)
     - Bars
-      - ProgressBar
-        - attrs: max, progress, ...  
-      - SeekBar 
+      - [ProgressBar](https://developer.android.com/reference/android/widget/ProgressBar)
+        - attrs: max, progress, ...
+      - [SeekBar](https://developer.android.com/reference/android/widget/SeekBar)
         - behavior:
-          - OnSeekBarChangeListener
-      - RatingBar
+          - [OnSeekBarChangeListener](https://developer.android.com/reference/android/widget/SeekBar.OnSeekBarChangeListener)
+      - [RatingBar](https://developer.android.com/reference/android/widget/RatingBar)
         - behavior:
-            - setOnRatingBarChangeListener
-    - SurfaceView
-    - Guideline
-    - Barrier
+            - [setOnRatingBarChangeListener](https://developer.android.com/reference/android/widget/RatingBar.OnRatingBarChangeListener)
+    - [SurfaceView](https://developer.android.com/reference/android/view/SurfaceView)
+    - [Guideline](https://developer.android.com/reference/androidx/constraintlayout/widget/Guideline)
+    - [Barrier](https://developer.android.com/reference/androidx/constraintlayout/widget/Barrier)
     
     - Button related:
-      - Button
+      - [Button](https://developer.android.com/reference/android/widget/Button)
         - attrs: drawableLeft
       - [FloatingActionButton](https://developer.android.com/develop/ui/views/components/floating-action-button)
       - [ImageButton](https://developer.android.com/reference/android/widget/ImageButton)
@@ -39,24 +39,23 @@ __01_Presentation_Layer_00_Views__:<br>
         - behaviour: setOnCheckedChangeListener
       - [Switch](https://developer.android.com/reference/android/widget/Switch)
         - behaviour: setOnCheckedChangeListener
-    - CalendarView
+    - [CalendarView](https://developer.android.com/reference/android/widget/CalendarView)
        - behavior:
-         - setOnDateChangeListener
+         - [setOnDateChangeListener](https://developer.android.com/reference/android/widget/CalendarView.OnDateChangeListener)
     - Text View related:
       - [TextView](https://developer.android.com/reference/android/widget/TextView)
-      - CheckedTextView
-      - EditText
+      - [CheckedTextView](https://developer.android.com/reference/android/widget/CheckedTextView)
+      - [EditText](https://developer.android.com/reference/android/widget/EditText)
         - textMultiLine
         - time
         - date
         - number
-        - AutoCompleteTextView
-        - CheckedTextView  
+        - [AutoCompleteTextView](https://developer.android.com/reference/android/widget/AutoCompleteTextView)
     - List view related:
-      - ListView
+      - [ListView](https://developer.android.com/reference/android/widget/ListView)
     - [Spinner](https://developer.android.com/develop/ui/views/components/spinner)
       - attrs: tools -> listheader
-    - SearchView
+    - [SearchView](https://developer.android.com/reference/android/widget/SearchView)
       - behavior: 
         - onCloseListener
         - onQueryTextListener
@@ -68,7 +67,7 @@ __01_Presentation_Layer_00_Views__:<br>
       - [RadioGroup](https://developer.android.com/develop/ui/views/components/radiobutton)
         - RadioButton
 - Classes 
-  - ColorStateList
+  - [ColorStateList](https://developer.android.com/reference/android/content/res/ColorStateList)
   - [ArrayAdapter](https://developer.android.com/develop/ui/views/components/spinner)
     - Behavior: 
       - setDropDownViewResource
@@ -76,10 +75,10 @@ __01_Presentation_Layer_00_Views__:<br>
   - [resources](https://developer.android.com/guide/topics/resources/providing-resources)
     - behaviour:  
       - getStringArray
-  - AsyncTask
+  - [AsyncTask](https://developer.android.com/reference/android/os/AsyncTask)
     - runOnUiThread
     - execute
-  - Thread
+  - [Thread](https://developer.android.com/reference/java/lang/Thread)
   - [Intent](https://developer.android.com/guide/components/intents-filters)
   - [Manifest file](https://developer.android.com/guide/components/fundamentals#Components)
   - [AppCompatActivity](https://developer.android.com/guide/components/activities/activity-lifecycle)
