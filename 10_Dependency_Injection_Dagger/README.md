@@ -1,7 +1,7 @@
 # Android Projects
 ###The purpose of this section is to learn and to put in practice the next topics.
 
-__10_Dependency_Injection_Dagger__:<br>
+[__10_Dependency_Injection_Dagger__](https://developer.android.com/training/dependency-injection/dagger-basics):<br>
 > - Dependency Injection with Dagger
   
 Topics Reviewed in this repo:
@@ -10,7 +10,7 @@ Topics Reviewed in this repo:
 
 
 
-### Dependency injection with Dagger 
+### [Dependency injection with Dagger ](https://developer.android.com/training/dependency-injection/dagger-basics)
 
 - Manual dependency injection in an Android app can be problematic depending on the size of your project. 
 - We can limit project's complexity as it scales up by using Dagger to manage dependencies.
