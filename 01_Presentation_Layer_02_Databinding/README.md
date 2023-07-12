@@ -6,11 +6,11 @@ __01_Presentation_Layer_02_Databinding__:<br>
   
 - Concepts, Classes,...
   - Android Framework 
-      - DataBinding
-        - DataBindingUtil
+      - [DataBinding](https://developer.android.com/topic/libraries/data-binding)
+        - [DataBindingUtil](https://developer.android.com/topic/libraries/data-binding/expressions)
         
         - DSL: Domain Specific language (Language expression) 
-          - operators: 
+          - [operators](https://developer.android.com/topic/libraries/data-binding/expressions#expression_language): 
             - mathematical + - / *
             - string concatenation +
             - logical && ||
@@ -26,28 +26,28 @@ __01_Presentation_Layer_02_Databinding__:<br>
             - array access -> []
             - ternary operator-> ?
 
-        - One way Databiding 
+        - [One way Databiding](https://developer.android.com/topic/libraries/data-binding/architecture)
           - > `
                 checkbox ->
                 android:checked="@{viewModelMainActivity.rememberUser}"
                 android:onCheckedChanged="@{(view,value) -> viewModelMainActivity.rememberChanged(view,value)}"
               `
 
-        - Two way Databinding
+        - [Two way Databinding](https://developer.android.com/topic/libraries/data-binding/two-way)
           - > `
                 android:checked="@={viewModelMainActivity.rememberUser}
               `
-          - Custom Converters
+          - [Custom Converters](https://developer.android.com/topic/libraries/data-binding/binding-adapters)
             - direct method, inverse method
             - Annotation: @JvmStatic
 
       - Activity related: 
-        - lifecycleOwner
+        - [lifecycleOwner](https://developer.android.com/reference/androidx/lifecycle/LifecycleOwner)
 
 
   - java classes 
-    - Calendar
-    - DateFormat
-    - Date
+    - [Calendar](https://developer.android.com/reference/android/icu/util/Calendar)
+    - [DateFormat](https://developer.android.com/reference/android/icu/text/DateFormat)
+    - [Date](https://developer.android.com/reference/java/sql/Date)
 
     
