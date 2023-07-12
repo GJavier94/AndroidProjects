@@ -4,7 +4,7 @@
 __09_Networking_01_REST_Retrofit__:<br>
 > - For understangin how to consume API Rest Service by using Retrofit
 
-#### REST API Overview
+#### [REST API Overview](https://www.restapitutorial.com/lessons/httpmethods.html)
 
 A __REST API__ (also known as __RESTful API__) is an application programming interface (__API__ or __web API__) that conforms to the constraints of __REST__ architectural style and allows for interaction with __RESTful__ web services. __REST__ stands for **R**epresentational **S**tate **T**ransfer and was created by computer scientist Roy Fielding.
 
@@ -30,7 +30,7 @@ Layered: The requesting client need not know whether it’s communicating with t
   1. __HTTP headers__.
   1. __HTTP body__ (dependening on the http verb it could be empty).
   
-#### Response RESTful Web Service
+#### [Response RESTful Web Service](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
 
 __HTTP headers__: can be set including the Cache-Control or Expires directives to specify how long a response can be cached before it’s considered stale.
 __HTTP status code__: should also be set in the response header. 
@@ -48,7 +48,7 @@ Data responses are typically:
 
 **_there are no strict rules_**: Endpoint URLs, HTTP methods, body data, and response types can be implemented as you like. For example, POST, PUT, and PATCH are often used interchangeably so any will create or update a record as necessary.
 
-### Retrofit Overview 
+### [Retrofit Overview ](https://square.github.io/retrofit/)
 
 Retrofit turns your HTTP API into a Java interface.
 
