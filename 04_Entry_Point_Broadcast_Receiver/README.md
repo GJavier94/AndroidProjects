@@ -10,30 +10,30 @@ __04_Entry_Point_Broadcast_Receiver__:<br>
   - Android Broadcast receiver related
     - Android OS messages 
       - __Action__ 
-        - __ACTION_HEADSET_PLUG__
-    - __BroadcastReceiver__ 
+        - [__ACTION_HEADSET_PLUG__](https://developer.android.com/reference/android/content/Intent#ACTION_HEADSET_PLUG)
+    - [__BroadcastReceiver__](https://developer.android.com/guide/components/broadcasts) 
       - onReceive
-    - __LocalBroadcastManager__
-      - registerReceiver
-      - sendBroadcast
-      - unregisterReceiver
+    - __[LocalBroadcastManager](https://developer.android.com/reference/androidx/localbroadcastmanager/content/LocalBroadcastManager)__
+      - [registerReceiver](https://developer.android.com/reference/androidx/localbroadcastmanager/content/LocalBroadcastManager#registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter))
+      - [sendBroadcast](https://developer.android.com/reference/androidx/localbroadcastmanager/content/LocalBroadcastManager#sendBroadcast(android.content.Intent))
+      - [unregisterReceiver](https://developer.android.com/reference/androidx/localbroadcastmanager/content/LocalBroadcastManager#unregisterReceiver(android.content.BroadcastReceiver))
     - Activity 
       - behaviour:
         - registerReceiver
         - unregisterReceiver
         - sendOrderedBroadcast
         - sendBroadcast
-      - __IntentFilter__
+      - __[IntentFilter](https://developer.android.com/reference/android/content/IntentFilter)__
 
 
 
 - Kotlin/Java topics
-  - __StringBuilder__
+  - __[StringBuilder](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-string-builder/)__
     - append
   - repeat
 
 
-- Broadcast receiver
+- [Broadcast receiver](https://developer.android.com/guide/components/broadcasts)
   - Types 
     - Declaration way
       - Manifest declared
