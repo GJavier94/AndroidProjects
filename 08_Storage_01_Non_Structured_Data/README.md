@@ -7,7 +7,7 @@ __08_Storage_01_Non_Structured_Data__:<br>
 
 Taken from android guides
 
-#### Data storage overview 
+#### [Data storage overview ](https://developer.android.com/training/data-storage)
 
 Android uses a file system that's similar to disk-based file systems on other platforms. The system provides several options for you to save your app data.
 
@@ -47,27 +47,27 @@ __08_Storage_01_Non_Structured_Data__:<br>
 - Concepts, Classes,...
   - __UI__ related
     - __Fragment__ related 
-      - __FragmentStateAdapter__
+      - __[FragmentStateAdapter__](https://developer.android.com/reference/androidx/viewpager2/adapter/FragmentStateAdapter)
         - behaviour: 
           - getItemCount
           - createFragment
-    - __ViewPager2__
+    - __[ViewPager2](https://developer.android.com/jetpack/androidx/releases/viewpager2)__
   - ViewModel related 
-    - __AndroidViewModel__
+    - [__AndroidViewModel__](https://developer.android.com/reference/androidx/lifecycle/AndroidViewModel)
   - Android Framework, Android OS related 
     - androidx.annotation 
-      - __@RequiresApi(Build.VERSION_CODES.M)__
-    - androidx.core
-      - getSystemService
+      - [__@RequiresApi(Build.VERSION_CODES.M)__](https://developer.android.com/reference/androidx/annotation/RequiresApi)
+    - [androidx.core](https://developer.android.com/jetpack/androidx/releases/core)
+      - [getSystemService](https://developer.android.com/reference/android/content/Context#getSystemService(java.lang.Class%3CT%3E))
   - Android Framework storage locations related
-    - android.os.storage
-      - __StorageManager__
+    - [android.os.storage](https://developer.android.com/reference/android/os/storage/package-summary)
+      - [__StorageManager__](https://developer.android.com/reference/android/os/storage/StorageManager)
         - getUuidForPath
         - getAllocatableBytes
         - allocateBytes
     - context 
-      - getExternalFilesDir
-      - mainLooper
+      - [getExternalFilesDir](https://developer.android.com/reference/android/content/Context#getExternalFilesDir(java.lang.String))
+      - [mainLooper](https://developer.android.com/reference/android/os/Looper#getMainLooper())
     - __ContextCompat__
       - getExternalFilesDirs, ...
     - __Environment__
@@ -75,11 +75,11 @@ __08_Storage_01_Non_Structured_Data__:<br>
         - __MEDIA_MOUNTED__
         - __MEDIA_MOUNTED_READ_ONLY__
   
-  - Shared Preferences
+  - [Shared Preferences](https://developer.android.com/training/data-storage/shared-preferences)
     - context
       - behaviour: 
         - getSharedPreferences
-      - __SharedPreferences__
+      - [__SharedPreferences__](https://developer.android.com/training/data-storage/shared-preferences)
         - getInt, ...
       - __MODE_PRIVATE__
   - intent 
@@ -87,16 +87,16 @@ __08_Storage_01_Non_Structured_Data__:<br>
 
   - Content Provider Storage related
     - Data Storage 
-      - __Cursor__
-        - getColumnIndexOrThrow
-        - moveToNext
+      - [__Cursor__](https://developer.android.com/reference/android/database/Cursor)
+        - [getColumnIndexOrThrow](https://developer.android.com/reference/android/database/Cursor#getColumnIndexOrThrow(java.lang.String))
+        - [moveToNext](https://developer.android.com/reference/android/database/Cursor#moveToNext())
         - getLong
         - getString
-      - __ContentResolver__
+      - [__ContentResolver__](https://developer.android.com/reference/android/content/ContentResolver)
         - loadThumbnail
-      - __MediaImage__
+      - [__MediaImage__](https://developer.android.com/sdk/api_diff/p-dp2-incr/changes/android.media.Image)
   - Multithreading for data storage 
-    - __Handler__
+    - [__Handler__](https://betterprogramming.pub/a-detailed-story-about-handler-thread-looper-message-queue-ac2cd9be0d78)
       - handleMessage
       - obtainMessage
       - sendMessage
@@ -104,20 +104,20 @@ __08_Storage_01_Non_Structured_Data__:<br>
       - what
 
   - Graphics related 
-    - __Bitmap__
+    - [__Bitmap__](https://developer.android.com/reference/android/graphics/Bitmap)
 
 
 
 
 - Kotlin/Java topics
-  - mutableListOf
-  - __Pair__
-  - __LocalDateTime__
+  - [mutableListOf](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html)
+  - __[Pair](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/)__
+  - [__LocalDateTime__](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date-time/-local-date-time.html)
     - now
-  - forEach
-  - map 
-  - copy
-  - __File__
+  - [forEach](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/for-each.html)
+  - [map](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/) 
+  - [copy](https://kotlinlang.org/docs/data-classes.html)
+  - [__File__](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/java.io.-file/)
     - behaviour:
       - exists
       - createNewFile
@@ -126,10 +126,10 @@ __08_Storage_01_Non_Structured_Data__:<br>
       - createTempFile
       - listFiles
       - lastModified
-  - __String__ 
+  - [__String__](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/) 
     - toRegex
-  - __Runnable__
-  - __Thread__
+  - [__Runnable__](https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html)
+  - [__Thread__](https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html)
     - currentThread
       - name
     - start
