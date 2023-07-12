@@ -6,15 +6,15 @@ __07_Fragments_00_Basics__:<br>
 
 - Concepts, Classes,...
   - Fragment Related 
-    - __FragmentFactory__
-    - __Fragment__
+    - [__FragmentFactory__](https://developer.android.com/reference/androidx/fragment/app/FragmentFactory)
+    - [__Fragment__](https://developer.android.com/guide/fragments)
       - behaviour: 
-        - requireArguments
+        - [requireArguments](https://developer.android.com/guide/fragments/create#add-programmatic)
           - getString,...
-      - __supportFragmentManager__
+      - [__supportFragmentManager__](https://developer.android.com/guide/fragments/fragmentmanager)
         - behaviour: 
-          - popBackStack
-          - commit
+          - [popBackStack](https://developer.android.com/guide/fragments/transactions)
+          - [commit](https://developer.android.com/guide/fragments/transactions)
           - setPrimaryNavigationFragment
           - findFragmentById
           - show
@@ -23,18 +23,18 @@ __07_Fragments_00_Basics__:<br>
           - crud: add, replace, remove 
           - setReorderingAllowed
           - addToBackStack
-      - __parentFragmentManager__
+      - [__parentFragmentManager__](https://developer.android.com/guide/fragments/fragmentmanager)
         - behaviour: 
           - ||
-      - __childFragmentManager__
+      - [__childFragmentManager__](https://developer.android.com/guide/fragments/fragmentmanager)
         - behaviour: 
           - ||
     - XML components 
-      - __FragmentContainerView__
+      - __[FragmentContainerVie](https://developer.android.com/reference/androidx/fragment/app/FragmentContainerView)w__
 
 
 - Kotlin/Java topics
-  - __ClassLoader__
+  - __[ClassLoader](https://developer.android.com/reference/kotlin/java/lang/ClassLoader)__
   - __class.java__
 
 
